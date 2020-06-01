@@ -2,17 +2,16 @@ const question = `给你一个非负整数 num ，请你返回将它变成 0 所
 
 const numberOfSteps = (num) => {
   var optionNum = 0
-  if (num === 0) return optionNum
-  var number = num
-  while (number > 0) {
-    if (number % 2) {
-      number -= 1
+  while (num > 0) {
+    if (num % 2) {
+      num -= 1
     } else {
-      number = number / 2
+      num = num / 2
     }
     optionNum += 1
   }
   return optionNum
 };
 
+console.log(numberOfSteps(14));
 console.log(numberOfSteps(8));
