@@ -32,10 +32,8 @@ const question = `桌上有 n 堆力扣币，每堆的数量保存在数组 coin
 const minCount = (coins) => {
 	const frequency = coins.reduce((acc, cur) => {
 		if (cur % 2) {
-			// 奇数
       acc += (cur + 1) / 2
 		} else {
-      // 偶数
       acc += cur / 2
 		}
 		return acc;
