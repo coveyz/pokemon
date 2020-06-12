@@ -18,6 +18,9 @@ const isPrefixOfWord = (sentence, searchWord) => {
 };
 
 // 2,0
+// 利用字符串的split方法分隔数组。
+// 第一次 将字符串以 searchWord 为参照进行分割 , 那第0位 字符串 即为首次匹配单词之前的词语
+// 第二次 以单空格 进行分割, 则有几个空格, 就是第几个
 const isPrefixOfWord = (sentence, searchWord) => {
   let splitBySearchWord = (' ' + sentence).split(' ' + searchWord);
   console.log(splitBySearchWord)
