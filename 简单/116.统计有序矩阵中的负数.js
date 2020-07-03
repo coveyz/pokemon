@@ -27,11 +27,11 @@ console.log(
 
 console.log(
 	countNegatives([
-    [[3,2],[1,0]]
+		[
+			[3, 2],
+			[1, 0],
+		],
 	])
 );
 
-
-console.log(
-	countNegatives([[-1]])
-);
+console.log(countNegatives([[-1]]));
