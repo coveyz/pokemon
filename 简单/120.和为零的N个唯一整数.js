@@ -8,7 +8,6 @@ const sumZero = (n) => {
 		sum += index;
 	}
 	res.push(-sum);
-
 	return res;
 };
 
