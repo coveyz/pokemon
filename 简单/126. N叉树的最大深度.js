@@ -8,11 +8,9 @@ const maxDepth = (root) => {
 	if (root.children) {
 		root['children'].forEach((element) => {
 			let max = maxDepth(element);
-			console.log(element, max);
 			num = Math.max(max, num);
 		});
 	}
-	1;
 	return num + 1;
 };
 
