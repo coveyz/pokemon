@@ -26,22 +26,18 @@ ProductOfNumbers.prototype.add = function (num) {
  * @return {number}
  */
 ProductOfNumbers.prototype.getProduct = function (k) {
-	const res = [];
+  var sum = 1
 	var number = 0;
 	const len = this.arr.length;
 	for (let index = len - 1; index >= 0; index--) {
-		const element = this.arr[index];
-		res.push(element);
+    const element = this.arr[index];
+    sum *= element
 		number += 1;
 		if (number === k) {
 			break;
 		}
-	}
-	const sum = res.reduce((acc, cur) => {
-		acc *= cur;
-		return acc;
-	}, 1);
-	console.log(sum);
+  }
+  return sum
 };
 
 /**
