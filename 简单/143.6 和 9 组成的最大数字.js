@@ -7,6 +7,7 @@ const question = `给你一个仅由数字 6 和 9 组成的正整数 num。
  * @return {number}
  */
 var maximum69Number = function (num) {
+  // 1
 	const array = num.toString().split('');
 	for (let index = 0; index < array.length; index++) {
 		const element = array[index];
@@ -15,5 +16,10 @@ var maximum69Number = function (num) {
 			return array.join('');
 		}
 	}
-	return array.join('');
+  return array.join('');
+  
+  // 2
+  return Number(num.toString().replace('6','9'))
 };
+
+
