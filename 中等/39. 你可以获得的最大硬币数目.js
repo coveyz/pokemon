@@ -5,17 +5,20 @@ Alice 将会取走硬币数量最多的那一堆。
 Bob 将会取走最后一堆。
 重复这个过程，直到没有更多硬币。
 给你一个整数数组 piles ，其中 piles[i] 是第 i 堆中硬币的数目。
-返回你可以获得的最大硬币数目。`
+返回你可以获得的最大硬币数目。`;
 
 /**
  * @param {number[]} piles
  * @return {number}
  */
-var maxCoins = function(piles) {
-  piles.sort((a,b) => b - a )
-  let count = 0
-     for (let i = 0; i < piles.length / 3; i++) {
-         count += piles[i*2 + 1]
-     }
-     return count
- };
+var maxCoins = function (piles) {
+	piles.sort((a, b) => b - a);
+	let count = 0;
+	for (let i = 0; i < piles.length / 3; i++) {
+    console.log(piles[i])
+		count += piles[i * 2 + 1];
+	}
+	return count;
+};
+
+console.log(maxCoins([2, 4, 1, 2, 7, 8]));
