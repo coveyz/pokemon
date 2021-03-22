@@ -17,12 +17,6 @@ ruleKey == "name" 且 ruleValue == namei 。
 // };
 
 const countMatches = (item, ruleKey, ruleValue) => {
-	// const integrationDataOfObj = item.reduce((acc, cur) => {
-	// 	acc.push({ type: cur[0], color: cur[1], name: cur[2] });
-	// 	return acc;
-	// }, []);
-	// const filterArr = integrationDataOfObj.filter((item) => item[ruleKey] === ruleValue);
-	// return filterArr.length;
 	return (filterRequestNumber = item.reduce((acc, cur) => {
 		if (ruleKey === 'type') {
 			acc = cur[0] === ruleValue ? acc + 1 : acc;
