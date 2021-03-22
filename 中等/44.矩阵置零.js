@@ -5,6 +5,10 @@ const question = `
 一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。
 你能想出一个仅使用常量空间的解决方案吗？
 `;
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
 const setZeroes = (matrix) => {
 	const zeroesRow = []; //* 当前行 全是0
 	const zeroesCol = []; //* 当前列 全是0
