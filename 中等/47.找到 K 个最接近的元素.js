@@ -25,3 +25,5 @@ console.log(findClosestElements([1, 2, 3, 4, 5], 4, 3));
 console.log(findClosestElements([1, 2, 3, 4, 5], 4, 3));
 console.log(findClosestElements([1, 1, 1, 10, 10, 10], 1, 9));
 console.log(findClosestElements([1, 2, 3, 4, 5], 4, -1));
+
+
