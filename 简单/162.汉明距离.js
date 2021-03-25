@@ -15,7 +15,6 @@ const hammingDistance = (x, y) => {
 	y = y.toString(2);
 
 	const largerst = Math.max(x.length, y.length);
-	console.log('x=<', x, 'y=>', y);
 
 	x = x.padStart(largerst, 0);
 	y = y.padStart(largerst, 0);
