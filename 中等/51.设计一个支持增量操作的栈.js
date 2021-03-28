@@ -13,7 +13,6 @@
 CustomStack.prototype.push = function (x) {
 	if (this.arr.length < this.maxSize) {
 		this.arr.push(x);
-		console.log(this.arr);
 	}
 };
 
@@ -36,12 +35,9 @@ CustomStack.prototype.pop = function () {
  * @return {void}
  */
 CustomStack.prototype.increment = function (k, val) {
-	this.arr = this.arr.map((item, index) => {
-		if (index + 1 <= k) {
-			item = item + val;
-		}
-    return item
-	});
+  for (let i = 0; i < k && i < this.arr.length; i++) {
+    this.arr[i] += val
+  }
 };
 
 /**
