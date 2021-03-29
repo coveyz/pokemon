@@ -9,7 +9,6 @@ const frequencySort = (s) => {
 		const element = s[index];
 		obj[element] = obj[element] ? obj[element] + element : element;
 	}
-
 	return Object.values(obj)
 		.sort((a, b) => {
 			return b.length - a.length;
