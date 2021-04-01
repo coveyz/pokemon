@@ -11,7 +11,6 @@ const question = `
 const findOcurrences = (text, first, second) => {
 	const arr = [];
 	const textArr = text.split(' ');
-	let num = 2;
 	for (let index = 0; index < textArr.length; index++) {
 		const element = textArr[index];
 		if (element === first && textArr[index + 1] === second) {
