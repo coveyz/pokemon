@@ -16,6 +16,7 @@ const removeDuplicates = (nums) => {
 		fast = 1;
 
 	while (fast < len) {
+		console.log(nums[slow - 1], nums[slow - 1] !== nums[fast], nums[fast]);
 		if (nums[slow - 1] !== nums[fast]) {
 			nums[slow] = nums[fast];
 			slow++;
