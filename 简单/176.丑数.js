@@ -7,7 +7,7 @@ const question = `
  * @return {boolean}
  */
 var isUgly = function (n) {
-	if (n < 0) {
+	if (n <= 0) {
 		return false;
 	}
 
