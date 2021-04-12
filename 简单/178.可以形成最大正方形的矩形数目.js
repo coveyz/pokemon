@@ -5,14 +5,31 @@ const question = `
 返回可以切出边长为 maxLen 的正方形的矩形 数目 。
 `;
 var countGoodRectangles = function (rectangles) {
-	const arr = [];
+	// const arr = [];
+	// for (let index = 0; index < rectangles.length; index++) {
+	// 	const element = rectangles[index];
+	// 	const [long, width] = element;
+	// 	arr.push(Math.min(long, width));
+	// }
+
+	// return arr.filter((item) => item === Math.max(...arr)).length;
+	let count = 0;
+	let maxItem = 0;
 	for (let index = 0; index < rectangles.length; index++) {
 		const element = rectangles[index];
 		const [long, width] = element;
-		arr.push(Math.min(long, width));
+
+		const minRectangle = Math.min(long, width);
+
+		if (minRectangle > maxItem) {
+			maxItem = minRectangle;
+			count = 1;
+		} else if (minRectangle === maxItem) {
+			count += 1;
+		}
 	}
 
-	return arr.filter((item) => item === Math.max(...arr)).length;
+	return count;
 };
 
 console.log(
