@@ -17,7 +17,6 @@ var nthUglyNumber = function (n) {
 			num3 = dp[p3] * 3,
 			num5 = dp[p5] * 5;
 		dp[index] = Math.min(Math.min(num2, num3), num5);
-		// console.log(num2, num3, num5, dp[index], dp);
 		if (dp[index] === num2) {
 			p2++;
 		}
@@ -33,5 +32,5 @@ var nthUglyNumber = function (n) {
 };
 
 console.log(nthUglyNumber(10));
-console.log(nthUglyNumber(1));
+// console.log(nthUglyNumber(1));
 // console.log(nthUglyNumber(449));
