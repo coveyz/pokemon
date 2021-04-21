@@ -15,13 +15,15 @@ const maxVowels = (s, k) => {
 		left = 0,
 		right = 0;
 
+	//* 记录第一次
 	while (right < k) {
 		count = vowels.includes(s[right]) ? count + 1 : count;
 		right += 1;
 	}
 
+	//* 窗口左侧丢弃了一个元素
+	//* 窗口右侧新增了一个元素
 	let max = count;
-
 	while (right < s.length) {
 		count = vowels.includes(s[left]) ? count - 1 : count;
 		count = vowels.includes(s[right]) ? count + 1 : count;
@@ -35,7 +37,7 @@ const maxVowels = (s, k) => {
 };
 
 console.log(maxVowels('abciiidef', 3));
-console.log(maxVowels('aeiou', 2));
-console.log(maxVowels('leetcode', 3));
-console.log(maxVowels('rhythms', 4));
-console.log(maxVowels('tryhard', 4));
+// console.log(maxVowels('aeiou', 2));
+// console.log(maxVowels('leetcode', 3));
+// console.log(maxVowels('rhythms', 4));
+// console.log(maxVowels('tryhard', 4));
