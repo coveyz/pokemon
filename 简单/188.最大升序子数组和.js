@@ -7,7 +7,7 @@ const question = `
  * @param {number[]} nums
  * @return {number}
  */
-var maxAscendingSum = function (nums) {
+var maxAscendingSum1 = function (nums) {
 	const len = nums.length;
 	let count = 0;
 	for (let index = 0; index < len; index++) {
@@ -33,6 +33,24 @@ var maxAscendingSum = function (nums) {
 	}
 
 	return count;
+};
+
+const maxAscendingSum = (nums) => {
+	let ans = nums[0];
+	let count = ans
+
+	for (let index = 1; index < nums.length; index++) {
+		if (nums[index] > nums[index - 1]) {
+			count += nums[index];
+		} else {
+			ans = Math.max(ans, count);
+			count = nums[index];
+		}
+	}
+
+	ans = Math.max(ans, count);
+
+	return ans;
 };
 
 console.log(maxAscendingSum([10, 20, 30, 5, 10, 50]));
