@@ -37,6 +37,7 @@ var isPossibleDivide = function (hand, W) {
 			}
 		}
 	}
+
 	if (hand.length > 0) return false;
 	return true;
 };
