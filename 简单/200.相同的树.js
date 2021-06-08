@@ -17,37 +17,15 @@ const question = `
  * @return {boolean}
  */
 var isSameTree = function (p, q) {
-	if (p === null && q === null) return true;
-	if (p === null && q !== null) return false;
-	if (p !== null && q === null) return false;
-
-	const queue1 = [];
-	const queue2 = [];
-
-	queue1.push(p);
-	queue2.push(q);
-
-	while (queue1.length) {
-		const res = queue1.shift();
-		const res2 = queue2.shift();
-
-		if ((res && !res2) || (!res && res2) || res.val !== res2.val) {
-			return false;
-		}
-
-		if (res.left === null && res2.left !== null) {
-			return false;
-		}
-		if (res.right === null && res2.right !== null) {
-			return false;
-		}
-
-		res.left && queue1.push(res.left);
-		res.right && queue1.push(res.right);
-
-		res2.left && queue2.push(res2.left);
-		res2.right && queue2.push(res2.right);
+	if (p === null && q === null) {
+		return true;
+	}
+	if (p === null || q === null) {
+		return false;
+	}
+	if (p.val !== q.val) {
+		return false;
 	}
 
-	return queue1.length === queue2.length;
+	return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 };
