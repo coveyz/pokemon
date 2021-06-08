@@ -14,7 +14,6 @@ const question = `
 var minAddToMakeValid = function (s) {
 	const left = [],
 		right = [];
-	let count = 0;
 
 	for (let index = 0; index < s.length; index++) {
 		const element = s[index];
