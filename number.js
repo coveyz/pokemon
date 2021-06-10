@@ -1,35 +1,23 @@
 const fs = require('fs');
 const path = require('path');
+const { promisify } = require('util');
+const dirOp = promisify(fs.readdir);
 
-function dirlenth(dir, type) {
-	return new Promise((resolve) => {
-		fs.readdir(`${dir}`, (err, data) => {
-			resolve(type === 'dir' ? data : data.length);
-		});
-	});
-}
+const exercise_Number = async () => {
+	const curDir = path.resolve(__dirname);
+	//* 查找当前文件夹 所有的文件夹
+	const dirInfo = await dirOp(curDir); //* 得到当前文件下<力扣> 所有的文件文件夹
 
-const countFileOfDie = async () => {
-	// 先获取当前文件 同级 所有文件
-	const totalFile = await dirlenth(path.resolve(__dirname), 'dir');
+	const exercise_dir = dirInfo.filter((info) => fs.lstatSync(info).isDirectory() && info === '简单');
 
-	// 过滤掉不是文件夹的
-	const dirArr = totalFile
-		.filter((item) => {
-			return fs.lstatSync(item).isDirectory();
-		})
-		.slice(1)
-		.reduce((acc, cur) => {
-			acc.push(dirlenth(cur));
-			return acc;
-		}, []);
-
-	return await (await Promise.all(dirArr)).reduce((acc, cur) => {
-		acc += cur;
+	return await exercise_dir.reduce(async (acc, cur) => {
+		const item = await dirOp(cur);
+		console.log(item);
+		acc = (await acc) + item.length;
 		return acc;
 	}, 0);
 };
 
-countFileOfDie().then((count) => {
+exercise_Number().then((count) => {
 	console.log(`一共写了 ${count} 道题 🔫`);
 });
