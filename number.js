@@ -8,7 +8,7 @@ const exercise_Number = async () => {
 	//* 查找当前文件夹 所有的文件夹
 	const dirInfo = await dirOp(curDir); //* 得到当前文件下<力扣> 所有的文件文件夹
 
-	const exercise_dir = dirInfo.filter((info) => fs.lstatSync(info).isDirectory() && info === '简单');
+	const exercise_dir = dirInfo.filter((info) => fs.lstatSync(info).isDirectory() && info !== '.git');
 
 	return await exercise_dir.reduce(async (acc, cur) => {
 		const item = await dirOp(cur);
