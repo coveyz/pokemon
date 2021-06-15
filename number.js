@@ -12,7 +12,7 @@ const exercise_Number = async () => {
 
 	return await exercise_dir.reduce(async (acc, cur) => {
 		const item = await dirOp(cur);
-		console.log(item);
+		// console.log(item);
 		acc = (await acc) + item.length;
 		return acc;
 	}, 0);
