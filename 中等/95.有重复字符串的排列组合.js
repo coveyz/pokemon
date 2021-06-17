@@ -35,5 +35,6 @@ var permutation = function (S) {
 };
 
 // console.log(permutation('qqe'));
+// console.log(permutation('Frx'));
 console.log(permutation('Frx'));
 // console.log(permutation('ab'));
