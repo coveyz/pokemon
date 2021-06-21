@@ -8,21 +8,6 @@ const question = `
  * @return {number}
  */
 var mySqrt = function (num) {
-	// let low = 0;
-	// let height = num;
-	// while (low <= height) {
-	// 	let middle = (low + height + 1) >> 1;
-	// 	let guess = middle * middle;
-	// 	if (guess > num) {
-	// 		height = Math.floor(middle) - 1;
-	// 	} else if (guess < num) {
-	// 		low = Math.floor(middle) + 1;
-	// 	} else {
-	// 		return Math.floor(middle);
-	// 	}
-	// }
-	// console.log('xxx=>', low);
-	// return Math.floor(low);
 	const sqrtNumber = Math.sqrt(num);
 
 	return sqrtNumber % 1 === 0 ? sqrtNumber : Math.floor(sqrtNumber);
