@@ -24,7 +24,7 @@ var checkSubarraySum = function (nums, k) {
 	return false;
 };
 
-// console.log(checkSubarraySum([23, 2, 4, 6, 7], 6));
-// console.log(checkSubarraySum([23, 2, 6, 4, 7], 6));
-// console.log(checkSubarraySum([23, 2, 6, 4, 7], 13));
+console.log(checkSubarraySum([23, 2, 4, 6, 7], 6));
+console.log(checkSubarraySum([23, 2, 6, 4, 7], 6));
+console.log(checkSubarraySum([23, 2, 6, 4, 7], 13));
 console.log(checkSubarraySum([1, 2, 3], 5));

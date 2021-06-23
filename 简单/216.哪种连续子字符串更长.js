@@ -7,8 +7,6 @@ var checkZeroOnes = function (s) {
 	if (s.indexOf(0) === -1) return true;
 	const oneNumber = fineTarget('1', s);
 	const zeroNumber = fineTarget('0', s);
-	// console.log('one=>', oneNumber, 'zero=>', zeroNumber);
-	// console.log('zero=>', zeroNumber);
 	return oneNumber > zeroNumber;
 };
 
