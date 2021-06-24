@@ -1,18 +1,21 @@
 const question = `
-给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
 `;
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function (nums) {
-	const arr = nums.sort();
+var permuteUnique = function (nums) {
+	const obj = {};
+	// const arr = nums.sort();
 	const res = [];
 
 	const brackTrack = (track, store) => {
 		if (store.length === 0) {
-			res.push([...track]);
-			// console.log('res=>>>', res);
+			if (!obj[track]) {
+				res.push([...track]);
+				obj[track] = (obj[track] || 0) + 1;
+			}
 			return;
 		}
 
@@ -27,9 +30,10 @@ var permute = function (nums) {
 		}
 	};
 
-	brackTrack([], arr);
+	brackTrack([], nums);
 
 	return res;
 };
 
-console.log(permute([1, 2, 3]));
+console.log(permuteUnique([1, 1, 2]));
+console.log(permuteUnique([1, 2, 3]));

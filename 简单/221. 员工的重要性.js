@@ -19,8 +19,6 @@ const question = `
  * @return {number}
  */
 var GetImportance = function (employees, id) {
-	// employees.sort((a, b) => a[0] - b[0]); //* 先根据员工ID 给排序
-
 	const obj = {};
 
 	for (const employee of employees) {
