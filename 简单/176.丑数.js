@@ -25,3 +25,4 @@ console.log(isUgly(6));
 console.log(isUgly(8));
 console.log(isUgly(14));
 console.log(isUgly(1));
+
