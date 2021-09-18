@@ -14,17 +14,17 @@ const question = `
  * @return {ListNode}
  */
 var reverseList = function (head) {
-	if (!head) return;
+	if (!head) return head;
 
-	let pre_node = null; //* 上一个节点
+	let pre_node = null;
 	let cur_node = head;
 
 	while (cur_node) {
-		let next_node = cur_node.next; //* 下一个节点
-		cur_node.next = pre_node; //* 需要对当前节点 进行反转
+		let next_node = cur_node.next;
+		cur_node.next = pre_node;
 		pre_node = cur_node;
 		cur_node = next_node;
 	}
-
+  
 	return pre_node;
 };
