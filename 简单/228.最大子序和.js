@@ -14,7 +14,6 @@ var maxSubArray = function (nums) {
 		const element = nums[index];
 		pre = Math.max(pre + element, element);
 		result = Math.max(result, pre);
-		console.log('x=>', element, 'pre=>', pre, 'maxAns=>', result);
 	}
 
 	return result;
