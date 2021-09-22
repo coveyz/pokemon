@@ -20,18 +20,33 @@ const question = `
  * @return {boolean}
  */
 var hasCycle = function (head) {
-	if (!head) return false;
-	const contain = [];
-	while (head.next) {
-		// console.log('xxx=>',head.next)
-		if (contain.includes(head.next)) {
-			// console.log('contain=>',contain,head.val)
-			return true;
-		} else {
-			contain.push(head.next);
-		}
-		head = head.next;
-	}
+  //* 1.0.0 容器
+	// if (!head) return false;
+	// const contain = [];
+	// while (head.next) {
+	// 	if (contain.includes(head.next)) {
+	// 		return true;
+	// 	} else {
+	// 		contain.push(head.next);
+	// 	}
+	// 	head = head.next;
+	// }
 
-	return false;
+	// return false;
+
+
+  //* 2.0.0 标记
+  if (!head) return false
+
+  while(head.next) {
+      if (head.tag) {
+          return true
+      } else {
+          head['tag'] = true
+      }
+
+      head = head.next
+  }
+
+  return false
 };
