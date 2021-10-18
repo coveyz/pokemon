@@ -13,10 +13,7 @@ const frequencySort = (s) => {
 		.sort((a, b) => {
 			return b.length - a.length;
 		})
-		.reduce((acc, cur) => {
-			acc += cur;
-			return acc;
-		}, '');
+		
 };
 
 // console.log(frequencySort('tree'));
