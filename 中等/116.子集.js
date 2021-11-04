@@ -8,29 +8,47 @@ const question = `
  * @return {number[][]}
  */
 var subsets = function (nums) {
-	if (nums.length === 1) return [[], nums];
+	// if (nums.length === 1) return [[], nums];
 
-	let ans = [],
-		template = [];
+	// let ans = [],
+	// 	template = [];
 
-	const dfs = (flage, cur, num) => {
+	// const dfs = (flage, cur, num) => {
+	// 	if (cur >= nums.length) {
+	// 		ans.push(template.slice());
+	// 		return;
+	// 	}
+	// 	dfs(false, cur + 1, num);
+
+	// 	if (!flage && cur && num[cur - 1] === num[cur]) return;
+
+	// 	template.push(num[cur]);
+	// 	dfs(true, cur + 1, num);
+	// 	template = template.slice(0, template.length - 1);
+	// };
+
+	// dfs(true, 0, nums);
+
+	// return ans;
+
+	const template = [],
+		ans = [];
+
+	const dns = (cur) => {
 		if (cur >= nums.length) {
 			ans.push(template.slice());
 			return;
 		}
-		dfs(false, cur + 1, num);
-
-		if (!flage && cur && num[cur - 1] === num[cur]) return;
-
-		template.push(num[cur]);
-		dfs(true, cur + 1, num);
-		template = template.slice(0, template.length - 1);
+		template.push(nums[cur]);
+		dns(cur + 1);
+		template.pop(template.length - 1);
+		dns(cur + 1);
 	};
 
-	dfs(true, 0, nums);
+	dns(0);
 
 	return ans;
 };
 
 console.log(subsets([1, 2, 3]));
-console.log(subsets([1]));
+// console.log(subsets([1]));
