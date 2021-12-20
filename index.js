@@ -1,28 +1,27 @@
 /**
- * @param {number[]} nums
- * @param {number} k
- * @return {void} Do not return anything, modify nums in-place instead.
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
  */
-var rotate = function (nums, k) {
-	const len = nums.length;
-	const arr = nums.reverse();
+var twoSum = function (numbers, target) {
+	let left = 0,
+		right = numbers.length - 1;
 
-	k = len - 1 < k ? k % len : k;
+	while (left < right) {
+		const sum = numbers[left] + numbers[right];
 
-	margic(arr, 0, k - 1);
-	margic(arr, k, len - 1);
-
-	return arr;
-};
-
-const margic = (nums, start, end) => {
-	while (start <= end) {
-		[nums[start++], nums[end--]] = [nums[end], nums[start]];
+		if (sum === target) {
+			return [left + 1, right + 1];
+		} else if (sum > target) {
+			right -= 1;
+		} else {
+			left += 1;
+		}
 	}
+
+	return -1;
 };
 
-console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3));
-console.log(rotate([-1, -100, 3, 99], 2));
-
-console.log(rotate([-1], 2));
-console.log(rotate([1, 2], 3));
+console.log(twoSum([2, 7, 11, 15], 9));
+console.log(twoSum([2, 3, 4], 6));
+console.log(twoSum([-1, 0], -1));
