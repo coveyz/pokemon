@@ -10,11 +10,11 @@ var sortedSquares = function (nums) {
 	let left = 0,
 		right = len - 1,
 		pos = len - 1;
-
+	console.log('nums=>', nums);
 	while (left <= right) {
 		let leftSq = nums[left] * nums[left];
 		let rightSq = nums[right] * nums[right];
-
+		console.log('left=>', leftSq, 'right=>', rightSq, 'pos=>', pos, 'arr=>', arr);
 		if (leftSq > rightSq) {
 			arr[pos] = leftSq;
 			left += 1;
