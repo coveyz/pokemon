@@ -15,33 +15,53 @@ const question = `
  * @return {ListNode}
  */
 var removeNthFromEnd = function (head, n) {
-	let cur = head;
-	let len = 0;
+	// let cur = head;
+	// let len = 0;
 
-	while (cur) {
-		cur = cur.next;
-		len += 1;
-	}
-	let del_node = null;
+	// while (cur) {
+	// 	cur = cur.next;
+	// 	len += 1;
+	// }
+	// let del_node = null;
 
-	if (len === 1 || len - n === 0) {
-		head = head.next;
-		return head;
-	} else {
-		let del_index = 0;
-		let pre_node = null;
-		let cur_node = head;
+	// if (len === 1 || len - n === 0) {
+	// 	head = head.next;
+	// 	return head;
+	// } else {
+	// 	let del_index = 0;
+	// 	let pre_node = null;
+	// 	let cur_node = head;
 
-		while (del_index < len - n) {
-			pre_node = cur_node;
-			cur_node = cur_node.next;
-			del_index += 1;
+	// 	while (del_index < len - n) {
+	// 		pre_node = cur_node;
+	// 		cur_node = cur_node.next;
+	// 		del_index += 1;
+	// 	}
+
+	// 	del_node = cur_node;
+	// 	pre_node.next = cur_node.next;
+	// 	del_node.next = null;
+
+	// 	return head;
+	// }
+	//* 快慢指针
+	//* 快的先走 等到了 最后几个 慢的再走
+	let slow = (fast = head),
+		count = 1;
+
+	while (fast && fast.next) {
+		fast = fast.next;
+		if (count > n) {
+			slow = slow.next;
 		}
-
-		del_node = cur_node;
-		pre_node.next = cur_node.next;
-		del_node.next = null;
-
-		return head;
+		count += 1;
 	}
+
+	if (count === 1 || count - n === 0) {
+		return head.next;
+	}
+
+	slow.next = slow.next.next;
+
+	return head;
 };
