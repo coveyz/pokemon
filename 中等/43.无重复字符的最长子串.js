@@ -1,6 +1,7 @@
 const question = `给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。`;
 
-var lengthOfLongestSubstring = function (s) {
+//* 1.0.0 重复字符串
+var lengthOfLongestSubstring1 = function (s) {
 	//* 1. 遍历整个 字符串
 	//* 2. 判断 当前字符串 有没有在 无重复集合中出现
 	//* 2-1 如果没重复 将值加入 缓存的 arr
@@ -40,6 +41,30 @@ var lengthOfLongestSubstring = function (s) {
 		}
 	}
 	return arr.length;
+};
+
+//* 2.0.0 滑动窗口
+const lengthOfLongestSubstring = (s) => {
+	if (!s.length || s.length == 1) {
+		return !s.length ? 0 : 1;
+	}
+
+	let occ = new Set(s[0]);
+	let left = 0,
+		right = 0,
+		max = 0,
+		len = s.length;
+
+	while (right < len - 1) {
+		if (occ.has(s[right + 1])) {
+			occ.delete(s[left++]);
+		} else {
+			occ.add(s[++right]);
+			max = Math.max(max, occ.size);
+		}
+	}
+
+	return max;
 };
 
 const s = 'abcabcbb';
