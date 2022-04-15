@@ -6,9 +6,9 @@ var moveZeroes = function (nums) {
 		right = 0,
 		len = nums.length;
 
-	while (left <= len) {
-    //* 如果 nums[left] === 0 -> 0在前
-		if (nums[left]) {
+	while (left < len) {
+		//* 如果 nums[left] === 0 -> 0在前
+		if (!nums[left]) {
 			[nums[left], nums[right]] = [nums[right], nums[left]];
 			right += 1;
 		}

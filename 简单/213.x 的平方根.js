@@ -13,5 +13,28 @@ var mySqrt = function (num) {
 	return sqrtNumber % 1 === 0 ? sqrtNumber : Math.floor(sqrtNumber);
 };
 
+/**
+ * @param {number} x
+ * @return {number}
+ */
+ var mySqrt = function (x) {
+	let left = 0,
+		right = x,
+		ans = -1;
+
+	while (left <= right) {
+		const middle = left + Math.floor((right - left) / 2);
+		let result = middle * middle;
+		if (result <= x) {
+			ans = middle;
+			left = middle + 1;
+		} else {
+			right = middle - 1;
+		}
+	}
+
+	return ans;
+};
+
 console.log(mySqrt(4));
 console.log(mySqrt(8));
