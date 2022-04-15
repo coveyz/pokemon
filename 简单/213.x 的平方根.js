@@ -14,6 +14,7 @@ var mySqrt = function (num) {
 };
 
 /**
+ ** 二分查找 
  * @param {number} x
  * @return {number}
  */
