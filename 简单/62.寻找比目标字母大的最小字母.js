@@ -10,7 +10,9 @@ const nextGreatestLetter = (letters, target) => {
 	return letters[0];
 };
 
-//* 二分查找
+/**
+ ** 指针 二分查找
+ */
 var nextGreatestLetter2 = function (letters, target) {
 	if (letters[letters.length - 1] <= target) return letters[0];
 
@@ -30,6 +32,30 @@ var nextGreatestLetter2 = function (letters, target) {
 	}
 
 	return letters[left];
+};
+
+/**
+ ** 递归 二分查找
+ */
+var nextGreatestLetter3 = function (letters, target) {
+	const result = binary_search_bigger(letters, target, 0, letters.length - 1);
+	return result === -1 ? letters[0] : result;
+};
+
+const binary_search_bigger = (arr, target, start, end) => {
+	if (arr[start] > target) return arr[start];
+	if (start > end) return -1;
+	let middle = Math.floor((start + end) / 2),
+		middleItem = arr[middle];
+
+	if (middleItem <= target) {
+		if (arr[middle + 1] > target) {
+			return arr[middle + 1];
+		}
+		return binary_search_bigger(arr, target, middle + 1, end);
+	} else {
+		return binary_search_bigger(arr, target, start, middle - 1);
+	}
 };
 
 console.log(nextGreatestLetter(['c', 'f', 'j'], 'c'));
