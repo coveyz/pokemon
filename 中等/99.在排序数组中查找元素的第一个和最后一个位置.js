@@ -17,6 +17,43 @@ var searchRange = function (nums, target) {
 	return [pos, lastPos];
 };
 
+/**
+ ** 二分查找
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange2 = function (nums, target) {
+	let ans = [-1, -1];
+
+	const binarySearch = (nums, target, lower) => {
+		let left = 0,
+			right = nums.length - 1,
+			ans = nums.length;
+
+		while (left <= right) {
+			const middleIndex = Math.floor((left + right) / 2);
+			const middleItem = nums[middleIndex];
+			if (middleItem > target || (lower && middleItem >= target)) {
+				right = middleIndex - 1;
+				ans = middleIndex;
+			} else {
+				left = middleIndex + 1;
+			}
+		}
+
+		return ans;
+	};
+
+	const leftIndex = binarySearch(nums, target, true);
+	const rightIndex = binarySearch(nums, target, false) - 1;
+	if (leftIndex <= rightIndex && rightIndex < nums.length && nums[leftIndex] === target && nums[rightIndex] === target) {
+		ans = [leftIndex, rightIndex];
+	}
+
+	return ans;
+};
+
 console.log(searchRange([5, 7, 7, 8, 8, 10], 8));
 console.log(searchRange([5, 7, 7, 8, 8, 10], 6));
 console.log(searchRange([1], 1));
