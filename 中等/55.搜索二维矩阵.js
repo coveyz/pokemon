@@ -41,6 +41,40 @@ const searchMatrix = (matrix, target) => {
 	return sign;
 };
 
+/**
+ ** 二分查找
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+ var searchMatrix2 = function (matrix, target) {
+	for (let index = 0; index < matrix.length; index++) {
+		const row = matrix[index];
+		if (row[0] === target || row[row.length - 1] === target) {
+			return true;
+		}
+
+		if (row[0] <= target) {
+			let left = 0,
+				right = row.length - 1;
+			while (left <= right) {
+				let middleIndex = Math.floor((left + right) / 2);
+				let middleItem = row[middleIndex];
+				if (middleItem === target) {
+					return true;
+				} else if (middleItem > target) {
+					right = middleIndex - 1;
+				} else {
+					left = middleIndex + 1;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
+	return false;
+};
+
 console.log(
 	searchMatrix(
 		[
