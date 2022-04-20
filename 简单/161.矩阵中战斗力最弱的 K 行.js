@@ -5,11 +5,12 @@ const question = `
 军人 总是 排在一行中的靠前位置，也就是说 1 总是出现在 0 之前。
 `;
 
-const kWeakestRows = (mat, k) => {
+const kWeakestRows1 = (mat, k) => {
 	const obj = mat.reduce((acc, cur, index) => {
 		acc[index] = cur.filter((item) => item).length;
 		return acc;
 	}, {});
+
 	const arr = new Array(mat.length).fill(1).map((_item, index) => index);
 
 	return arr
@@ -19,6 +20,50 @@ const kWeakestRows = (mat, k) => {
 		.slice(0, k);
 };
 
+/**
+ ** 二分查找 + 字典
+ * @param {number[][]} mat
+ * @param {number} k
+ * @return {number[]}
+ */
+var kWeakestRows = function (mat, k) {
+	const map = new Map(),
+		arr = new Array(mat.length).fill(1).map((_item, index) => index);
+
+	const search = (arr) => {
+		let left = 0,
+			right = arr.length - 1;
+		while (left <= right) {
+			const middle = Math.floor((left + right) / 2);
+			const middleItem = arr[middle];
+			if (middleItem === 0) {
+				right = middle - 1;
+			} else {
+				pos = middle;
+				left = middle + 1;
+			}
+		}
+
+		return left;
+	};
+
+	for (let index = 0; index < mat.length; index++) {
+		const row = mat[index];
+		if (row[0] === 0 || row[row.length] === 0) {
+			map.set(index, 0);
+			continue;
+		} else {
+			const pos = search(row);
+			map.set(index, pos);
+		}
+	}
+
+	return arr
+		.sort((a, b) => {
+			return map.get(a) - map.get(b);
+		})
+		.slice(0, k);
+};
 console.log(
 	kWeakestRows(
 		[
