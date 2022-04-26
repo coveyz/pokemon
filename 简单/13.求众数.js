@@ -1,7 +1,7 @@
 const question = `给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
 你可以假设数组是非空的，并且给定的数组总是存在众数。`;
 
-const majorityElement = nums => {
+const majorityElement = (nums) => {
 	const count = nums.length / 2;
 	const countObj = nums.reduce((acc, cur) => {
 		if (acc[cur]) {
@@ -16,6 +16,15 @@ const majorityElement = nums => {
 			return key;
 		}
 	}
+};
+
+/**
+ ** 排序
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement1 = function (nums) {
+	return nums.sort((a, b) => a - b)[Math.floor(nums.length / 2)];
 };
 
 console.log(majorityElement([2, 2]));

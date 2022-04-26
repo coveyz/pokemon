@@ -7,6 +7,7 @@ const singleNumber = (nums) => {
 };
 
 /**
+ ** 哈希表
  * @param {number[]} nums
  * @return {number}
  */

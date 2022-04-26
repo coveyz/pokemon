@@ -2,25 +2,11 @@
  * @param {number[]} nums
  * @return {number}
  */
-var singleNumber = function (nums) {
-	const map = new Map();
-
-	for (const key of nums) {
-		const item = map.get(key);
-		if (item) {
-			map.set(key, item + 1);
-		} else {
-			map.set(key, 1);
-		}
-	}
-
-	for (const item of map) {
-		const [key, val] = item;
-		if (val === 1) return key;
-	}
+var majorityElement = function (nums) {
+	const index = Math.floor(nums.length / 2);
+	return nums.sort((a, b) => a - b)[index];
 };
 
-// const arr = [2, 2, 1];
-const arr = [4, 1, 2, 1, 2];
-
-console.log(singleNumber(arr));
+let nums = [3, 2, 3];
+// let nums = [2, 2, 1, 1, 1, 2, 2];
+console.log(majorityElement(nums));
