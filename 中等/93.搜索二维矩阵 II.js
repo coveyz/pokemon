@@ -29,8 +29,6 @@ var searchMatrix1 = function (matrix, target) {
  * @return {boolean}
  */
 var searchMatrix = function (matrix, target) {
-	const len = matrix.length;
-
 	for (let index = 0; index < matrix.length; index++) {
 		const element = matrix[index],
 			startItem = element[0],
@@ -43,7 +41,7 @@ var searchMatrix = function (matrix, target) {
 				// const middleIndex = Math.floor((start + end) / 2);
 				const middleIndex = (start + end) >> 1;
 				const middleItem = element[middleIndex];
-				console.log('middleItem', middleItem, 'middleIndex=>', middleIndex, 'xx=>', start, end);
+				// console.log('middleItem', middleItem, 'middleIndex=>', middleIndex, 'xx=>', start, end);
 				if (middleItem === target) return true;
 				if (middleItem > target) {
 					end = middleIndex - 1;
