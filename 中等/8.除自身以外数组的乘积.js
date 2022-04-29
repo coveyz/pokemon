@@ -16,27 +16,53 @@ const question = `给你一个长度为 n 的整数数组 nums，其中 n > 
 // }
 
 // 2.0
-var productExceptSelf = function(nums) {
-  const ret = [];
+var productExceptSelf2 = function (nums) {
+	const ret = [];
 
-  for (let i = 0, temp = 1; i < nums.length; i++) {
-    ret[i] = temp;
-    temp *= nums[i];
-  }
-  // 此时ret[i]存放的是前i个元素相乘的结果(不包含第i个)
+	for (let i = 0, temp = 1; i < nums.length; i++) {
+		ret[i] = temp;
+		temp *= nums[i];
+	}
+	// 此时ret[i]存放的是前i个元素相乘的结果(不包含第i个)
 
-  // 如果没有上面的循环的话，
-  // ret经过下面的循环会变成ret[i]存放的是后i个元素相乘的结果(不包含第i个)
+	// 如果没有上面的循环的话，
+	// ret经过下面的循环会变成ret[i]存放的是后i个元素相乘的结果(不包含第i个)
 
-  // 我们的目标是ret[i]存放的所有数字相乘的结果(不包含第i个)
+	// 我们的目标是ret[i]存放的所有数字相乘的结果(不包含第i个)
 
-  // 因此我们只需要对于上述的循环产生的ret[i]基础上运算即可
-  for (let i = nums.length - 1, temp = 1; i >= 0; i--) {
-    ret[i] *= temp;
-    temp *= nums[i];
-  }
-  return ret;
+	// 因此我们只需要对于上述的循环产生的ret[i]基础上运算即可
+	for (let i = nums.length - 1, temp = 1; i >= 0; i--) {
+		ret[i] *= temp;
+		temp *= nums[i];
+	}
+	return ret;
+};
+
+/**
+ ** 左右成积列表
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function (nums) {
+	const len = nums.length,
+		leftArr = new Array(len),
+		rightArr = new Array(len),
+		ans = new Array(len);
+
+	leftArr[0] = 1;
+	for (let index = 1; index < len; index++) {
+		leftArr[index] = nums[index - 1] * leftArr[index - 1];
+	}
+	rightArr[rightArr.length - 1] = 1;
+	for (let index = len - 2; index >= 0; index--) {
+		rightArr[index] = nums[index + 1] * rightArr[index + 1];
+	}
+
+	for (let index = 0; index < len; index++) {
+		ans[index] = leftArr[index] * rightArr[index];
+	}
+	return ans;
 };
 
 // console.log(productExceptSelf([1, 2, 3, 4]));
-console.log(productExceptSelf([0,0]));
+console.log(productExceptSelf([0, 0]));
