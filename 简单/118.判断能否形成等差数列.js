@@ -18,5 +18,27 @@ const canMakeArithmeticProgression = (arr) => {
 	return true;
 };
 
+/**
+ ** 双指针
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var canMakeArithmeticProgression2 = function (arr) {
+	arr.sort((a, b) => a - b);
+	const len = arr.length;
+	let start = 0;
+	end = 1;
+	count = Math.abs(arr[end] - arr[start]);
+
+	while (end < len) {
+		let res = arr[end] - arr[start];
+		if (count !== res) return false;
+		start++;
+		end++;
+	}
+
+	return true;
+};
+
 console.log(canMakeArithmeticProgression([3, 5, 1]));
 console.log(canMakeArithmeticProgression([1, 2, 4]));
