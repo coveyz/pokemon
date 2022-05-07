@@ -8,7 +8,7 @@ const question = `
  * @param {number[]} nums
  * @return {number}
  */
-var minSubArrayLen = function (target, nums) {
+var minSubArrayLen1 = function (target, nums) {
 	let left = 0;
 	let right = 0;
 	let prod = 0;
@@ -28,6 +28,33 @@ var minSubArrayLen = function (target, nums) {
 	}
 
 	return min === nums.length + 2 ? 0 : min;
+};
+
+/**
+ ** 滑动窗口
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function (target, nums) {
+	const len = nums.length;
+	let left = 0,
+		right = 0,
+		ans = Infinity,
+		sum = 0;
+
+	while (right < len) {
+		sum += nums[right];
+		right += 1;
+
+		while (sum >= target) {
+			ans = Math.min(ans, right - left);
+			sum -= nums[left];
+			left += 1;
+		}
+	}
+
+	return ans === Infinity ? 0 : ans;
 };
 
 console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]));
