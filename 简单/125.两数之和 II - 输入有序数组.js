@@ -45,25 +45,53 @@ var twoSum = function (numbers, target) {
 	return -1;
 };
 
-
 /**
  ** Map
  * @param {number[]} numbers
  * @param {number} target
  * @return {number[]}
  */
- var twoSum = function (numbers, target) {
+var twoSum = function (numbers, target) {
 	const map = new Map();
 
 	for (let index = 0; index < numbers.length; index++) {
 		const element = numbers[index];
 		let result = target - element;
 		if (map.has(element)) {
-			return [ map.get(element)+1,index + 1,];
+			return [map.get(element) + 1, index + 1];
 		} else {
 			map.set(result, index);
 		}
 	}
+};
+
+/**
+ ** 快慢指针
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+	const len = numbers.length;
+	let left = 0,
+		right = 1;
+	const result = [];
+
+	while (left < len) {
+		// console.log('left=>', numbers[left]);
+
+		while (right < len) {
+			const sum = numbers[left] + numbers[right];
+			// console.log('right=>', numbers[right], 'sum==>', sum);
+
+			if (sum === target) return [left + 1, right + 1];
+			right++;
+		}
+		left++;
+		right = left + 1;
+	}
+
+	return result;
 };
 
 console.log(twoSum([2, 7, 11, 15], 9));
