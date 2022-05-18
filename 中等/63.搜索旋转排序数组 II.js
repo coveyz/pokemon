@@ -12,3 +12,43 @@ const question = `
 var search = function (nums, target) {
 	return nums.includes(target);
 };
+
+/**
+ ** 二分查找
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {boolean}
+ */
+var search = function (nums, target) {
+	const n = nums.length;
+	if (n === 0) return false;
+	if (n === 1) return nums[0] === target;
+
+	let left = 0,
+		right = n - 1;
+
+	while (left <= right) {
+		const middle = (left + right) >> 1;
+		if (nums[middle] === target) return true;
+		//* 出现重复 二分查找无法判断区间 [left,middle], [middle,right] 哪个有序；
+		//*
+		if (nums[left] === nums[middle] && nums[right] === nums[middle]) {
+			left++;
+			right--;
+		} else if (nums[left] <= nums[middle]) {
+			if (nums[left] <= target && target < nums[middle]) {
+				right = middle - 1;
+			} else {
+				left = middle + 1;
+			}
+		} else {
+			if (nums[middle] < target && target <= nums[right]) {
+				left = middle + 1;
+			} else {
+				right = middle - 1;
+			}
+		}
+	}
+
+	return false;
+};
