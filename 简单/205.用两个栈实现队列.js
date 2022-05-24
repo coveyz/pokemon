@@ -23,6 +23,43 @@ CQueue.prototype.deleteHead = function () {
 };
 
 /**
+ ** 两个栈实现一个队列
+ * Your CQueue object will be instantiated and called as such:
+ * var obj = new CQueue()
+ * obj.appendTail(value)
+ * var param_2 = obj.deleteHead()
+ */
+var CQueue = function () {
+	this.stack_1 = [];
+	this.stack_2 = [];
+};
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+CQueue.prototype.appendTail = function (value) {
+	this.stack_1.push(value);
+};
+
+/**
+ * @return {number}
+ */
+CQueue.prototype.deleteHead = function () {
+	if (this.stack_1.length === 0 && this.stack_2.length === 0) {
+		return -1;
+	}
+
+	if (this.stack_2.length === 0) {
+		while (this.stack_1.length) {
+			this.stack_2.push(this.stack_1.pop());
+		}
+	}
+
+	return this.stack_2.pop();
+};
+
+/**
  * Your CQueue object will be instantiated and called as such:
  * var obj = new CQueue()
  * obj.appendTail(value)
