@@ -7,4 +7,13 @@ var replaceSpace = function (s) {
 	return s.split(' ').join('%');
 };
 
+/**
+ ** 正则
+ * @param {string} s
+ * @return {string}
+ */
+var replaceSpace = function (s) {
+	return s.replace(/[ ]/g, '%20');
+};
+
 console.log(replaceSpace('We are happy.'));
