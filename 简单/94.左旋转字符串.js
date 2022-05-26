@@ -11,5 +11,20 @@ const reverseLeftWords = (str,num) => {
   return strArr.join('')
 }
 
+
+
+/**
+ ** 切拼 字符串
+ * @param {string} s
+ * @param {number} n
+ * @return {string}
+ */
+ var reverseLeftWords2 = function (s, n) {
+	const arr = s.split('');
+	const start = arr.slice(0, k),
+		end = arr.slice(k, arr.length);
+	return end.concat(start).join('');
+};
+
 console.log(reverseLeftWords('abcdefg',2))
 console.log(reverseLeftWords('lrloseumgh',6))
