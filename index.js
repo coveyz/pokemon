@@ -1,32 +1,34 @@
 /**
- * @param {string} s
- * @return {string}
+ * @param {number[]} nums
+ * @return {number}
  */
-var reverseWords = function (s) {
-	const strArr = s.split(' ');
+var findRepeatNumber = function (nums) {
+	const map = new Map();
 
-	const reverse = (arr) => {
-		let left = 0,
-			right = arr.length - 1;
+	let left = 0,
+		right = nums.length - 1;
 
-		while (left < right) {
-			[arr[left], arr[right]] = [arr[right], arr[left]];
-			left++;
-			right--;
+	while (left < right) {
+		let leftItem = nums[left],
+			rightItem = nums[right];
+		// console.log(map);
+		if (map.has(leftItem)) {
+			// console.log('left=>', leftItem);
+			return map.get(leftItem);
 		}
-		return arr;
-	};
-	let str = [];
-	for (let index = 0; index < strArr.length; index++) {
-		const element = strArr[index].split('');
-		const item = reverse(element).join('');
-
-		str.push(item);
+		if (map.has(rightItem)) {
+			// console.log('right', rightItem);
+			return map.get(rightItem);
+		}
+		if (leftItem === rightItem) return leftItem;
+		map.set(leftItem, leftItem);
+		map.set(rightItem, rightItem);
+		left++;
+		right--;
 	}
-
-	return str.join(' ');
 };
 
-const s = "Let's take LeetCode contest";
+const nums = [2, 3, 1, 0, 2, 5, 3];
+// const nums = [3, 4, 2, 0, 0, 1];
 
-console.log(reverseWords(s));
+console.log(findRepeatNumber(nums));
