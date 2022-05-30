@@ -1,34 +1,55 @@
 /**
- * @param {number[]} nums
- * @return {number}
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
  */
-var findRepeatNumber = function (nums) {
-	const map = new Map();
+var findNumberIn2DArray = function (matrix, target) {
+	const len = matrix.length;
 
-	let left = 0,
-		right = nums.length - 1;
+	for (let index = 0; index < len; index++) {
+		const row = matrix[index],
+			fistItem = row[0],
+			endItem = row[row.length - 1];
+		let left = 0,
+			right = row.length;
 
-	while (left < right) {
-		let leftItem = nums[left],
-			rightItem = nums[right];
-		// console.log(map);
-		if (map.has(leftItem)) {
-			// console.log('left=>', leftItem);
-			return map.get(leftItem);
+		// console.log('?', fistItem, endItem, target);
+		if (fistItem === target || endItem === target) {
+			return true;
 		}
-		if (map.has(rightItem)) {
-			// console.log('right', rightItem);
-			return map.get(rightItem);
+
+		if (fistItem < target && endItem > target) {
+			// console.log(row, fistItem, endItem);
+			while (left <= right) {
+				const middle = (left + right) >> 1;
+				const middleItem = row[middle];
+				// console.log(middleItem);
+				if (middleItem === target) {
+					return true;
+				} else if (middleItem > target) {
+					right = middle - 1;
+				} else {
+					left = middle + 1;
+				}
+			}
+		} else {
+			continue;
 		}
-		if (leftItem === rightItem) return leftItem;
-		map.set(leftItem, leftItem);
-		map.set(rightItem, rightItem);
-		left++;
-		right--;
 	}
+
+	return false;
 };
 
-const nums = [2, 3, 1, 0, 2, 5, 3];
-// const nums = [3, 4, 2, 0, 0, 1];
+const matrix = [
+		[1, 4, 7, 11, 15],
+		[2, 5, 8, 12, 19],
+		[3, 6, 9, 16, 22],
+		[10, 13, 14, 17, 24],
+		[18, 21, 23, 26, 30],
+	],
+	target = 5;
 
-console.log(findRepeatNumber(nums));
+// const matrix = [[5], [6]],
+// 	target = 6;
+
+console.log(findNumberIn2DArray(matrix, target));

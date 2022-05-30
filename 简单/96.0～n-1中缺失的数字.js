@@ -15,7 +15,11 @@ const question = `一个长度为n-1的递增排序数组中的所有数字都�
 //   return missNUmber
 // };
 
-// 2.0
+/**
+ ** 二分查找
+ * @param {number[]} nums
+ * @return {number}
+ */
 const missingNumber = (nums) => {
 	let left = 0;
 	let right = nums.length - 1;

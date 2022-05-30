@@ -24,6 +24,49 @@ var findNumberIn2DArray = function (matrix, target) {
 	return false;
 };
 
+/**
+ ** 二分查找
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var findNumberIn2DArray = function (matrix, target) {
+	const len = matrix.length;
+
+	for (let index = 0; index < len; index++) {
+		const row = matrix[index],
+			fistItem = row[0],
+			endItem = row[row.length - 1];
+		let left = 0,
+			right = row.length;
+
+		// console.log('?', fistItem, endItem, target);
+		if (fistItem === target || endItem === target) {
+			return true;
+		}
+
+		if (fistItem < target && endItem > target) {
+			// console.log(row, fistItem, endItem);
+			while (left <= right) {
+				const middle = (left + right) >> 1;
+				const middleItem = row[middle];
+				// console.log(middleItem);
+				if (middleItem === target) {
+					return true;
+				} else if (middleItem > target) {
+					right = middle - 1;
+				} else {
+					left = middle + 1;
+				}
+			}
+		} else {
+			continue;
+		}
+	}
+
+	return false;
+};
+
 console.log(
 	findNumberIn2DArray(
 		[
