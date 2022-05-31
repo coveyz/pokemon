@@ -26,6 +26,30 @@ var fib = function (n) {
 	return second;
 };
 
+/**
+ ** 队列
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function (n) {
+	if (n === 0) return n;
+	if (n === 1 || n === 2) return 1;
+	const queue = [1, 1];
+	let pos = 2;
+
+	while (pos < n) {
+		const first = queue.shift(),
+			end = queue[0];
+		let result = (first + end) % 1000000007;
+		queue.push(result);
+		pos += 1;
+	}
+
+	return queue[1];
+};
+
+console.log(fib(45));
+
 console.log(fib(2));
 console.log(fib(5));
 console.log(fib(45));
