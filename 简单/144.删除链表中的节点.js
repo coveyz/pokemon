@@ -1,4 +1,8 @@
-const question = `请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点。传入函数的唯一参数为 要被删除的节点 。`
+const question = `
+给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。
+返回删除后的链表的头节点。
+注意：此题对比原题有改动
+`;
 
 /**
  * Definition for singly-linked list.
@@ -8,10 +12,12 @@ const question = `请编写一个函数，使其可以删除某个链表中给�
  * }
  */
 /**
- * @param {ListNode} node
- * @return {void} Do not return anything, modify node in-place instead.
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
  */
-var deleteNode = function(node) {
-  node.val = node.next.val;
-  node.next = node.next.next;
+var deleteNode = function (head, val) {
+	if (head.val === val) return head.next;
+	head.next = deleteNode(head, val);
+	return head;
 };
