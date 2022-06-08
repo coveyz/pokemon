@@ -6,7 +6,7 @@ const question = `
  * @param {string} s
  * @return {string}
  */
-var reverseWords = function (s) {
+var reverseWords1 = function (s) {
 	const arr = s.trim().split(' ').reverse(),
 		len = arr.length;
 	return arr.reduce((acc, cur, index) => {
@@ -16,6 +16,36 @@ var reverseWords = function (s) {
 
 		return acc;
 	}, '');
+};
+
+/**
+ ** 双指针
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+	const reverse = (strArr) => {
+		let left = 0,
+			right = strArr.length - 1;
+		while (left < right) {
+			[strArr[left], strArr[right]] = [strArr[right], strArr[left]];
+			left++;
+			right--;
+		}
+		return strArr;
+	};
+	const arr = reverse(s.trim().split(' '));
+
+	let str = '';
+
+	for (let index = 0; index < arr.length; index++) {
+		const element = arr[index];
+		if (element) {
+			str += element + (index === arr.length - 1 ? '' : ' ');
+		}
+	}
+
+	return str;
 };
 
 // const str = 'the sky is blue';
