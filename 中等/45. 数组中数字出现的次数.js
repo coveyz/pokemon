@@ -33,5 +33,30 @@ const singleNumbers = (nums) => {
 	}, []);
 };
 
+/**
+ ** 遍历1次 + map
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var singleNumbers2 = function (nums) {
+	const map = {},
+		delMap = {};
+
+	for (let index = 0; index < nums.length; index++) {
+		const element = nums[index];
+		if (delMap[element]) {
+			break;
+		} else if (!map[element]) {
+			// console.log('map=>', map, 'element->', element);
+			map[element] = element;
+		} else {
+			delMap[element] = true;
+			delete map[element];
+		}
+	}
+
+	return Object.values(map);
+};
+
 console.log(singleNumbers([4, 1, 4, 6]));
 console.log(singleNumbers([1, 2, 10, 4, 1, 4, 3, 3]));
