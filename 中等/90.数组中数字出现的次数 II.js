@@ -24,6 +24,29 @@ var singleNumber = function (nums) {
 	return arr[0];
 };
 
+/**
+ ** 哈希表
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+	const delMap = {},
+		map = {};
+
+	for (let index = 0; index < nums.length; index++) {
+		const element = nums[index];
+		if (delMap[element]) continue;
+		else if (!map[element]) {
+			map[element] = element;
+		} else {
+			delMap[element] = true;
+			delete map[element];
+		}
+	}
+
+	return Object.values(map)[0];
+};
+
 console.log(singleNumber([3, 4, 3, 3]));
 console.log(singleNumber([9, 1, 7, 9, 7, 9, 7]));
 console.log(singleNumber([5, 2, 2, 2, 5, 5, 4]));
