@@ -3,20 +3,17 @@
  * @return {number[]}
  */
 var exchange = function (nums) {
-	const odd_arr = [],
-		even_arr = [];
+	let left = 0,
+		right = nums.length - 1;
 
-	for (let index = 0; index < nums.length; index++) {
-		const element = nums[index];
+	while (left < right) {
+		while (left < right && nums[left] % 2 === 1) left++;
+		while (left < right && nums[right] % 2 === 0) right--;
 
-		if (element % 2) {
-			odd_arr.push(element);
-		} else {
-			even_arr.push(element);
-		}
+		[nums[left], nums[right]] = [nums[right], nums[left]];
 	}
 
-	return odd_arr.concat(even_arr);
+	return nums;
 };
 
 const nums = [1, 2, 3, 4];
