@@ -22,5 +22,27 @@ var twoSum = function (nums, target) {
 	}
 };
 
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum2 = function (nums, target) {
+	const map = new Map();
+
+	for (let index = 0; index < nums.length; index++) {
+		const element = nums[index],
+			need_item = target - element;
+		// console.log(map.has(need_item), element, need_item);
+		if (map.has(element)) {
+			return [element, map.get(element)];
+		} else {
+			map.set(need_item, element);
+		}
+	}
+
+	return map;
+};
+
 console.log(twoSum([2, 7, 11, 15], 9));
 console.log(twoSum([10, 26, 30, 31, 47, 60], 40));
