@@ -67,6 +67,7 @@ const lengthOfLongestSubstring = (s) => {
 	return max;
 };
 
-const s = 'abcabcbb';
+// const s = 'abcabcbb';
+const s = "pwwkew"
 
 console.log(lengthOfLongestSubstring(s));
