@@ -26,6 +26,33 @@ var rotate = function (nums, k) {
 	return nums;
 };
 
+/**
+ ** 双指针
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate2 = function (nums, k) {
+	const len = nums.length;
+	k = k % len;
+
+	if (k === 0) return nums;
+
+	const rotateArr = (arr, start, end) => {
+		while (start < end) {
+			[arr[start], arr[end]] = [arr[end], arr[start]];
+			start++;
+			end--;
+		}
+		return arr;
+	};
+	rotateArr(nums, 0, len - 1);
+	rotateArr(nums, 0, k - 1);
+	rotateArr(nums, k, nums.length - 1);
+
+	return nums;
+};
+
 let nums = [1, 2, 3, 4, 5, 6, 7],
 	k = 3;
 // let nums = [-1, -100, 3, 99],k = 2;
