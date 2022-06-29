@@ -65,3 +65,35 @@ var removeNthFromEnd = function (head, n) {
 
 	return head;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ ** 双指针
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+	let dummy = new ListNode(0, head),
+		first = head,
+		second = dummy;
+
+	for (let index = 0; index < n; index++) {
+		first = first.next;
+	}
+
+	while (first) {
+		first = first.next;
+		second = second.next;
+	}
+
+	second.next = second.next.next;
+
+	return dummy.next;
+};

@@ -46,9 +46,9 @@ var rotate2 = function (nums, k) {
 		}
 		return arr;
 	};
-	rotateArr(nums, 0, len - 1);
-	rotateArr(nums, 0, k - 1);
-	rotateArr(nums, k, nums.length - 1);
+	rotateArr(nums, 0, len - 1); //* 全部反转
+	rotateArr(nums, 0, k - 1); //* 前半部分反转
+	rotateArr(nums, k, nums.length - 1); //* 后半部分反转
 
 	return nums;
 };
