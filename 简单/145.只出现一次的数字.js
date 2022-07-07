@@ -9,3 +9,19 @@ const question = `给定一个非空整数数组，除了某个元素只出现�
 var singleNumber = function (nums) {
 	return nums.reduce((acc, cur) => acc ^ cur);
 };
+
+/**
+ ** 哈希表
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+	const map = nums.reduce((acc, cur) => {
+		acc[cur] = acc[cur] === undefined ? 1 : acc[cur] + 1;
+		return acc;
+	}, {});
+
+	for (const key in map) {
+		if (map[key] === 1) return key;
+	}
+};
