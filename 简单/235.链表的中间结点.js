@@ -24,3 +24,28 @@ var middleNode = function (head) {
 	}
 	return slow;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ ** 数组迭代
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var middleNode = function (head) {
+	const arr = [head];
+
+	while (arr[arr.length - 1].next !== null) {
+		arr.push(arr[arr.length - 1].next);
+	}
+  
+	const len = arr.length,
+		middle = (0 + len) >> 1;
+
+	return arr[middle];
+};
