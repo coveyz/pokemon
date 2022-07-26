@@ -1,26 +1,37 @@
 /**
- * @param {string} s
- * @param {number} n
- * @return {string}
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
  */
-var reverseLeftWords = function (s, n) {
-	let start = '',
-		end = '';
+var search = function (nums, target) {
+	const binarySearch = (nums, target, lower) => {
+		let left = 0,right = nums.length - 1,ans = nums.length;
+		while (left <= right) {
+			const middle = Math.floor((left + right) / 2);
+			const middleItem = nums[middle];
 
-	for (let index = 0; index < s.length; index++) {
-		const element = s[index];
-
-		if (index < k) {
-			end += element;
-		} else {
-			start += element;
+			if (middleItem > target || (lower && middleItem >= target)) {
+				right = middle - 1;
+				ans = middle;
+			} else {
+				left = middle + 1;
+			}
 		}
+
+		return ans;
+	};
+
+	let ans = 0;
+	const leftIndex = binarySearch(nums, target, true);
+	const rightIndex = binarySearch(nums, target, false) - 1;
+	if (leftIndex <= rightIndex && rightIndex < nums.length && nums[leftIndex] === target && nums[rightIndex] === target) {
+		ans = rightIndex - leftIndex + 1;
 	}
 
-	return start + end;
+	return ans;
 };
 
-// const s = 'abcdefg',k = 2;
-const s = "lrloseumgh", k = 6
+const nums = [5, 7, 7, 8, 8, 10],
+	target = 8;
 
-console.log(reverseLeftWords(s, k));
+console.log(search(nums, target));
