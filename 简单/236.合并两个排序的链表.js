@@ -83,8 +83,6 @@ var mergeTwoLists = function (l1, l2) {
 	if (cur_l2) {
 		link_str = cur_l2;
 	}
-    
-    
 
 	while (link_str) {
 		const new_node = new ListNode(link_str.val);
