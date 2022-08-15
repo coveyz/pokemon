@@ -18,5 +18,26 @@ var majorityElement = function (nums) {
 	}
 };
 
+
+//* map
+var majorityElement = function (nums) {
+	const number = Math.floor(nums.length / 2),
+		map = new Map();
+
+	for (let index = 0; index < nums.length; index++) {
+		const element = nums[index];
+		// console.log(element);
+		if (map.has(element)) {
+			const curItem = map.get(element);
+			map.set(element, curItem + 1);
+			if (curItem >= number) return element;
+		} else {
+			map.set(element, 1);
+		}
+	}
+
+	return map;
+};
+
 console.log(majorityElement([1, 2, 3, 2, 2, 2, 5, 4, 2]));
 console.log(majorityElement([1, 2, 1]));
