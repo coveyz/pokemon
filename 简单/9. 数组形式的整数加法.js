@@ -11,14 +11,10 @@
 
 // console.log(addToArrayForm([2,1,5],806));
 
-
-
-
 var addToArrayForm = function (A, K) {
+	let add = A.reduce((acc, cur, index, arr) => acc + Math.pow(10, arr.length - index - 1) * cur, 0);
 
-  let add = A.reduce((acc, cur, index, arr) => acc + Math.pow(10, arr.length - index -1) * cur, 0)
-
-  return add + K
+	return add + K;
 };
 
-console.log(addToArrayForm([1,2,0,0], 34)); 
+console.log(addToArrayForm([1, 2, 0, 0], 34));
