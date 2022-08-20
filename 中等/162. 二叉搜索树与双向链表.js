@@ -32,6 +32,7 @@ var treeToDoublyList = function (root) {
 			new_node.left = prev;
 			prev = new_node;
 		}
+    dfsHelper(root.right)
 	};
 	dfsHelper(root);
 	head.left = prev;
