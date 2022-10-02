@@ -1,16 +1,21 @@
 const question = `统计一个数字在排序数组中出现的次数。`;
 
 const search = (nums, target) => {
-	const numsIndexObj = nums.reduce((acc, cur) => {
-		if (acc[cur]) {
-			acc[cur] += 1;
-		} else {
-			acc[cur] = 1;
-		}
-		return acc;
-	}, {});
+	let number = 0;
 
-	return numsIndexObj[target] ? numsIndexObj[target] : 0;
+	for (let index = 0; index < nums.length; index++) {
+		const element = nums[index];
+
+		if (element === target) {
+			number += 1;
+		} else if (element > target) {
+			break;
+		}
+
+		// console.log(element);
+	}
+
+	return number;
 };
 
 /**
