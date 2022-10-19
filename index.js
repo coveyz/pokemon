@@ -1,27 +1,54 @@
 /**
- * @param {number[]} nums
- * @param {number} target
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
  * @return {number}
  */
-var search = function (nums, target) {
-	let number = 0;
+var kthLargest = function (root, k) {
+	const queue = [root],
+		res = [];
 
-	for (let index = 0; index < nums.length; index++) {
-		const element = nums[index];
-
-		if (element === target) {
-			number += 1;
-		} else if (element > target) {
-			break;
-		}
-
-		console.log(element);
+	while (queue.length) {
+		const item = queue.shift();
+		res.push(item);
+		item.left && queue.push(item.left);
+		item.right && queue.push(item.right);
 	}
 
-	return number;
+	return res.sort((a, b) => a - b)[k - 1];
 };
 
-const nums = [5, 7, 7, 8, 8, 10],
-	target = 8;
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ ** 中序遍历
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthLargest = function (root, k) {
+	const box = [];
 
-console.log(search(nums, target));
+	const inOrderTraverse = (node) => {
+		if (node !== null) {
+			inOrderTraverse(node.left);
+			box.push(node.val);
+			inOrderTraverse(node.right);
+		}
+	};
+
+	inOrderTraverse(root);
+	box.reverse();
+	return box[--k];
+};
