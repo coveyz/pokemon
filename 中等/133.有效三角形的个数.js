@@ -8,19 +8,23 @@ const question = `
  */
 var triangleNumber = function (nums) {
 	nums.sort((a, b) => a - b);
-	const len = nums.length;
+
+	console.log('newarr=>', nums);
 	let res = 0;
 
-	for (let index = len - 1; index >= 2; index--) {
+	for (let index = 0; index < nums.length; index++) {
 		let left = 0,
 			right = index - 1;
-
+		console.log('left->', left, 'right->', right, 'index=>', index);
 		while (left < right) {
+			console.log('leftItem=>', nums[left], 'rightItem=>', nums[right], 'curItem=>', nums[index]);
 			if (nums[left] + nums[right] > nums[index]) {
 				res += right - left;
-				right -= 1;
+				console.log('✅=>', res);
+				right--;
 			} else {
-				left += 1;
+				console.log('❌');
+				left++;
 			}
 		}
 	}

@@ -1,54 +1,22 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
+ * @param {number[]} chalk
  * @param {number} k
  * @return {number}
  */
-var kthLargest = function (root, k) {
-	const queue = [root],
-		res = [];
+var chalkReplacer = function (chalk, k) {
+	const sum = chalk.reduce((acc, cur) => acc + cur, 0);
+	let marker = k % sum;
+	if (marker === 0) return 0;
 
-	while (queue.length) {
-		const item = queue.shift();
-		res.push(item);
-		item.left && queue.push(item.left);
-		item.right && queue.push(item.right);
+	for (let index = 0; index < chalk.length; index++) {
+		const element = chalk[index];
+		if (marker < element) return index;
+		marker -= element;
 	}
-
-	return res.sort((a, b) => a - b)[k - 1];
 };
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- ** 中序遍历
- * @param {TreeNode} root
- * @param {number} k
- * @return {number}
- */
-var kthLargest = function (root, k) {
-	const box = [];
+// const chalk = [5, 1, 5],k = 22;
+const chalk = [3, 4, 1, 2],
+	k = 25;
 
-	const inOrderTraverse = (node) => {
-		if (node !== null) {
-			inOrderTraverse(node.left);
-			box.push(node.val);
-			inOrderTraverse(node.right);
-		}
-	};
-
-	inOrderTraverse(root);
-	box.reverse();
-	return box[--k];
-};
+console.log(chalkReplacer(chalk, k));

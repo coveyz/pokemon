@@ -33,6 +33,24 @@ var chalkReplacer = function (chalk, k) {
 	return pos;
 };
 
+/**
+ ** 优化模拟
+ * @param {number[]} chalk
+ * @param {number} k
+ * @return {number}
+ */
+var chalkReplacer = function (chalk, k) {
+	const sum = chalk.reduce((acc, cur) => acc + cur, 0);
+	let marker = k % sum;
+	if (marker === 0) return 0;
+
+	for (let index = 0; index < chalk.length; index++) {
+		const element = chalk[index];
+		if (marker < element) return index;
+		marker -= element;
+	}
+};
+
 let chalk = [5, 1, 5],
 	k = 22;
 
