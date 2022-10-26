@@ -1,22 +1,16 @@
 /**
- * @param {number[]} chalk
- * @param {number} k
- * @return {number}
+ * @param {string} s
+ * @param {number} n
+ * @return {string}
  */
-var chalkReplacer = function (chalk, k) {
-	const sum = chalk.reduce((acc, cur) => acc + cur, 0);
-	let marker = k % sum;
-	if (marker === 0) return 0;
+var reverseLeftWords = function (s, n) {
+  const start = s.slice(0,n),end = s.slice(n);
 
-	for (let index = 0; index < chalk.length; index++) {
-		const element = chalk[index];
-		if (marker < element) return index;
-		marker -= element;
-	}
+  return end + start
 };
 
-// const chalk = [5, 1, 5],k = 22;
-const chalk = [3, 4, 1, 2],
-	k = 25;
 
-console.log(chalkReplacer(chalk, k));
+// const  s = "abcdefg", k = 2;
+const s = "lrloseumgh", k = 6
+
+console.log(reverseLeftWords(s,k))

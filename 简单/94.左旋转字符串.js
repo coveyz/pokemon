@@ -18,10 +18,9 @@ const reverseLeftWords = (str, num) => {
  * @return {string}
  */
 var reverseLeftWords2 = function (s, n) {
-	const arr = s.split('');
-	const start = arr.slice(0, k),
-		end = arr.slice(k, arr.length);
-	return end.concat(start).join('');
+  const start = s.slice(0,n),end = s.slice(n);
+
+  return end + start
 };
 
 /**
@@ -34,7 +33,8 @@ var reverseLeftWords3 = function (s, n) {
 	let start = '',
 		end = '';
 
-	for (let index = 0; index < s.length; index++) {
+	for (let index = 0; index < s.length; 
+    index++) {
 		const element = s[index];
 
 		if (index < k) {
@@ -47,5 +47,5 @@ var reverseLeftWords3 = function (s, n) {
 	return start + end;
 };
 
-console.log(reverseLeftWords('abcdefg', 2));
-console.log(reverseLeftWords('lrloseumgh', 6));
+console.log(reverseLeftWords2('abcdefg', 2));
+console.log(reverseLeftWords2('lrloseumgh', 6));
