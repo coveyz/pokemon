@@ -54,5 +54,37 @@ var search2 = function (nums, target) {
 	return ans;
 };
 
+
+/**
+ ** 双指针
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+ var search3 = function (nums, target) {
+	const len = nums.length;
+	let left = 0,
+		right = nums.length - 1,
+		res = 0;
+
+	while (left < right) {
+		const leftItem = nums[left],
+			rightItem = nums[right];
+
+      
+    if (leftItem === target) {
+			res += 1;
+		}
+    if (rightItem === target) {
+      res += 1
+    }
+
+		left++;
+		right--;
+	}
+//   return res 
+	return nums.length % 2 ? (nums[left] === target ? res + 1 : res) : res;
+};
+
 console.log(search([5, 7, 7, 8, 8, 10], 8));
 console.log(search([5, 7, 7, 8, 8, 10], 6));
