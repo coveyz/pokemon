@@ -28,5 +28,33 @@ var maxSlidingWindow = function (nums, k) {
 	return arr;
 };
 
+/**
+ ** 解决数组 超长
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+	const res = [],
+		queue = [];
+
+	for (let index = 0; index < nums.length; index++) {
+		while (queue.length && queue[0] <= index - k) {
+			queue.shift();
+		}
+		while (queue.length && nums[queue[queue.length - 1]] <= nums[index]) {
+			queue.pop();
+		}
+		// console.log('queue-before=>', queue);
+		queue.push(index);
+		// console.log('queue-after=>', queue);
+		if (index >= k - 1) {
+			res.push(nums[queue[0]]);
+		}
+	}
+
+	return res;
+};
+
 console.log(maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3));
 console.log(maxSlidingWindow([], 3));
