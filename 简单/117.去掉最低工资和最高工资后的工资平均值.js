@@ -13,5 +13,23 @@ const average = (salary) => {
 	return averageSalary / (salary.length - 2)
 };
 
+/**
+ ** 排序 求和计算
+ * @param {number[]} salary
+ * @return {number}
+ */
+var average1 = function (salary) {
+	salary.sort((a, b) => a - b);
+	const sum = salary.reduce((acc, cur, index, arr) => {
+		if (index === 0 || index === arr.length - 1) {
+			acc += 0;
+		} else {
+			acc += cur;
+		}
+		return acc;
+	}, 0);
+	return sum / (salary.length - 2);
+};
+
 // console.log(average([4000, 3000, 1000, 2000]));
 console.log(average([48000,59000,99000,13000,78000,45000,31000,17000,39000,37000,93000,77000,33000,28000,4000,54000,67000,6000,1000,11000]));
