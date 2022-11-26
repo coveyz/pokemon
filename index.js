@@ -1,20 +1,30 @@
 /**
- * @param {number[]} salary
+ * @param {number[]} nums
  * @return {number}
  */
-var average = function (salary) {
-	salary.sort((a, b) => a - b);
-	const sum = salary.reduce((acc, cur, index, arr) => {
-		if (index === 0 || index === arr.length - 1) {
-			acc += 0;
-		} else {
-			acc += cur;
+var largestPerimeter = function (nums) {
+	nums.sort((a, b) => a - b);
+	const len = nums.length;
+	let left = 0,
+		right = 2,
+		result = 0;
+	while (right < len) {
+		//* 两边 和 大于第三边
+		const first = nums[left],
+			second = nums[left + 1],
+			third = nums[right];
+		if (first + second > third) {
+			result = Math.max(result, first + second + third);
+			console.log('xx', first + second + third, result);
 		}
-		return acc;
-	}, 0);
-	return sum / (salary.length - 2);
+		left++;
+		right++;
+	}
+
+	return result;
 };
 
-const salary = [4000, 3000, 1000, 2000];
+// const nums = [2, 1, 2];
+const nums = [1, 2, 1];
 
-console.log(average(salary));
+console.log(largestPerimeter(nums));
