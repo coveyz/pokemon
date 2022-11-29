@@ -3,35 +3,44 @@ const question = `
 如果对 其中一个字符串 执行 最多一次字符串交换 就可以使两个字符串相等，返回 true ；否则，返回 false 。
 `;
 
-const areAlmostEqual = (s1, s2) => {
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @return {boolean}
+ */
+ const areAlmostEqual = (s1, s2) => {
 	if (s1 === s2) {
 		return true;
 	}
-	let flag = true;
-	let number = 0;
 
-	for (let index = 0; index < s2.length; index++) {
-		const element = s2[index];
-		const item = s1[index];
-		//* s2某值 s1 根本没有
-		if (s1.indexOf(element) === -1 || s2.indexOf(item) === -1) {
-			return false;
-		}
-		//* s2某值 在 s1 位置不对 -> 标记 + 1
-		else if (number < 2 && element !== item) {
-			number += 1;
-		}
-		//*  s2某值 在 s1 位置不对 标记为2 -> return false
-		else if (number >= 2 && element !== item) {
-			return false;
+	const diff = [];
+
+	for (let index = 0; index < s1.length; index++) {
+		if (s1[index] !== s2[index]) {
+			if (diff.length >= 2) {
+				return false;
+			}
+			diff.push(index);
 		}
 	}
 
-	return flag;
+	if (!diff.length) return true;
+	else if (diff.length !== 2) return false;
+
+	return s1[diff[0]] === s2[diff[1]] && s1[diff[1]] === s2[diff[0]];
 };
+
 
 console.log(areAlmostEqual('bank', 'kanb'));
 console.log(areAlmostEqual('attack', 'defend'));
 console.log(areAlmostEqual('kelb', 'kelb'));
 console.log(areAlmostEqual('abcd', 'dcba'));
 console.log(areAlmostEqual('yf', 'yy'));
+
+
+// const s1 = 'bank',s2 = 'kanb';
+// const s1 = "attack", s2 = "defend"
+// const s1 = "siyolsdcjthwsiplccjbuceoxmpjgrauocx",s2 = "siyolsdcjthwsiplccpbuceoxmjjgrauocx"
+const s1 = 'abca',s2 = 'abcc';
+
+console.log(areAlmostEqual(s1, s2));
