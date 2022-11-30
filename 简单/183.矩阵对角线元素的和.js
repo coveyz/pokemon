@@ -31,6 +31,45 @@ var diagonalSum = function (mat) {
 	return count;
 };
 
+/**
+ ** Map 
+ * @param {result[][]} mat
+ * @return {result}
+ */
+ var diagonalSum = function (mat) {
+	const map = new Map(),
+		limit = mat.length;
+	let index = 0,
+		result = 0;
+
+	while (index < limit) {
+		const position = `${index}-${index}`;
+		if (!map.has(position)) {
+			map.set(position, 1);
+			const item = mat[index][index];
+			result += item;
+		}
+
+		index++;
+	}
+	index--;
+	let pos = 0;
+	while (pos < limit) {
+		const position = `${pos}-${index}`;
+		if (!map.has(position)) {
+			map.set(position, 1);
+			const item = mat[pos][index];
+			result += item;
+		}
+
+		index--;
+		pos++;
+	}
+
+	return result;
+};
+
+
 console.log(
 	diagonalSum([
 		[1, 2, 3],

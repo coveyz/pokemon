@@ -1,33 +1,45 @@
 /**
- * @param {string} s1
- * @param {string} s2
- * @return {boolean}
+ * @param {result[][]} mat
+ * @return {result}
  */
-const areAlmostEqual = (s1, s2) => {
-	if (s1 === s2) {
-		return true;
-	}
+var diagonalSum = function (mat) {
+	const map = new Map(),
+		limit = mat.length;
+	let index = 0,
+		result = 0;
 
-	const diff = [];
-
-	for (let index = 0; index < s1.length; index++) {
-		if (s1[index] !== s2[index]) {
-			if (diff.length >= 2) {
-				return false;
-			}
-			diff.push(index);
+	while (index < limit) {
+		const position = `${index}-${index}`;
+		if (!map.has(position)) {
+			map.set(position, 1);
+			const item = mat[index][index];
+			result += item;
 		}
+
+		index++;
+	}
+	index--;
+	let pos = 0;
+	while (pos < limit) {
+		const position = `${pos}-${index}`;
+		if (!map.has(position)) {
+			map.set(position, 1);
+			const item = mat[pos][index];
+			result += item;
+		}
+
+		index--;
+		pos++;
 	}
 
-	if (!diff.length) return true;
-	else if (diff.length !== 2) return false;
-
-	return s1[diff[0]] === s2[diff[1]] && s1[diff[1]] === s2[diff[0]];
+	return result;
 };
 
-// const s1 = 'bank',s2 = 'kanb';
-// const s1 = "attack", s2 = "defend"
-const s1 = "siyolsdcjthwsiplccjbuceoxmpjgrauocx",s2 = "siyolsdcjthwsiplccpbuceoxmjjgrauocx"
-// const s1 = 'abca',s2 = 'abcc';
+// const mat = [
+// 	[1, 2, 3],
+// 	[4, 5, 6],
+// 	[7, 8, 9],
+// ];
+const mat = [[5]];
 
-console.log(areAlmostEqual(s1, s2));
+console.log(diagonalSum(mat));
