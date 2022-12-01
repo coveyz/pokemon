@@ -22,6 +22,47 @@ const nextGreaterElement = (num1,num2) => {
   return stack
 }
 
+
+/**
+ ** 哈希表
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+ var nextGreaterElement2 = function (nums1, nums2) {
+	const box = [],
+		map = nums2.reduce((acc, cur, index) => {
+			acc[cur] = index;
+			return acc;
+		}, {});
+
+	for (let index = 0; index < nums1.length; index++) {
+		let pos = 0,
+			maxItem = null;
+		const element = nums1[index];
+		pos = map[element] ? map[element] : 0;
+		// console.log('element=>', element, 'pos=>', pos, 'map=>', map);
+
+		for (let key = pos; key < nums2.length; key++) {
+			const item = nums2[key];
+			// console.log('item=>', item);
+			if (item > element) {
+				maxItem = item;
+				box.push(maxItem);
+				break;
+			}
+		}
+
+		if (maxItem === null) {
+			box.push(-1);
+		}
+		maxItem = null;
+	}
+
+	return box;
+};
+
+
 console.log('====================================');
 console.log(nextGreaterElement([2,4],[1,2,3,4]));
 console.log('====================================');
