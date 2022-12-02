@@ -1,31 +1,25 @@
 /**
- * @param {string} s
- * @param {string} t
- * @return {character}
+ * @param {number[]} numbers
+ * @return {number}
  */
-var findTheDifference = function (s, t) {
-	if (!s.length || !t.length) return !s.length ? t : s;
+var minArray = function (numbers) {
+  let left = 0,right = numbers.length;
 
-	const map = {};
+  while (left <= right) {
+    const middleIndex = (right + left) >> 1;
+    if (numbers[middleIndex] < numbers[right]) {
+      right = middleIndex 
+    } else if (numbers[middleIndex] > numbers[right]) {
+      left = middleIndex + 1
+    } else {
+      right--;
+    }
+  }
 
-	for (let index = 0; index < s.length; index++) {
-		const element = s[index];
-		map[element] = map[element] ? map[element] + 1 : 1;
-	}
-
-	for (let key = 0; key < t.length; key++) {
-		const item = t[key];
-		if (!map[item]) return item;
-		const result = map[item] - 1;
-		if (result < 0) return item;
-    map[item] = map[item] -1
-	}
-
-	return '';
+  return numbers[left]
 };
 
-const s = 'abcd',t = 'abcde';
-// const s = "", t = "y";
-// const s = 'a',t = 'aa';
 
-console.log(findTheDifference(s, t));
+
+console.log(minArray([3,4,5,1,2]))
+console.log(minArray([2,2,2,0,1]))
