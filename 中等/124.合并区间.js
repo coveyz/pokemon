@@ -28,6 +28,41 @@ var merge = function (intervals) {
 	return arr;
 };
 
+
+
+
+/**
+ ** 合并区间 排序 中间变量
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function (intervals) {
+	intervals.sort((a, b) => a[0] - b[0]);
+	const result = [];
+	let tmp = intervals[0];
+
+	for (let index = 1; index < intervals.length; index++) {
+		const [start, end] = intervals[index];
+		//* 没有交集
+		if (start > tmp[1]) {
+			result.push(tmp);
+			tmp = [start, end];
+		}
+		if (start < tmp[0] || end > tmp[1]) {
+			const tmpStart = start <= tmp[0] ? start : tmp[0],
+				tmpEnd = end >= tmp[1] ? end : tmp[1];
+			tmp = [tmpStart, tmpEnd];
+		}
+	}
+
+	if (tmp.length) {
+		result.push(tmp);
+	}
+
+	return result;
+};
+
+
 // let intervals = [[1, 3],[2, 6],[8, 10],[15, 18]];
 // let intervals = [
 // 	[1, 4],
