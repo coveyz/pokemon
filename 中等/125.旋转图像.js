@@ -17,7 +17,6 @@ var rotate = function (matrix) {
 			matrix_new[key][n - index - 1] = matrix[index][key];
 		}
 	}
-
 	for (let index = 0; index < n; index++) {
 		for (let key = 0; key < n; key++) {
 			matrix[index][key] = matrix_new[index][key];
