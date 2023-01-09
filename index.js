@@ -1,45 +1,30 @@
 /**
- * @param {string} s1
- * @param {string} s2
- * @return {boolean}
+ * @param {number} n
+ * @return {number}
  */
-var areAlmostEqual = function (s1, s2) {
-	if (s1.length !== s2.length) return false;
-	if (s1 === s2) return true;
+var subtractProductAndSum = function (n) {
+	// const target = n.toString();
+	// let sum = 0,
+	// 	result = 1;
 
-	const map = {},
-		elementMap = {};
+	// for (let index = 0; index < target.length; index++) {
+	// 	const element = target[index] * 1;
+	// 	sum += element;
+	// 	result *= element;
+	// }
 
-	for (let index = 0; index < s1.length; index++) {
-		const element = s1[index];
-		map[index] = element;
-		elementMap[element] = (elementMap[element] || 0) + 1;
+	// return result - sum;
+
+	let add = 0,
+		mul = 1;
+	while (n > 0) {
+		let digit = n % 10;
+		n = Math.floor(n / 10);
+		add += digit;
+		mul *= digit;
 	}
-
-	// return { map, elementMap };
-
-	let diff = 0;
-
-	for (let index = 0; index < s2.length; index++) {
-		const element = s2[index];
-		// elementMap
-		if (!elementMap[element]) return false;
-		elementMap[element] = elementMap[element] - 1;
-		if (elementMap[element] < 0) return false;
-		// map
-		const mapCurItem = map[index];
-		if (mapCurItem !== element) {
-			diff++;
-		}
-		if (diff > 2) return false;
-	}
-
-	return true;
+	return mul - add;
 };
 
-// console.log(areAlmostEqual('bank', 'kanb'));
-// console.log(areAlmostEqual('attack', 'defend'));
-// console.log(areAlmostEqual('kelb', 'kelb'));
-// console.log(areAlmostEqual('abcd', 'dcba'));
-console.log(areAlmostEqual('aa', 'ac'));
-console.log(areAlmostEqual('yf', 'yy'));
+console.log(subtractProductAndSum(234));
+console.log(subtractProductAndSum(4421));

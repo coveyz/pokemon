@@ -9,5 +9,24 @@ const subtractProductAndSum = num => {
   return numberResult[1] - numberResult[0]
 }
 
+
+/**
+ ** 模拟
+ * @param {number} n
+ * @return {number}
+ */
+var subtractProductAndSum2 = function (n) {
+	let add = 0,
+		mul = 1;
+	while (n > 0) {
+		let digit = n % 10;
+		n = Math.floor(n / 10);
+		add += digit;
+		mul *= digit;
+	}
+	return mul - add;
+};
+
 console.log(subtractProductAndSum(234))
 console.log(subtractProductAndSum(4421))
+
