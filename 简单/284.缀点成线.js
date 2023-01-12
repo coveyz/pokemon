@@ -20,7 +20,7 @@ var checkStraightLine = function (coordinates) {
 			C1 = y2 - y1,
 			R2 = x3 - x2,
 			C2 = y3 - y2;
-
+		console.log({ R1, R2, C1, C2 });
 		if (R1 * C2 !== R2 * C1) return false;
 
 		left++;
@@ -39,7 +39,11 @@ var checkStraightLine = function (coordinates) {
 // 	[7, 7],
 // ];
 
-const coordinates = [[0,0],[0,5],[5,5],[5,0]]
-
+const coordinates = [
+	[0, 0],
+	[0, 5],
+	[5, 5],
+	[5, 0],
+];
 
 console.log(checkStraightLine(coordinates));

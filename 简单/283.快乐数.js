@@ -5,7 +5,7 @@ const question = `
 然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。
 如果这个过程 结果为 1，那么这个数就是快乐数。
 如果 n 是 快乐数 就返回 true ；不是，则返回 false 。
-`
+`;
 
 /**
  * @param {number} n
@@ -27,6 +27,6 @@ var isHappy = function (n) {
 	return isHappy(count);
 };
 
-const n = 2;
+const n = 7;
 
 console.log(isHappy(n));
