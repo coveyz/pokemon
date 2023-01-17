@@ -1,33 +1,42 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
+ * @param {number[]} arr
  * @return {number}
  */
-var sumOfLeftLeaves = function (root) {
-	const isLeafNode = (node) => {
-		return node.left === null && node.right === null;
+var sumOddLengthSubarrays = function (arr) {
+	// const ans = [];
+	let result = 0;
+
+	const sum = (arr) => {
+		return arr.reduce((acc, cur) => acc + cur, 0);
 	};
 
-	const dfs = (node) => {
-		let ans = 0;
-
-		if (node.left !== null) {
-			ans += isLeafNode(node.left) ? node.left.val : dfs(node.left);
+	const dns = (cur) => {
+		if (cur >= arr.length) {
+			if (arr.length % 2) {
+        // ans.push(arr.slice())
+        result += sum(arr.slice())
+      };
+			return;
 		}
 
-		if (node.right !== null && !isLeafNode(node.right)) {
-			ans += dfs(node.right);
-		}
+		let left = 0,
+			right = cur;
 
-		return ans;
+		while (right <= arr.length) {
+			// ans.push(arr.slice(left, right));
+			result += sum(arr.slice(left, right));
+			left++;
+			right++;
+		}
+		dns(cur + 2);
 	};
 
-	return root !== null ? dfs(root) : 0;
+	dns(1);
+
+	// return { ans, result };
+  return result
 };
+
+console.log(sumOddLengthSubarrays([1, 4, 2, 5, 3]));
+console.log(sumOddLengthSubarrays([1, 2]));
+console.log(sumOddLengthSubarrays([10, 11, 12]));
