@@ -14,8 +14,7 @@ const Alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm
  */
 var freqAlphabets = function (s) {
 	let tmpResult = '',
-		tmp = '',
-		tmpLen = tmp.length;
+		tmp = '';
 	for (let index = 0; index < s.length; index++) {
 		const element = s[index];
 		if (element === '#') {
