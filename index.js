@@ -1,43 +1,42 @@
 /**
- * @param {number[]} digits
+ * @param {number[]} num
+ * @param {number} k
  * @return {number[]}
  */
-var plusOne = function (digits) {
-	let flage = 0,
-		pos = digits.length - 1;
+var addToArrayForm = function (num, k) {
+	k = k.toString();
 
-	while (pos >= 0) {
-		const result = pos === digits.length - 1 ? digits[pos] + 1 : digits[pos];
+	if (num.length < k.length) {
+		const tmp = new Array(k.length - num.length).fill(0);
+		num = tmp.concat(num);
+	} else if (k.length < num.length) {
+		k = k.padStart(num.length, 0);
+	}
 
-		if (result < 10) {
-			digits[pos] = result + flage;
+	let index = num.length - 1,
+		flage = 0;
 
-			if (digits[pos] === 10) {
-				digits[pos] = 0;
-				flage = 1;
-			} else {
-				flage = 0;
-				break;
-			}
-		} else {
-			digits[pos] = result - 10;
+	while (index >= 0) {
+		const result = num[index] + k[index] * 1 + flage;
+
+		if (result >= 10) {
 			flage = 1;
+		} else {
+			flage = 0;
 		}
 
-		pos--;
+		num[index] = result % 10;
+		index--;
 	}
 
 	if (flage) {
-		digits.unshift(1);
+		num.unshift(1);
 	}
 
-	return digits;
+	return num;
 };
 
-// const digits = [1, 2, 3];
-// const digits = [4, 3, 2, 1];
-
-console.log(plusOne([4, 3, 2, 1]));
-console.log(plusOne([0]));
-console.log(plusOne([9]));
-console.log(plusOne([8, 9, 9, 9]));
+console.log(addToArrayForm([1, 2, 0, 0], 34));
+// console.log(addToArrayForm([2, 7, 4], 181));
+// console.log(addToArrayForm([2, 1, 5], 806));
+console.log(addToArrayForm([0], 23));
