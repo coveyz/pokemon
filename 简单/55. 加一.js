@@ -15,4 +15,41 @@ const plusOne = digits => {
   return digits
 };
 
+/**
+ ** 迭代
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne2 = function (digits) {
+	let flage = 0,
+		pos = digits.length - 1;
+
+	while (pos >= 0) {
+		const result = pos === digits.length - 1 ? digits[pos] + 1 : digits[pos];
+
+		if (result < 10) {
+			digits[pos] = result + flage;
+			if (digits[pos] === 10) {
+				digits[pos] = 0;
+				flage = 1;
+			} else {
+				flage = 0;
+				break;
+			}
+		} else {
+			digits[pos] = result - 10;
+			flage = 1;
+		}
+
+		pos--;
+	}
+
+	if (flage) {
+		digits.unshift(1);
+	}
+
+	return digits;
+};
+
+
 console.log(plusOne([9,9]));

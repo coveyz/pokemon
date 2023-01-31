@@ -1,29 +1,43 @@
 /**
- * @param {string} haystack
- * @param {string} needle
- * @return {number}
+ * @param {number[]} digits
+ * @return {number[]}
  */
-var strStr = function (haystack, needle) {
-	if (haystack === needle) return 0;
+var plusOne = function (digits) {
+	let flage = 0,
+		pos = digits.length - 1;
 
-	let left = 0,
-		right = needle.length;
+	while (pos >= 0) {
+		const result = pos === digits.length - 1 ? digits[pos] + 1 : digits[pos];
 
-	while (right <= haystack.length) {
-		const tmp = haystack.slice(left, right);
-		console.log(tmp);
+		if (result < 10) {
+			digits[pos] = result + flage;
 
-		if (tmp === needle) return left;
+			if (digits[pos] === 10) {
+				digits[pos] = 0;
+				flage = 1;
+			} else {
+				flage = 0;
+				break;
+			}
+		} else {
+			digits[pos] = result - 10;
+			flage = 1;
+		}
 
-		left++;
-		right++;
+		pos--;
 	}
 
-	return -1;
+	if (flage) {
+		digits.unshift(1);
+	}
+
+	return digits;
 };
 
-// const haystack = 'sadbutsad',needle = 'sad';
-const haystack = 'abc',
-	needle = 'c';
+// const digits = [1, 2, 3];
+// const digits = [4, 3, 2, 1];
 
-console.log(strStr(haystack, needle));
+console.log(plusOne([4, 3, 2, 1]));
+console.log(plusOne([0]));
+console.log(plusOne([9]));
+console.log(plusOne([8, 9, 9, 9]));
