@@ -1,41 +1,48 @@
 /**
- * // Definition for a Node.
- * function Node(val,children) {
- *    this.val = val;
- *    this.children = children;
- * };
+ * @param {number} n
+ * @return {boolean}
  */
+var isHappy = function (n) {
+	// if (n < 10) {
+	// 	return n === 1;
+	// }
 
-/**
- * @param {Node|null} root
- * @return {number[][]}
- */
-var levelOrder = function (root) {
-  if (!root) return [];
-  const queue = [[root,0]],res = [];
+	// const magic = (str) => {
+	// 	let sum = 0;
 
-  while (queue.length) {
-    const [node,level] = queue.shift();
+	// 	for (let index = 0; index < str.length; index++) {
+	// 		const element = str[index] * 1;
+	// 		sum += Math.pow(element, 2);
+	// 	}
 
-    console.log('node=>',node);
+	// 	if (sum < 10) {
+	// 		return sum === 1;
+	// 	}
 
-    if (!res[level]) {
-      res[level] = []
-    }
-    res[level].push(node.val);
+	// 	return magic(sum.toString());
+	// };
 
-    console.log('res=>',res);
+	// return magic(n.toString());
+	//把n作为key,记录已经写入
+	const map = {};
+	while (n != 1) {
+		if (map[n]) {
+			return false;
+		}
+		map[n] = true;
+		//通过String函数把整数分割成为数组
+		//e.g: "19" = ["1","9"]
+		// 字符串与字符串相乘会变成和（整数）
+		// ** 指数相乘
+		n = String(n)
+			.split('')
+			.map((item) => item ** 2)
+			.reduce((acc, cur) => acc + cur);
 
-    if (node.children) {
-      for (let index = 0; index < node['children'].length; index++) {
-        const element = node['children'][index];
-        console.log('node-children-element=>',element);
-        queue.push([element,level + 1]);
-      }
-    }
-
-    console.log('queue=>',queue)
-  }
-
-  return res;
+    console.log(n)
+	}
+	return true;
 };
+
+console.log(isHappy(19));
+console.log(isHappy(7));

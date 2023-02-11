@@ -27,6 +27,28 @@ var isHappy = function (n) {
 	return isHappy(count);
 };
 
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+  const map = {};
+
+  while(n !== 1) {
+      if (map[n]) {
+          return false
+      }
+      map[n] = true;
+      n = n.toString()
+          .split('')
+          .map(item => item ** 2)
+          .reduce((acc,cur) => acc + cur, 0)
+  }
+
+  return true
+};
+
 const n = 7;
 
 console.log(isHappy(n));
