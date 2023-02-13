@@ -10,20 +10,43 @@ const thinking = `
 时间复杂度：O(s)O(s)，s 为所有字符串的长度之和
 `;
 
-const longestCommonPrefix = strs => {
-  if (!strs.length) return ''
+const longestCommonPrefix1 = (strs) => {
+	if (!strs.length) return '';
 	let ans = strs[0];
 	for (let i = 1; i < strs.length; i++) {
-    let j = 0
+		let j = 0;
 		for (; j < ans.length && j < strs[i].length; j++) {
 			if (ans[j] !== strs[i][j]) {
-        break;
+				break;
 			}
-    }
-    ans = ans.substr(0,j)
-    if (ans === '') return ans
-  }
-  return ans
+		}
+		ans = ans.substr(0, j);
+		if (ans === '') return ans;
+	}
+	return ans;
 };
 
-console.log(longestCommonPrefix(["abca","abc"]));
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+	let ret = '';
+
+	if (!strs.length) return ret;
+
+	for (let index = 0; index < strs[0].length; index++) {
+		const element = strs[0][index];
+		// console.log('element=>',element);
+		for (let key = 1; key < strs.length; key++) {
+			const item = strs[key][index];
+			if (element !== item) return ret;
+			// console.log('item=>', item);
+		}
+		ret += element;
+	}
+
+	return ret;
+};
+
+console.log(longestCommonPrefix(['abca', 'abc']));
