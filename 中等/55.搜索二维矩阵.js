@@ -47,7 +47,7 @@ const searchMatrix = (matrix, target) => {
  * @param {number} target
  * @return {boolean}
  */
- var searchMatrix2 = function (matrix, target) {
+var searchMatrix2 = function (matrix, target) {
 	for (let index = 0; index < matrix.length; index++) {
 		const row = matrix[index];
 		if (row[0] === target || row[row.length - 1] === target) {
@@ -74,6 +74,20 @@ const searchMatrix = (matrix, target) => {
 	}
 	return false;
 };
+
+console.log(
+	searchMatrix(
+		[
+			[-8, -7, -5, -3, -3, -1, 1],
+			[2, 2, 2, 3, 3, 5, 7],
+			[8, 9, 11, 11, 13, 15, 17],
+			[18, 18, 18, 20, 20, 20, 21],
+			[23, 24, 26, 26, 26, 27, 27],
+			[28, 29, 29, 30, 32, 32, 34],
+		],
+		-5
+	)
+);
 
 console.log(
 	searchMatrix(

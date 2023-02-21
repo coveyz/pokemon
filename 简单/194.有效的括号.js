@@ -26,6 +26,36 @@ var isValid = function (s) {
 	return true;
 };
 
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid1 = function (s) {
+	const limitMap = { '(': 1, '{': 2, '[': 3, ')': -1, '}': -2, ']': -3 },
+		stack = [];
+
+	for (let index = 0; index < s.length; index++) {
+		const element = s[index],
+			target = limitMap[element];
+
+		if (target > 0) {
+			// console.log('yes', element);
+			stack.push(target);
+		} else {
+			if (!stack.length) return false;
+			const item = stack.pop();
+			// console.log('stack=>', stack, 'item=>', item, 'element=>', target);
+			if (item + target !== 0) return false;
+		}
+	}
+
+	return true;
+};
+
+console.log(isValid('()[]{}'));
+console.log(isValid('(]'));
+
+
 console.log(isValid('()'));
 console.log(isValid('()[]{}'));
 console.log(isValid('(]'));
