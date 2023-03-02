@@ -31,3 +31,33 @@ var kthSmallest = function (root, k) {
 
 	return arr.sort((a, b) => a - b)[k - 1];
 };
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * 🔫 中序遍历
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function (root, k) {
+	const result = [];
+
+	const magic = (node) => {
+		if (node) {
+			magic(node.left);
+			result.push(node.val);
+			magic(node.right);
+		}
+	};
+	magic(root);
+
+	return result[k - 1];
+};
