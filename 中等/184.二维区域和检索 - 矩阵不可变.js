@@ -4,12 +4,12 @@ const question = `
 实现 NumMatrix 类：
 NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化
 int sumRegion(int row1, int col1, int row2, int col2) 返回 左上角 (row1, col1) 、右下角 (row2, col2) 所描述的子矩阵的元素 总和 。
-`
+`;
 
 /**
  * @param {number[][]} matrix
  */
-var NumMatrix = function (matrix) {
+var NumMatrix1 = function (matrix) {
 	this.matrix = matrix;
 };
 
@@ -20,7 +20,7 @@ var NumMatrix = function (matrix) {
  * @param {number} col2
  * @return {number}
  */
-NumMatrix.prototype.sumRegion = function (row1, col1, row2, col2) {
+NumMatrix1.prototype.sumRegion = function (row1, col1, row2, col2) {
 	const needRows = [],
 		needCols = [];
 
@@ -41,14 +41,48 @@ NumMatrix.prototype.sumRegion = function (row1, col1, row2, col2) {
 		for (let key = 0; key < needCols.length; key++) {
 			const col = needCols[key];
 			// console.log('row=>', row, 'col=>', col);
-			// console.log(matrix[row][col]);
-			// console.log(matrix[row][col]);
 			count += this.matrix[row][col];
 		}
 	}
 
 	// return { needRows, needCols, count };
 	return count;
+};
+
+/**
+ * @param {number[][]} matrix
+ */
+var NumMatrix = function (matrix) {
+	const m = matrix.length;
+	if (m > 0) {
+		const n = matrix[0].length;
+		this.sum = new Array(m).fill(0).map(() => new Array(n + 1).fill(0));
+
+		for (let i = 0; i < m; i++) {
+			for (let j = 0; j < n; j++) {
+				this.sum[i][j + 1] = this.sum[i][j] + matrix[i][j];
+			}
+		}
+
+		// console.log('sum=>', this.sum);
+	}
+};
+
+/**
+ * @param {number} row1
+ * @param {number} col1
+ * @param {number} row2
+ * @param {number} col2
+ * @return {number}
+ */
+NumMatrix.prototype.sumRegion = function (row1, col1, row2, col2) {
+	let sum = 0;
+
+	for (let index = row1; index <= row2; index++) {
+		sum += this.sum[index][col2 + 1] - this.sum[index][col1];
+	}
+
+	return sum;
 };
 
 /**
