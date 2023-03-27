@@ -27,8 +27,7 @@ var addTwoNumbers = function (l1, l2) {
 			sum = item1 + item2 + carry;
 
 		if (!head) {
-			head = new ListNode(sum % 10);
-			tail = new ListNode(sum % 10);
+			head = 	tail = new ListNode(sum % 10);
 		} else {
 			tail.next = new ListNode(sum % 10);
 			tail = tail.next;

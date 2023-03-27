@@ -39,6 +39,49 @@ SeatManager.prototype.unreserve = function (seatNumber) {
 	this.queue.enqueue(seatNumber);
 };
 
+
+
+
+/**
+ ** 指针🎸
+ * @param {number} n
+ */
+var SeatManager = function (n) {
+	this.seats = new Array(n).fill(0).map((item, index) => n - index); // 全量的坐位
+	this.cacheSeats = [];
+};
+
+/**
+ * @return {number}
+ */
+SeatManager.prototype.reserve = function () {
+	if (this.cacheSeats.length === 0) {
+		return this.seats.pop();
+	} else {
+		const cacheSeatfirst = this.cacheSeats[this.cacheSeats.length - 1],
+			seatsfist = this.seats[this.seats.length - 1];
+		// console.log('cacheSeatfirst=>', cacheSeatfirst, 'seatsfist=>', seatsfist);
+		if (cacheSeatfirst > seatsfist) {
+			return this.seats.pop();
+		} else {
+			return this.cacheSeats.pop();
+		}
+	}
+};
+
+/**
+ * @param {number} seatNumber
+ * @return {void}
+ */
+SeatManager.prototype.unreserve = function (seatNumber) {
+	this.cacheSeats.push(seatNumber);
+	this.cacheSeats.sort((a, b) => b - a);
+	// console.log('cache->', this.cacheSeats);
+};
+
+
+
+
 /**
  * Your SeatManager object will be instantiated and called as such:
  * var obj = new SeatManager(n)
@@ -46,13 +89,13 @@ SeatManager.prototype.unreserve = function (seatNumber) {
  * obj.unreserve(seatNumber)
  */
 
-const obj = new SeatManager(5);
-console.log(obj.reserve());
-console.log(obj.reserve());
-console.log(obj.unreserve(2));
-console.log(obj.reserve());
-console.log(obj.reserve());
-console.log(obj.reserve());
-console.log(obj.reserve());
-console.log(obj.unreserve(5));
-console.log(obj.sets);
+// const obj = new SeatManager(5);
+// console.log(obj.reserve());
+// console.log(obj.reserve());
+// console.log(obj.unreserve(2));
+// console.log(obj.reserve());
+// console.log(obj.reserve());
+// console.log(obj.reserve());
+// console.log(obj.reserve());
+// console.log(obj.unreserve(5));
+// console.log(obj.sets);
