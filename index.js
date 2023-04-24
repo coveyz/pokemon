@@ -1,51 +1,31 @@
 /**
  * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
+ * @return {number}
  */
-var searchRange = function (nums, target) {
-	if (!nums.length) return [-1, -1];
-	if (nums[0] > target || nums[nums.length - 1] < target) return [-1, -1];
-
+var findMin = function (nums) {
 	let left = 0,
-		right = nums.length - 1,
-		leftKey = null,
-		rightKey = null;
+		right = nums.length - 1;
+	// target = Infinity;
 
-	while (left <= right) {
-		const leftItem = nums[left],
-			rightItem = nums[right];
+	while (left < right) {
+		// target = Math.min(nums[left], nums[right], target);
+		// left++;
+		// right--;
+		const middle = Math.floor((left + right) / 2);
+		// const middle = left + Math.floor((right - left) / 2);
 
-		if (leftItem === target && leftKey === null) {
-			leftKey = left;
+		if (nums[middle] < nums[right]) {
+			right = middle;
+		} else {
+			left = middle + 1;
 		}
-
-		if (rightItem === target && rightKey === null) {
-			rightKey = right;
-		}
-
-		if (leftKey !== null && rightKey !== null) {
-			// console.log({ leftKey, rightKey });
-			return [leftKey, rightKey];
-		}
-
-		leftKey === null && left++;
-		rightKey === null && right--;
 	}
-
-	// console.log({ leftKey, rightKey });
-
-	if (leftKey === null && rightKey === null) return [-1, -1];
-
-	if (leftKey !== null || rightKey !== null) {
-		const key = leftKey !== null ? leftKey : rightKey;
-		return [key, key];
-	}
+	// return { left, right };
+	return nums[left];
 };
 
-console.log(searchRange([5, 7, 7, 8, 8, 10], 8));
-console.log(searchRange([5, 7, 7, 8, 8, 10], 6));
-console.log(searchRange([], 0));
-console.log(searchRange([1, 3], 1));
-console.log(searchRange([1, 1, 2], 1));
-console.log(searchRange([0, 0, 0, 1, 2, 3], 0));
+console.log(findMin([3, 4, 5, 1, 2]));
+console.log(findMin([3, 1, 2]));
+console.log(findMin([4, 5, 6, 7, 0, 1, 2]));
+console.log(findMin([1, 2]));
+console.log(findMin([3, 1, 2]));
