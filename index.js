@@ -1,31 +1,26 @@
 /**
- * @param {number[]} nums
+ * @param {number[]} arr
  * @return {number}
  */
-var findMin = function (nums) {
+var peakIndexInMountainArray = function (arr) {
 	let left = 0,
-		right = nums.length - 1;
-	// target = Infinity;
+		right = arr.length - 2,
+		res = 0;
 
-	while (left < right) {
-		// target = Math.min(nums[left], nums[right], target);
-		// left++;
-		// right--;
+	while (left <= right) {
 		const middle = Math.floor((left + right) / 2);
-		// const middle = left + Math.floor((right - left) / 2);
-
-		if (nums[middle] < nums[right]) {
-			right = middle;
+		if (arr[middle] > arr[middle + 1]) {
+			res = middle;
+			right = middle - 1;
 		} else {
 			left = middle + 1;
 		}
 	}
-	// return { left, right };
-	return nums[left];
+
+	return res;
 };
 
-console.log(findMin([3, 4, 5, 1, 2]));
-console.log(findMin([3, 1, 2]));
-console.log(findMin([4, 5, 6, 7, 0, 1, 2]));
-console.log(findMin([1, 2]));
-console.log(findMin([3, 1, 2]));
+console.log(peakIndexInMountainArray([0, 1, 0]));
+// console.log(peakIndexInMountainArray([0, 2, 1, 0]));
+// console.log(peakIndexInMountainArray([3, 4, 5, 1]));
+// console.log(peakIndexInMountainArray([18, 29, 38, 59, 98, 100, 99, 98, 90]));
