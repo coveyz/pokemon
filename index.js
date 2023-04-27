@@ -1,26 +1,36 @@
 /**
- * @param {number[]} arr
+ * @param {number} n
  * @return {number}
  */
-var peakIndexInMountainArray = function (arr) {
-	let left = 0,
-		right = arr.length - 2,
-		res = 0;
+var arrangeCoins = function (n) {
+	// let total = 0;
 
-	while (left <= right) {
-		const middle = Math.floor((left + right) / 2);
-		if (arr[middle] > arr[middle + 1]) {
-			res = middle;
-			right = middle - 1;
+	// for (let index = 1; index <= n; index++) {
+	// 	total += index;
+	// 	// if (total === n) return index;
+	// 	// if (total > n) return index - 1;
+	// 	if (total >= n) return total === n ? index : index - 1;
+	// }
+	let left = 1,
+		right = n;
+
+	while (left < right) {
+		const middle = Math.floor((right - left + 1) / 2) + left,
+			total = (middle * (middle + 1)) / 2;
+
+		if (total === n) return middle;
+		else if (total <= n) {
+			left = middle;
 		} else {
-			left = middle + 1;
+			right = middle - 1;
 		}
+		console.log({ left, right, middle });
 	}
 
-	return res;
+	return left;
 };
 
-console.log(peakIndexInMountainArray([0, 1, 0]));
-// console.log(peakIndexInMountainArray([0, 2, 1, 0]));
-// console.log(peakIndexInMountainArray([3, 4, 5, 1]));
-// console.log(peakIndexInMountainArray([18, 29, 38, 59, 98, 100, 99, 98, 90]));
+console.log(arrangeCoins(5));
+console.log(arrangeCoins(8));
+console.log(arrangeCoins(1));
+console.log(arrangeCoins(2));
