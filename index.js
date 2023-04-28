@@ -1,36 +1,30 @@
 /**
- * @param {number} n
+ * @param {number[]} nums
  * @return {number}
  */
-var arrangeCoins = function (n) {
-	// let total = 0;
-
-	// for (let index = 1; index <= n; index++) {
-	// 	total += index;
-	// 	// if (total === n) return index;
-	// 	// if (total > n) return index - 1;
-	// 	if (total >= n) return total === n ? index : index - 1;
-	// }
-	let left = 1,
-		right = n;
+var singleNonDuplicate = function (nums) {
+	const len = nums.length;
+	let left = 0,
+		right = len;
 
 	while (left < right) {
-		const middle = Math.floor((right - left + 1) / 2) + left,
-			total = (middle * (middle + 1)) / 2;
+		let middle = (left + right) >> 1;
 
-		if (total === n) return middle;
-		else if (total <= n) {
-			left = middle;
+		if (middle % 2 === 0) {
+			if (middle + 1 < len && nums[middle] === nums[middle + 1]) {
+				left = middle + 1;
+			} else {
+				right = middle;
+			}
 		} else {
-			right = middle - 1;
+			if (middle - 1 >= 0 && nums[middle] === nums[middle - 1]) {
+				left = middle + 1;
+			} else {
+				right = middle;
+			}
 		}
-		console.log({ left, right, middle });
 	}
-
-	return left;
+	return nums[right];
 };
 
-console.log(arrangeCoins(5));
-console.log(arrangeCoins(8));
-console.log(arrangeCoins(1));
-console.log(arrangeCoins(2));
+console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8]));
