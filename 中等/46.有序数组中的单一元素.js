@@ -50,6 +50,7 @@ var singleNonDuplicate = function (nums) {
 };
 
 /**
+ * 二分查找
  * @param {number[]} nums
  * @return {number}
  */

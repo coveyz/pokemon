@@ -1,30 +1,35 @@
 /**
- * @param {number[]} nums
- * @return {number}
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var singleNonDuplicate = function (nums) {
-	const len = nums.length;
-	let left = 0,
-		right = len;
+var merge = function (nums1, m, nums2, n) {
+	let p1 = 0,
+		p2 = 0,
+		cur;
+	const sorted = new Array(m + n).fill(0);
 
-	while (left < right) {
-		let middle = (left + right) >> 1;
-
-		if (middle % 2 === 0) {
-			if (middle + 1 < len && nums[middle] === nums[middle + 1]) {
-				left = middle + 1;
-			} else {
-				right = middle;
-			}
+	while (p1 < m || p2 < n) {
+		if (p1 === m) {
+			cur = nums2[p2++];
+		} else if (p2 === n) {
+			cur = nums1[p1++];
+		} else if (nums1[p1] > nums2[p2]) {
+			cur = nums2[p2++];
 		} else {
-			if (middle - 1 >= 0 && nums[middle] === nums[middle - 1]) {
-				left = middle + 1;
-			} else {
-				right = middle;
-			}
+			cur = nums1[p1++];
 		}
+
+		sorted[p1 + p2 - 1] = cur;
 	}
-	return nums[right];
+
+	console.log(sorted);
+
+	for (let index = 0; index < m + n; index++) {
+		nums1[index] = sorted[index];
+	}
 };
 
-console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8]));
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
