@@ -54,6 +54,35 @@ var findKthPositive = function (arr, k) {
 	return k - (arr[left - 1] - (left - 1) - 1) + arr[left - 1];
 };
 
+
+/**
+ * 双指针
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number}
+ */
+var findKthPositive = function (arr, k) {
+	const maxNumber = arr[arr.length - 1],
+		targetArr = new Array(maxNumber + k).fill(1).map((item, index) => item + index);
+
+	let slow = 0,
+		fast = 0;
+
+	while (fast < targetArr.length) {
+		if (arr[slow] !== targetArr[fast]) {
+			fast++;
+			k--;
+			if (k <= 0) {
+				return targetArr[fast - 1];
+			}
+		} else {
+			slow++;
+			fast++;
+		}
+	}
+};
+
+
 let arr = [2, 3, 4, 7, 11],
 	k = 5;
 console.log(findKthPositive(arr, k));

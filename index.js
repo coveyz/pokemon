@@ -1,22 +1,28 @@
 /**
- * @param {number[]} nums
- * @param {number} val
+ * @param {number[]} arr
+ * @param {number} k
  * @return {number}
  */
-var removeElement = function (nums, val) {
-	let left = 0,
-		right = nums.length;
+var findKthPositive = function (arr, k) {
+	const maxNumber = arr[arr.length - 1],
+		targetArr = new Array(maxNumber + k).fill(1).map((item, index) => item + index);
 
-	while (left < right) {
-		if (nums[left] === val) {
-			nums[left] = nums[right - 1];
-			right--;
+	let slow = 0,
+		fast = 0;
+
+	while (fast < targetArr.length) {
+		if (arr[slow] !== targetArr[fast]) {
+			fast++;
+			k--;
+			if (k <= 0) {
+				return targetArr[fast - 1];
+			}
 		} else {
-			left++;
+			slow++;
+			fast++;
 		}
 	}
-
-	return left;
 };
 
-console.log(removeElement([3, 2, 2, 3], 3));
+console.log(findKthPositive([2, 3, 4, 7, 11], 5));
+console.log(findKthPositive([1, 2, 3, 4], 2));
