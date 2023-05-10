@@ -3,6 +3,7 @@ const question = `
 `;
 
 /**
+ ** 额外数组
  * @param {number[]} nums
  * @param {number} k
  * @return {void} Do not return anything, modify nums in-place instead.
@@ -59,4 +60,4 @@ let nums = [1, 2, 3, 4, 5, 6, 7],
 // let nums = [1, 2],k = 0;
 // let nums = [1, 2, 3, 4, 5, 6],k = 1;
 
-console.log(rotate(nums, k));
+console.log(rotate2(nums, k));
