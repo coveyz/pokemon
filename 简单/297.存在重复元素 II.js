@@ -7,7 +7,7 @@ const question = `
  * @param {number} k
  * @return {boolean}
  */
-var containsNearbyDuplicate = function (nums, k) {
+var containsNearbyDuplicate2 = function (nums, k) {
 	const map = new Map();
 
 	for (let index = 0; index < nums.length; index++) {
@@ -25,6 +25,25 @@ var containsNearbyDuplicate = function (nums, k) {
 				}
 			}
 		}
+	}
+
+	return false;
+};
+
+/**
+ * 滑动窗口 + Map
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var containsNearbyDuplicate = function (nums, k) {
+	const map = new Map();
+
+	for (const key in nums) {
+		if (map.has(nums[key]) && key - map.get(nums[key]) <= k) {
+			return true;
+		}
+		map.set(nums[key], key);
 	}
 
 	return false;
