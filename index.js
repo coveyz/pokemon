@@ -1,36 +1,68 @@
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-var permute = function (nums) {
-	let result = [],
-		used = new Array(nums.length).fill(false);
-
-	const backtrack = (current) => {
-		if (current.length === nums.length) {
-			result.push(current.slice());
-			return;
-		}
-
-		for (let index = 0; index < nums.length; index++) {
-			if (!used[index]) {
-				used[index] = true;
-				current.push(nums[index]);
-				console.log('before=>', current);
-				backtrack(current);
-				console.log('after-x=>', current);
-				current.pop();
-				console.log('after-delete=>', current);
-				used[index] = false;
-			}
-		}
-	};
-
-	backtrack([]);
-
-	return result;
+var Trie = function () {
+	this.children = {};
 };
 
-// console.log(permute([1]));
-// console.log(permute([0, 1]));
-console.log(permute([1, 2, 3]));
+/**
+ * @param {string} word
+ * @return {void}
+ */
+Trie.prototype.insert = function (word) {
+	let node = this.children;
+	// console.log('insert-node=>', JSON.stringify(node));
+	for (const ch of word) {
+		if (!node[ch]) {
+			node[ch] = {};
+		}
+		node = node[ch];
+	}
+
+	node.isEnd = true;
+
+	return node;
+};
+
+Trie.prototype.searchPrefix = function (prefix) {
+	let node = this.children;
+
+	for (const ch of prefix) {
+		if (!node[ch]) {
+			return false;
+		}
+		node = node[ch];
+	}
+
+	return node;
+};
+
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+Trie.prototype.search = function (word) {
+	const node = this.searchPrefix(word);
+	return node !== undefined && node.isEnd !== undefined;
+};
+
+/**
+ * @param {string} prefix
+ * @return {boolean}
+ */
+Trie.prototype.startsWith = function (prefix) {
+	return this.searchPrefix(prefix);
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
+
+var obj = new Trie();
+obj.insert('apple');
+console.log(obj.search('apple'));
+console.log(obj.search('app'));
+console.log(obj.startsWith('app'));
+obj.insert('app');
+console.log(obj.search('app'));
