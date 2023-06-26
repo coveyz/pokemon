@@ -8,22 +8,14 @@
  */
 /**
  * @param {TreeNode} root
- * @return {number[]}
+ * @return {number}
  */
-var averageOfLevels = function (root) {
-	const sums = [],
-		counts = [];
+var maxDepth = function (root) {
+	let curLevel = 0;
 
 	const dfs = (node, level) => {
 		if (!node) return;
-
-		if (!sums[level]) {
-			sums[level] = [];
-			counts[level] = 0;
-		}
-
-		sums[level].push(node.val);
-		counts[level]++;
+		if (curLevel !== level) curLevel++;
 
 		node.left && dfs(node.left, level + 1);
 		node.right && dfs(node.right, level + 1);
@@ -31,9 +23,5 @@ var averageOfLevels = function (root) {
 
 	dfs(root, 0);
 
-	return sums.map((item.index) => {
-    const tmp = item.reduce((acc,cur) => acc += cur, 0);
-    item = tmp / counts[index];
-    return item
-  })
+	return curLevel;
 };

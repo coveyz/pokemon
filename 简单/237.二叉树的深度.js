@@ -42,3 +42,38 @@ var maxDep2 = (root) => {
 	if (!root) return 0;
 	return Math.max(maxDep2(root.left), maxDep2(root.right)) + 1;
 };
+
+
+/**
+ ** DFS 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+	if(!root) return 0;
+
+	let curLevel = 1;
+
+	const dfs = (node, level) => {
+		if (!node) return;
+		if (curLevel < level) {
+			// console.log(curLevel,level,node.val)
+			curLevel+=1;
+		}
+
+		node.left && dfs(node.left, level + 1);
+		node.right && dfs(node.right, level + 1);
+	};
+
+	dfs(root, 1);
+
+	return curLevel;
+};
