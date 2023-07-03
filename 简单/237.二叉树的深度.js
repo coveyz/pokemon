@@ -60,20 +60,23 @@ var maxDep2 = (root) => {
 var maxDepth = function (root) {
 	if(!root) return 0;
 
-	let curLevel = 1;
+	// let curLevel = 1;
+  let maxDepLevel = 0;
 
 	const dfs = (node, level) => {
 		if (!node) return;
-		if (curLevel < level) {
-			// console.log(curLevel,level,node.val)
-			curLevel+=1;
-		}
+		// if (curLevel < level) {
+		// 	curLevel+=1;
+		// }
 
-		node.left && dfs(node.left, level + 1);
-		node.right && dfs(node.right, level + 1);
+    maxDepLevel = Math.max(maxDepLevel, level);
+
+		// node.left && dfs(node.left, level + 1);
+		// node.right && dfs(node.right, level + 1);
+    dfs(node.left, level + 1) || dfs(node.right, level + 1);
 	};
 
 	dfs(root, 1);
 
-	return curLevel;
+	return maxDepLevel;
 };
