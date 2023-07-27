@@ -67,7 +67,42 @@ const lengthOfLongestSubstring = (s) => {
 	return max;
 };
 
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring3 = function (s) {
+	if (!s.length) return 0;
+
+	let left = 0,
+		right = 0,
+		ans = -Infinity,
+		res = 0;
+	const map = new Map();
+
+	while (right < s.length) {
+		const rightItem = s[right];
+
+		if (map.has(rightItem)) {
+			while (s[left] !== rightItem) {
+				map.delete(s[left]);
+				left++;
+			}
+			left++;
+			res = right - left + 1;
+		} else {
+			map.set(rightItem, true);
+			res++;
+			ans = Math.max(ans, res);
+		}
+
+		right++;
+	}
+
+	return ans;
+};
+
 // const s = 'abcabcbb';
-const s = "pwwkew"
+const s = 'pwwkew';
 
 console.log(lengthOfLongestSubstring(s));

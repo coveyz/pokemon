@@ -2,36 +2,36 @@
  * @param {string} s
  * @return {number}
  */
-var romanToInt = function (s) {
-	const map = {
-		I: 1,
-		V: 5,
-		X: 10,
-		L: 50,
-		C: 100,
-		D: 500,
-		M: 1000,
-	};
+var lengthOfLongestSubstring = function (s) {
+	let left = 0,
+		right = 0,
+		res = 0,
+		ans = -Infinity;
+	const map = new Map();
 
-	let result = map[s[0]];
+	while (right < s.length) {
+		const rightItem = s[right];
 
-	for (let index = 1; index < s.length; index++) {
-		const element = map[s[index]],
-			preElement = map[s[index - 1]];
-
-		console.log({ preElement, element });
-
-		if (element > preElement) {
-			result += (element - preElement - preElement)
+		if (map.has(rightItem)) {
+			console.log('has+>', { right, rightItem, left, leftItem: s[left] });
+			while (s[left] !== rightItem) {
+				map.delete(s[left]);
+				left++;
+			}
+			left++;
+			res = right - left + 1;
+			console.log('has-after=<', { map, left, leftItem: s[left] });
 		} else {
-			result += element;
+			map.set(rightItem, true);
+			res++;
+			ans = Math.max(ans, res);
+			console.log('no-has', { right, rightItem, left, leftItem: s[left], map });
 		}
+
+		right++;
 	}
 
-	return result;
+	return ans;
 };
 
-console.log(romanToInt('III'));
-console.log(romanToInt('IV'));
-console.log(romanToInt('MCMXCIV'));
-console.log(romanToInt('IX'));
+console.log(lengthOfLongestSubstring('abcabcbb'));
