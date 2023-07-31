@@ -84,12 +84,13 @@ var lengthOfLongestSubstring3 = function (s) {
 		const rightItem = s[right];
 
 		if (map.has(rightItem)) {
+      //* 移动左指针 到重复字符串的 下一个位置
 			while (s[left] !== rightItem) {
 				map.delete(s[left]);
 				left++;
 			}
 			left++;
-			res = right - left + 1;
+			res = right - left + 1; //* 更新当前子串长度
 		} else {
 			map.set(rightItem, true);
 			res++;

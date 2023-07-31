@@ -1,37 +1,46 @@
 /**
  * @param {string} s
- * @return {number}
+ * @param {string} t
+ * @return {boolean}
  */
-var lengthOfLongestSubstring = function (s) {
-	let left = 0,
-		right = 0,
-		res = 0,
-		ans = -Infinity;
-	const map = new Map();
+var isSubsequence = function (s, t) {
+	const charPositions = new Map();
 
-	while (right < s.length) {
-		const rightItem = s[right];
-
-		if (map.has(rightItem)) {
-			console.log('has+>', { right, rightItem, left, leftItem: s[left] });
-			while (s[left] !== rightItem) {
-				map.delete(s[left]);
-				left++;
-			}
-			left++;
-			res = right - left + 1;
-			console.log('has-after=<', { map, left, leftItem: s[left] });
-		} else {
-			map.set(rightItem, true);
-			res++;
-			ans = Math.max(ans, res);
-			console.log('no-has', { right, rightItem, left, leftItem: s[left], map });
+	for (let index = 0; index < t.length; index++) {
+		const element = t[index];
+		if (!charPositions.has(element)) {
+			charPositions.set(element, []);
 		}
-
-		right++;
+		charPositions.get(element).push(index);
 	}
 
-	return ans;
+	let prePos = -1;
+
+	for (const char of s) {
+		if (!charPositions.has(char)) return false;
+
+		const position = charPositions.get(char);
+		let left = 0,
+			right = position.length - 1;
+
+		while (left <= right) {
+			const middle = Math.floor((left + right) / 2);
+
+			if (position[middle] <= prePos) {
+				left = middle + 1;
+			} else {
+				right = middle - 1;
+			}
+		}
+
+		if (left === position.length) return false;
+
+		prePos = position[left];
+	}
+
+	return true;
 };
 
-console.log(lengthOfLongestSubstring('abcabcbb'));
+console.log(isSubsequence('abc', 'ahbgdc'));
+console.log(isSubsequence('axc', 'ahbgdc'));
+console.log(isSubsequence('aaaaaa', 'bbaaaa'));

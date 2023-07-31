@@ -29,13 +29,57 @@ var isSubsequence2 = function (s, t) {
 		key = 0;
 
 	while (index < m && key < n) {
+    console.log('s.charAt(key)=>', s.charAt(key))
 		if (s.charAt(key) === t.charAt(index)) {
 			key++;
 		}
 		index++;
 	}
-	// console.log('m', m, 'n', n, 'index', index, 'key=>', key);
+	console.log('m', m, 'n', n, 'index', index, 'key=>', key);
 	return key === n;
 };
 
-console.log(isSubsequence('abc', 'ahbgdc'));
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence3 = function (s, t) {
+	const map = new Map();
+
+	for(let index = 0; index < t.length; index++ ) {
+		const element = t[index];
+		if (!map.has(element)) {
+			map.set(element, []);
+		}
+		map.get(element).push(index);
+	}
+
+	let prePos = -1;
+	
+	for(char of s) {
+		if (!map.has(char)) return false;
+
+		const position = map.get(char);
+		let left = 0, right = position.length - 1;
+
+		while(left <= right) {
+			const middle = Math.floor((left + right)/ 2);
+			if (position[middle] <= prePos) {
+				left = middle + 1;
+			} else {
+				right = middle - 1;
+			}
+		}
+
+		if (left === position.length) return false;
+
+		prePos = position[left];
+	}
+
+	return true;
+};
+
+
+console.log(isSubsequence2('abc', 'ahbgdc'));
