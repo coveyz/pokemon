@@ -1,46 +1,32 @@
 /**
- * @param {string} s
- * @param {string} t
- * @return {boolean}
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
  */
-var isSubsequence = function (s, t) {
-	const charPositions = new Map();
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function (list1, list2) {
+	const dummy = new ListNode(-1);
+	let cur = dummy;
 
-	for (let index = 0; index < t.length; index++) {
-		const element = t[index];
-		if (!charPositions.has(element)) {
-			charPositions.set(element, []);
-		}
-		charPositions.get(element).push(index);
-	}
-
-	let prePos = -1;
-
-	for (const char of s) {
-		if (!charPositions.has(char)) return false;
-
-		const position = charPositions.get(char);
-		let left = 0,
-			right = position.length - 1;
-
-		while (left <= right) {
-			const middle = Math.floor((left + right) / 2);
-
-			if (position[middle] <= prePos) {
-				left = middle + 1;
-			} else {
-				right = middle - 1;
-			}
+	while (l1 && l2) {
+		if (l1.val <= l2.val) {
+			cur.next = l1;
+			l1 = l1.next;
+		} else {
+			cur.next = l2;
+			l2 = l2.next;
 		}
 
-		if (left === position.length) return false;
-
-		prePos = position[left];
+		cur = cur.next;
 	}
 
-	return true;
+	cur.next = l1 || l2;
+
+	return dummy.next;
 };
-
-console.log(isSubsequence('abc', 'ahbgdc'));
-console.log(isSubsequence('axc', 'ahbgdc'));
-console.log(isSubsequence('aaaaaa', 'bbaaaa'));

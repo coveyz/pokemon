@@ -26,7 +26,7 @@ const maxArea = (height) => {
 	while (start <= end) {
 		const area = Math.min(height[start], height[end]) * (end - start);
 		count = Math.max(area, count);
-
+    //* 当前容器收到 左侧较小的高度限制 移动左侧 寻找更大的容器面积
 		if (height[start] <= height[end]) {
 			start += 1;
 		} else {
