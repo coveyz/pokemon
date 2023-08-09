@@ -1,32 +1,34 @@
 /**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
  *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
 /**
- * @param {ListNode} list1
- * @param {ListNode} list2
- * @return {ListNode}
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
  */
-var mergeTwoLists = function (list1, list2) {
-	const dummy = new ListNode(-1);
-	let cur = dummy;
+var isSameTree = function (p, q) {
+	const queueP = [p],
+		queueQ = [q];
 
-	while (l1 && l2) {
-		if (l1.val <= l2.val) {
-			cur.next = l1;
-			l1 = l1.next;
-		} else {
-			cur.next = l2;
-			l2 = l2.next;
-		}
+	while (queueP.length && queueQ.length) {
+		const itemP = queueP.shift(),
+			itemQ = queueQ.shift();
 
-		cur = cur.next;
+		if (itemP === null && itemQ === null) continue;
+
+		if (itemP === null || itemQ === null || itemP.val !== itemQ.val) return false;
+
+		queueP.push(itemP.left);
+		queueP.push(itemP.right);
+
+		queueQ.push(itemQ.left);
+		queueQ.push(itemQ.right);
 	}
 
-	cur.next = l1 || l2;
-
-	return dummy.next;
+	return queueP.length === queueQ.length;
 };
