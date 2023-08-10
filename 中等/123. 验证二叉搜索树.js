@@ -28,3 +28,42 @@ var isValidBST = function (root) {
 
 	return helper(root, -Infinity, Infinity);
 };
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * 迭代
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+	if (!root) return true;
+
+  // 模拟中序遍历
+	const stack = [];
+	let node = root, pre = null;
+
+	while(stack.length || node) {
+    //将当前节点的 左节点都塞进去
+		while(node) {
+			stack.push(node);
+			node = node.left;
+		}
+    //弹出最后一个节点  
+		node = stack.pop();
+    // 检查是否递增 不是就gg
+		if (pre !== null && node.val <= pre.val) return false;
+    
+		pre = node; //更新 节点
+		node = node.right; // 访问 右节点
+	}
+
+	return true;
+};

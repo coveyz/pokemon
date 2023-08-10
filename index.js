@@ -7,28 +7,31 @@
  * }
  */
 /**
- * @param {TreeNode} p
- * @param {TreeNode} q
+ * @param {TreeNode} root
  * @return {boolean}
  */
-var isSameTree = function (p, q) {
-	const queueP = [p],
-		queueQ = [q];
+var isValidBST = function (root) {
+	if (!root) return true;
 
-	while (queueP.length && queueQ.length) {
-		const itemP = queueP.shift(),
-			itemQ = queueQ.shift();
+	const stack = [],
+		pre = null,
+		node = root;
 
-		if (itemP === null && itemQ === null) continue;
+	while (node || stack.length) {
+		while (node) {
+			stack.push(node);
+			node = node.left;
+		}
 
-		if (itemP === null || itemQ === null || itemP.val !== itemQ.val) return false;
+		node = stack.pop();
 
-		queueP.push(itemP.left);
-		queueP.push(itemP.right);
+		if (pre !== null && node.val <= pre.val) {
+			return false;
+		}
 
-		queueQ.push(itemQ.left);
-		queueQ.push(itemQ.right);
+		pre = node;
+		node = node.right;
 	}
 
-	return queueP.length === queueQ.length;
+	return true;
 };
