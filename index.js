@@ -1,37 +1,23 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
+ * @param {number[]} nums
+ * @return {number}
  */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isValidBST = function (root) {
-	if (!root) return true;
+var findPeakElement = function (nums) {
+	let left = 0, right = nums.length - 1;
 
-	const stack = [],
-		pre = null,
-		node = root;
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
 
-	while (node || stack.length) {
-		while (node) {
-			stack.push(node);
-			node = node.left;
-		}
+    if (nums[middle] < nums[middle + 1]) {
+      left = middle + 1;
+    } else { 
+      right = middle - 1;
+    }
+  }
 
-		node = stack.pop();
-
-		if (pre !== null && node.val <= pre.val) {
-			return false;
-		}
-
-		pre = node;
-		node = node.right;
-	}
-
-	return true;
+  return left;
 };
+
+console.log('findPeakElement=>', findPeakElement([1, 2, 3, 1]));
+console.log('findPeakElement=>', findPeakElement([1, 2, 1, 3, 5, 6, 4]));
+console.log('findPeakElement=>', findPeakElement([1, 2, 3]));
