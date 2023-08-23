@@ -1,23 +1,51 @@
 /**
- * @param {number[]} nums
- * @return {number}
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
  */
-var findPeakElement = function (nums) {
-	let left = 0, right = nums.length - 1;
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function (head) {
+  const merge = (l1, l2) => {
+    let dummy = new ListNode(), current = dummy;
 
-  while (left <= right) {
-    const middle = Math.floor((left + right) / 2);
-
-    if (nums[middle] < nums[middle + 1]) {
-      left = middle + 1;
-    } else { 
-      right = middle - 1;
+    while (l1 && l2) {
+      if (l1.val < l2.val) {
+        current.next = l1;
+        l1 = l1.next;
+      } else {
+        current.next = l2;
+        l2 = l2.next;
+      }
+      current = current.next;
     }
+
+    if (l1) {
+      current.next = l1;
+    } else {
+      current.next = l2;
+    }
+    
+    return dummy.next;
+  }
+  
+  if (!head || head.next === null) return head;
+
+  let pre = null, slow = head, fast = head;
+
+  while (fast !== null && fast.next !== null) {
+    pre = slow;
+    slow = slow.next
+    fast = fast.next.next;
   }
 
-  return left;
-};
+  pre.next = null;
 
-console.log('findPeakElement=>', findPeakElement([1, 2, 3, 1]));
-console.log('findPeakElement=>', findPeakElement([1, 2, 1, 3, 5, 6, 4]));
-console.log('findPeakElement=>', findPeakElement([1, 2, 3]));
+  const left = sortList(head), right = sortList(slow);
+
+  return merge(left,right);
+};

@@ -33,17 +33,22 @@ var search = function (nums, target) {
 		let middle = Math.floor((left + right) / 2);
 		// let middle = (left + right) / 2
 		if (nums[middle] === target) return middle;
-
+		// 左半段有序
 		if (nums[0] <= nums[middle]) {
+			// 是否在 左半段 范围；
 			if (nums[0] <= target && target < nums[middle]) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
 			}
-		} else {
+		}
+		// 右半段有序
+		else {
+      // 判断 目标是否在 右半段 范围内
 			if (nums[middle] < target && target <= nums[len - 1]) {
 				left = middle + 1;
-			} else {
+			} 
+      else {
 				right = middle - 1;
 			}
 		}
@@ -51,8 +56,6 @@ var search = function (nums, target) {
 
 	return -1;
 };
-
-
 
 /**
  * 🚀 双指针
