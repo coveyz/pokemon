@@ -75,23 +75,22 @@ var sortList = function (head) {
 
 		return dummy.next;
 	};
-
+  // 如果当前链表 空｜只有一个节点 直接返回 
 	if (!head || head.next === null) return head;
-
+  // 快慢指针 找到中间节点
 	let pre = null,
 		slow = head,
 		fast = head;
-
 	while (fast !== null && fast.next !== null) {
 		pre = slow;
 		slow = slow.next;
 		fast = fast.next.next;
 	}
-
+  // 切断链表
 	pre.next = null;
-
+  // 递归两个子链表
 	const left = sortList(head),
 		right = sortList(slow);
-
+  // 合并两个有序子链表
 	return merge(left, right);
 };
