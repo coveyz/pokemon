@@ -11,6 +11,8 @@ var isPalindrome = function (x) {
  * @return {boolean}
  */
 var isPalindrome = function (x) {
+  // 小于 0
+  // 结尾是0的
 	if (x < 0 || (x % 10 === 0 && x !== 0)) return false;
 
 	let revertedNumber = 0;
