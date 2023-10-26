@@ -7,10 +7,10 @@ const question = `运用你所掌握的数据结构，设计和实现一个  LR
  * @param {number} capacity
  */
 var LRUCache = function (capacity) {
-	this.capacity = capacity; // 容量
-	this.arr = [];
-	this.obj = {};
-	this.optionTime = 1;
+  this.capacity = capacity; // 容量
+  this.arr = [];
+  this.obj = {};
+  this.optionTime = 1;
 };
 
 /**
@@ -18,14 +18,14 @@ var LRUCache = function (capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-	/** 1.如果存在  获取value, 并且 操作时间给个最新的, 操作时间 + 1 */
-	if (this.obj[key]) {
-		this.obj[key]['time'] = this.optionTime;
-		this.optionTime += 1;
-		return this.obj[key]['value'];
-	} else {
-		return -1;
-	}
+  /** 1.如果存在  获取value, 并且 操作时间给个最新的, 操作时间 + 1 */
+  if (this.obj[key]) {
+    this.obj[key]['time'] = this.optionTime;
+    this.optionTime += 1;
+    return this.obj[key]['value'];
+  } else {
+    return -1;
+  }
 };
 
 /**
@@ -34,53 +34,53 @@ LRUCache.prototype.get = function (key) {
  * @return {void}
  */
 LRUCache.prototype.put = function (key, value) {
-	/** 1.先判断存在不存在 */
-	/** 1-1. 如果存在 value,time 覆盖, 并且时间 + 1 */
-	/** 1-2  如果不存在 判断 长度 */
-	/** 2. 判断缓存容量是否达到上限定 */
-	/** 2-1 如果没有达到上限,数组追加 obj记录, time + 1 */
-	/** 2-2 达到上限 寻找 时间最老得 key*/
-	/** 2-3 将他从 数组删除掉 并且 从 obj 删除掉 */
-	/** 2-4 执行 2-1 */
+  /** 1.先判断存在不存在 */
+  /** 1-1. 如果存在 value,time 覆盖, 并且时间 + 1 */
+  /** 1-2  如果不存在 判断 长度 */
+  /** 2. 判断缓存容量是否达到上限定 */
+  /** 2-1 如果没有达到上限,数组追加 obj记录, time + 1 */
+  /** 2-2 达到上限 寻找 时间最老得 key*/
+  /** 2-3 将他从 数组删除掉 并且 从 obj 删除掉 */
+  /** 2-4 执行 2-1 */
 
-	// 1
-	if (this.obj[key]) {
-		// 1-1.
-		this.obj[key] = { value: value, time: this.optionTime };
-		this.optionTime += 1;
-	}
-	// 1-2.
-	else {
-		// 2
-		// 2-1
-		if (this.arr.length < this.capacity) {
-			this.arr.push(key);
-			this.obj[key] = { value: value, time: this.optionTime };
-			this.optionTime += 1;
-		} else {
-			// 2-2
-			const longestTime = minOldTime(this.obj);
-			// 2-3
-			this.arr = this.arr.filter((item) => item !== longestTime);
-			delete this.obj[longestTime];
-			this.arr.push(key);
-			this.obj[key] = { value: value, time: this.optionTime };
-			this.optionTime += 1;
-		}
-	}
+  // 1
+  if (this.obj[key]) {
+    // 1-1.
+    this.obj[key] = { value: value, time: this.optionTime };
+    this.optionTime += 1;
+  }
+  // 1-2.
+  else {
+    // 2
+    // 2-1
+    if (this.arr.length < this.capacity) {
+      this.arr.push(key);
+      this.obj[key] = { value: value, time: this.optionTime };
+      this.optionTime += 1;
+    } else {
+      // 2-2
+      const longestTime = minOldTime(this.obj);
+      // 2-3
+      this.arr = this.arr.filter((item) => item !== longestTime);
+      delete this.obj[longestTime];
+      this.arr.push(key);
+      this.obj[key] = { value: value, time: this.optionTime };
+      this.optionTime += 1;
+    }
+  }
 };
 
 const minOldTime = (obj) => {
-	var oldKey = '';
-	var oldTime = Infinity;
-	Object.keys(obj).forEach((key) => {
-		if (obj[key]['time'] < oldTime) {
-			oldKey = key;
-			oldTime = obj[key]['time'];
-		}
-	});
+  var oldKey = '';
+  var oldTime = Infinity;
+  Object.keys(obj).forEach((key) => {
+    if (obj[key]['time'] < oldTime) {
+      oldKey = key;
+      oldTime = obj[key]['time'];
+    }
+  });
 
-	return oldKey;
+  return oldKey;
 };
 
 /**
@@ -89,3 +89,79 @@ const minOldTime = (obj) => {
  * var param_1 = obj.get(key)
  * obj.put(key,value)
  */
+
+
+
+
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function (capacity) {
+  // this.maxLength = capacity;
+  // this.map = {}; // {Key: {value, time}}
+  // this.time = 0;
+  // this.curCapacity = 0;
+  this.capacity = capacity;
+  this.cache = new Map();
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function (key) {
+  if (this.cache.has(key)) {
+    const value = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, value);
+    return value
+  }
+
+  return -1;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function (key, value) {
+  if (this.cache.has(key)) {
+    this.cache.delete(key)
+  }
+  else if (this.cache.size >= this.capacity) {
+    const firstKey = this.cache.keys().next().value;
+    this.cache.delete(firstKey)
+  }
+
+  this.cache.set(key, value);
+};
+
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+
+
+var lRUCache = new LRUCache(2);
+lRUCache.put(1, 1);
+lRUCache.put(2, 2);
+console.log(lRUCache.get(1))
+lRUCache.put(3, 3);
+console.log(lRUCache.get(2))
+lRUCache.put(4, 4);
+console.log(lRUCache.get(1))
+console.log(lRUCache.get(3))
+console.log(lRUCache.get(4))
+
+// var lRUCache = new LRUCache(2);
+// console.log(lRUCache.get(2))
+// lRUCache.put(2, 6);
+// console.log(lRUCache.get(1))
+// lRUCache.put(1, 5);
+// lRUCache.put(1, 2);
+// console.log(lRUCache.get(1))
+// console.log(lRUCache.get(2))
