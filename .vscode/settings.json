@@ -17,7 +17,9 @@
     "titleBar.activeBackground": "#832561",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#83256199",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "statusBar.debuggingBackground": "#258347",
+    "statusBar.debuggingForeground": "#e7e7e7"
   },
   "peacock.color": "#832561",
   "cSpell.words": [
