@@ -17,9 +17,10 @@ var myPow = function(x, n) {
         n = -n;
     }
 
+    console.log({x,n})
     const subProblem = myPow(x, Math.floor( n / 2));
 
-
+    // console.log('subProblem=>', {subProblem, x, n})
     if (n % 2) {
         return subProblem * subProblem * x;
     } else {
