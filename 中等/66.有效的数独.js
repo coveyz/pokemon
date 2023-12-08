@@ -40,6 +40,80 @@ var isValidSudoku = function (board) {
 	return flag;
 };
 
+
+/**
+ * @param {character[][]} board
+ * @return {boolean}
+ */
+var isValidSudoku = function(board) {
+    const isValidRow = (board,row) => {
+        const set = new Set();
+        for (let index = 0; index < 9; index++) {
+            const item = board[row][index];
+            if (item !== '.') {
+                if (set.has(item)) return false;
+                set.add(item);
+            }
+        }
+        return true;
+    }
+
+    const isValidColumn = (board, col) => {
+        const set = new Set();
+        for (let index = 0; index < 9; index++) {
+            const colItem = board[index][col];
+            if (colItem !== '.') {
+                if (set.has(colItem)) return false;
+                set.add(colItem);
+            }
+        }
+        return true
+    }
+
+    const isValidBox = (board, startRow, startCol) => {
+        const set = new Set();
+
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                const boxItem = board[startRow + row][startCol + col];
+                if (boxItem !== '.') {
+                    if (set.has(boxItem)) return false;
+                    set.add(boxItem);
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    //校验 每一行
+    for (let index = 0; index < 9; index++) {
+        if (!isValidRow(board, index)) {
+            return false;
+        }
+    }
+
+    //校验 每一列
+    for (let index = 0; index < 9; index++) {
+         if (!isValidColumn(board, index)) {
+            return false;
+        }
+    }
+
+    //校验 3 * 3 宫
+    for (let index = 0; index < 9; index += 3) {
+        for (let key = 0; key < 9; key += 3) {
+            if (!isValidBox(board, index, key)) {
+                return false
+            }
+        }
+    }
+
+    return true;
+};
+
+
 console.log(
 	isValidSudoku([
 		['.', '2', '.', '.', '.', '.', '.', '.', '.'],
