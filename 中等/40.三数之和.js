@@ -58,9 +58,7 @@ var threeSum = function (nums) {
 
     for (let index = 0; index < nums.length - 2; index++) {
         if (index > 0 && nums[index - 1] === nums[index]) continue;
-
         let left = index +1, right = nums.length - 1;
-        
         while (left < right) {
             const sum = nums[index] + nums[left] + nums[right];
 
