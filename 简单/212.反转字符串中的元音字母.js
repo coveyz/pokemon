@@ -39,3 +39,4 @@ var reverseVowels = function (s) {
 // console.log(reverseVowels('leetcode'));
 // console.log(reverseVowels('aA'));
 console.log(reverseVowels('race a car')); //* raca e car
+console.log(reverseVowels("A man, a plan, a canal: Panama"))
