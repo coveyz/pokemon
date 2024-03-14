@@ -59,6 +59,24 @@ var findDifference = function(nums1, nums2) {
   // return {map1, map2,result}
   return [[...container1], [...container2]]
 };
+
+
+/**
+ * 集合
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[][]}
+ */
+var findDifference = function(nums1, nums2) {
+    const set1 = new Set(nums1), set2 = new Set(nums2);
+
+    const container1 = [...set1].filter(item => !set2.has(item)),
+     container2 = [...set2].filter(item => !set1.has(item))
+
+    return [container1, container2];
+};
+
+
 // const nums1 = [1,2,3], nums2 = [2,4,6]
 // const nums1 = [1,2,3,3], nums2 = [1,1,2,2]
 const nums1 = [80,5,-20,33,26,29], nums2 = [-69,0,-36,52,-84,-34,-67,-100,80]
