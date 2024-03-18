@@ -1,17 +1,27 @@
 /**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number[][]}
+ * @param {string} s
+ * @return {number}
  */
-var findDifference = function(nums1, nums2) {
-    const set1 = new Set(nums1), set2 = new Set(nums2);
+var lengthOfLongestSubstring = function(s) {
+    if (!s.length || s.length ===1) {
+        return !s.length ? 0 : 1;
+    }
 
-    const container1 = [...set1].filter(item => !set2.has(item)),
-     container2 = [...set2].filter(item => !set1.has(item))
-
-    return [container1, container2];
+    const map = new Map(); // 哈希表，用于存储字符是否出现过以及字符的索引位置
+    let maxLength = 0; // 最长子串的长度
+    let left = 0; // 滑动窗口左边界
+    
+    for (let right = 0; right < s.length; right++) {
+        if (map.has(s[right])) {
+            // 如果字符已经在哈希表中出现过，则更新左指针为相同字符上一次出现的索引位置的下一个位置
+            left = Math.max(left, map.get(s[right]) + 1);
+        }
+        map.set(s[right], right); // 更新字符的索引位置
+        maxLength = Math.max(maxLength, right - left + 1); // 更新最长子串的长度
+    }
+    
+    return maxLength;
 };
 
-const nums1 = [1,2,3], nums2 = [2,4,6];
 
-console.log(findDifference(nums1, nums2));
+console.log(lengthOfLongestSubstring("tmmzuxt"))

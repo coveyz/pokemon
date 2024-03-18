@@ -103,6 +103,30 @@ var lengthOfLongestSubstring3 = function (s) {
 	return ans;
 };
 
+
+/**
+ * Map
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring2 = function(s) {
+    if (!s.length || s.length === 1) return !s.length ? 0 : 1;
+
+    const map = new Map();
+    let left = 0, max = 0;
+
+    for(let right = 0; right < s.length; right++) {
+
+        if (map.has(s[right])){
+            left = Math.max(left, map.get(s[right]) +1);
+        } 
+        map.set(s[right], right);
+        max = Math.max(max, right - left + 1)
+    }
+
+    return max;
+};
+
 // const s = 'abcabcbb';
 const s = 'pwwkew';
 
