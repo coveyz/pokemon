@@ -52,4 +52,4 @@ var plusOne2 = function (digits) {
 };
 
 
-console.log(plusOne([9,9]));
+console.log(plusOne2([9,9,9]));

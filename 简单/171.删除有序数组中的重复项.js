@@ -23,7 +23,6 @@ const removeDuplicates = (nums) => {
 		}
 		fast++;
 	}
-
 	return slow;
 };
 

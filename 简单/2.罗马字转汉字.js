@@ -29,6 +29,8 @@ var test = (num) => {
     Rome.push(res)
   }
 
+  console.log(Rome)
+
   const he = Rome.reduce((res,cur,index,arr) => {
     if (index == arr.length -1 ) return res + cur
     return cur < arr[index + 1] ? res -cur : res + cur
@@ -71,4 +73,4 @@ var romanToInt = function (s) {
 	return result;
 };
 
-console.log(test('LVIII'));
+console.log(romanToInt('LVIII'));
