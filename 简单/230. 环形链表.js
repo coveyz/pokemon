@@ -61,6 +61,7 @@ var hasCycle = function (head) {
  */
 
 /**
+ ** 快慢指针
  * @param {ListNode} head
  * @return {boolean}
  */
