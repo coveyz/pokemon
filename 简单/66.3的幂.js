@@ -19,6 +19,20 @@ const isPowerOfThree = n => {
 	console.log(n);
 	return n === 1;
 };
+
+ /**
+  * 递归
+ * @param {number} n
+ * @return {boolean}
+ */
+ var isPowerOfThree3 = function(n) {
+    if (n <= 1) return n === 1;
+    if (n %3 !== 0) return false
+
+    return isPowerOfThree(Math.floor(n / 3))
+};
+
+
 console.log(isPowerOfThree(45));
 // console.log(isPowerOfThree(1));
 // console.log(isPowerOfThree(0));
