@@ -1,27 +1,24 @@
 /**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number[]}
+ * @param {string} s
+ * @return {number}
  */
-var intersect = function(nums1, nums2) {
-  const target = nums1.length >= nums2.length ? nums1 : nums2, 
-    compare = nums1.length >= nums2.length ? nums2 : nums1;
+var firstUniqChar = function(s) {
+  const map = new Map(), acc = new Set();
 
-  const map = target.reduce((acc,cur) => {
-    acc.set(cur, (acc.get(cur) || 0) + 1);
-    return acc;
-  }, new Map());
-
-
-  return compare.reduce((total,item) => {
-    if (map.has(item) && map.get(item) > 0) {
-      total.push(item);
-      map.set(item, map.get(item) - 1)
+  for (let index = 0; index < s.length; index++) {
+    const element = s[index];
+    if (acc.has(element)) continue
+    else if (map.has(element)) {
+      map.delete(element);
+      acc.add(element);
+    } else {
+      map.set(element,index);
     }
-    return total;
-  }, [])  
+  }
+
+  return map.size > 0 ? map.values().next().value : -1
 };
 
-
-console.log(intersect([1,2,2,1],[2,2]))
-console.log(intersect([1,2],[1,1]))
+console.log(firstUniqChar("leetcode"))
+console.log(firstUniqChar('loveleetcode'))
+console.log(firstUniqChar('aabb'))
