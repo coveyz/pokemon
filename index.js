@@ -1,24 +1,30 @@
 /**
- * @param {string} s
- * @return {number}
+ * @param {number} n
+ * @return {boolean}
  */
-var firstUniqChar = function(s) {
-  const map = new Map(), acc = new Set();
+var isHappy = function(n) {
+  const getNext = (n) => {
+    let sum = 0;
 
-  for (let index = 0; index < s.length; index++) {
-    const element = s[index];
-    if (acc.has(element)) continue
-    else if (map.has(element)) {
-      map.delete(element);
-      acc.add(element);
-    } else {
-      map.set(element,index);
+    while ( n > 0) { 
+      const digit = n % 10;
+      sum += digit * digit;
+      n = Math.floor(n / 10)
     }
+
+    return sum;
   }
 
-  return map.size > 0 ? map.values().next().value : -1
+  const seen = new Set();
+
+  while (n !== 1 && !seen.has(n)) {
+    seen.add(n);
+    n = getNext(n);
+  }
+
+  return n === 1;
 };
 
-console.log(firstUniqChar("leetcode"))
-console.log(firstUniqChar('loveleetcode'))
-console.log(firstUniqChar('aabb'))
+console.log(isHappy(19))
+console.log(isHappy(2))
+console.log(isHappy(7))
