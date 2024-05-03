@@ -1,30 +1,25 @@
 /**
- * @param {number} n
- * @return {boolean}
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
  */
-var isHappy = function(n) {
-  const getNext = (n) => {
-    let sum = 0;
 
-    while ( n > 0) { 
-      const digit = n % 10;
-      sum += digit * digit;
-      n = Math.floor(n / 10)
-    }
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+  let p = headA, q= headB;
 
-    return sum;
+  if (!p ||!q) return !p || !q;
+
+  if (p !== q) {
+    p = p === null ? headB : p.next;
+    q = q === null ? headA : q.next;
   }
 
-  const seen = new Set();
-
-  while (n !== 1 && !seen.has(n)) {
-    seen.add(n);
-    n = getNext(n);
-  }
-
-  return n === 1;
+  return q;
 };
-
-console.log(isHappy(19))
-console.log(isHappy(2))
-console.log(isHappy(7))
