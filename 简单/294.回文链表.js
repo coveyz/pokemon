@@ -49,7 +49,7 @@ var isPalindrome = function (head) {
  * @return {boolean}
  */
 var isPalindrome = function(head) {
-	if (!head || !head.next) return true;
+	if (head === null || head.next === null) return true;
 
 	let slow = head, fast = head;
 
@@ -71,7 +71,7 @@ var isPalindrome = function(head) {
 	// 比较前半部分 和 后半部分
 	let firstHalf = head, secondHalf = prev;
 	while (secondHalf !== null) {
-		if (firstHalf.val !== firstHalf.val) return false;
+		if (firstHalf.val !== secondHalf.val) return false;
 		firstHalf = firstHalf.next;
 		secondHalf = secondHalf.next;
 	}
