@@ -24,7 +24,14 @@ var fourSum = function(nums, target) {
         if (path.length >= 4 ) return;
 
         for (let index = start; index < nums.length; index++) {
-            if (index > start && nums[index] === nums[index - 1]) continue
+            if (index > start && nums[index] === nums[index - 1]) continue;
+             // 剪枝优化
+            // 如果当前和后续的元素的和已经大于目标值，停止继续遍历
+            if (sum + nums[index] + (3 - path.length) * nums[index] > target) break;
+
+            // 如果当前和后续的元素的和已经小于目标值，并且当前后续的元素小于等于目标值，则继续遍历
+            if (sum + nums[index] + (3 - path.length) * nums[nums.length - 1] < target) continue;
+
             path.push(nums[index]);
             backTrack(index + 1, path, sum + nums[index]);
             path.pop();
