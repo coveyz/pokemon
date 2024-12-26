@@ -87,5 +87,37 @@ var multiply = function (num1, num2) {
 	return tmp;
 };
 
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    if (num1 === '0' || num2 === '0') return '0';
+
+    const m = num1.length, 
+        n = num2.length;
+    const result = new Array(m + n).fill(0);
+
+    for (let i = m - 1; i >= 0; i--) {
+        for (let j = n- 1; j >= 0; j-- ) {
+            const item1 = num1[i] * 1, item2 = num2[j] * 1;
+            const mul = item1 * item2, 
+                sum = mul + result[i + j + 1];
+            
+            result[i +  j + 1] = sum % 10;
+            result[i + j] += Math.floor(sum / 10);
+        }
+    };
+
+    let resultStr = result.join('');
+
+    while(resultStr[0] === '0') {
+        resultStr = resultStr.slice(1);
+    }
+
+    return resultStr;
+};
+
 console.log(multiply('123456789', '987654321'));
 // console.log(multiply('9', '9'));

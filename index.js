@@ -1,33 +1,35 @@
 /**
- * @param {number} n
- * @return {boolean}
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
  */
-var isHappy = function(n) {
-    const seen = new Set();
+var multiply = function(num1, num2) {
+    if (num1 === '0' || num2 === '0') return '0';
 
-    const getNext = (n) => {
-        let sum = 0;
+    const len1 = num1.length, 
+        len2 = num2.length;
+    const res = new Array(len1 + len2).fill(0);
 
-        console.log('getNext-before=>', n)
+    for (let i = len1 - 1; i >= 0; i--) {
+        for (let j = len2 - 1; j >= 0; j--) {
+            const mul = (num1[i] * 1 ) * (num2[j] * 1);
+            const sum = mul + res[i + j + 1];
 
-        while(n > 0) {
-            const digit = n % 10;
-            console.log('digit=>', digit)
-            sum += digit * digit;
-            n = Math.floor(n / 10);
+            res[i + j + 1] = sum % 10; // 当前
+            res[i + j] += Math.floor(sum / 10); //进位
         }
+    };
 
-        console.log('getNext=>', {sum, n})
-        return sum;
-    }
+    let resStr = res.join('');
 
-    while (n !== 1 && !seen.has(n)) {
-        seen.add(n);
-        n = getNext(n);
-    }
+    while (resStr[0] === '0') {
+        resStr = resStr.slice(1);
+        
+    };
 
-    return n === 1;
+    return resStr;
 };
 
-console.log(isHappy(19))
-// console.log(isHappy(2))
+const num1 = "123", num2 = "456";
+
+console.log(multiply(num1, num2));
