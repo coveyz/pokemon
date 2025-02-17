@@ -1,35 +1,25 @@
 /**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
+ * @param {number[][]} mat
+ * @return {number}
  */
-var merge = function(nums1, m, nums2, n) {
-    let i = m - 1,  j = n - 1;
-    let k = m + n - 1;
+var diagonalSum = function(mat) {
+    let sum = 0;
 
-    while (i >=0 && j >= 0) { 
-        if (nums1[i] > nums2[j]) {
-            nums1[k] = nums1[i];
-            i--;
-        } else {
-            nums1[k] = nums2[j];  
-            j--;
-        };
+    let maxRow = mat.length, maxCol = mat[0].length;
 
-        k--;
+    for (let i = 0; i < maxRow; i++) {
+        sum += mat[i][i]; //zheng
+        sum += mat[i][maxCol - 1 - i]; //ni
     };
 
-    while (j >= 0) {
-        nums1[k] = nums2[j];
-        j--;
-        k--;
+    if (maxRow % 2 === 1) {
+        const middleItem = mat[Math.floor(maxRow / 2)][Math.floor(maxCol / 2)];
+        sum -= middleItem;
     }
+    
 
-    return nums1;
+    return sum;
 };
 
-console.log(merge(
-    [1,2,3,0,0,0], 3, [2,5,6], 3
-))
+
+console.log(diagonalSum([[1,2,3], [4,5,6], [7,8,9]])); // 25
