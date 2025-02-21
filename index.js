@@ -1,25 +1,30 @@
 /**
- * @param {number[][]} mat
+ * @param {string} s
  * @return {number}
  */
-var diagonalSum = function(mat) {
-    let sum = 0;
+var numDecodings = function(s) {
+    const n = s.length;
 
-    let maxRow = mat.length, maxCol = mat[0].length;
+    if (n === 0 || s[0] === '0') return 0;
 
-    for (let i = 0; i < maxRow; i++) {
-        sum += mat[i][i]; //zheng
-        sum += mat[i][maxCol - 1 - i]; //ni
+    let dp = new Array(n + 1).fill(0);
+    dp[0] = 1;
+    dp[1] = s[0]  === '0' ? 0 : 1;
+
+    for (let i = 2; i <= n; i++) {
+        if (s[i - 1] !== '0') {
+            dp[i]  += dp[i - 1];
+        }
+        const twoDigit = Number(s[i -2] + s[i - 1]);
+        if (twoDigit >= 10 && twoDigit <= 26) {
+            dp[i] += dp[i - 2];
+        }
     };
 
-    if (maxRow % 2 === 1) {
-        const middleItem = mat[Math.floor(maxRow / 2)][Math.floor(maxCol / 2)];
-        sum -= middleItem;
-    }
-    
-
-    return sum;
+    return dp[n];
 };
 
 
-console.log(diagonalSum([[1,2,3], [4,5,6], [7,8,9]])); // 25
+
+console.log(numDecodings('12')); // 2
+console.log(numDecodings("226"))
