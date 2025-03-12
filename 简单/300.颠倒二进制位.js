@@ -14,3 +14,17 @@ var reverseBits = function (n) {
 
 	return parseInt(number, 2);
 };
+
+
+/**
+ * @param {number} n - a positive integer
+ * @return {number} - a positive integer
+ */
+var reverseBits = function(n) {
+	// 1. 转换成二进制 并补齐32位
+    let binaryStr = n.toString(2).padStart(32, '0');
+	// 2. 反转 
+    let reverseStr = binaryStr.split('').reverse().join('');
+	// 3. 转换回整数
+    return parseInt(reverseStr, 2) >>> 0 //确保返回无符号的整数
+};
