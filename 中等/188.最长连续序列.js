@@ -32,7 +32,36 @@ var longestConsecutive = function (nums) {
   }
 
   return result + 1;
-  return { result, temp }
+};
+
+
+/**
+ * 哈希表
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+  if (!nums.length) return 0;
+
+  const numSet = new Set(nums);
+  let maxLength = 0;
+
+  for (const num of numSet) {
+      // 判断是否是 连续序列的起点
+      if (!numSet.has(num - 1)) {
+          let currentNum = num;
+          let currentLength = 1;
+          // 拓展 连续序列
+          while (numSet.has(currentNum + 1)) {
+              currentNum++;
+              currentLength++;
+          };
+          // 更新
+          maxLength = Math.max(maxLength, currentLength);
+      };
+  }
+
+  return maxLength;
 };
 
 

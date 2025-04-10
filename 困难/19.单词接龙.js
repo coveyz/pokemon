@@ -26,7 +26,7 @@ var ladderLength = function(beginWord, endWord, wordList) {
         for (let i = 0; i < word.length; i++) {
             for (let c = 97; c <= 122; c++) {
                 const newWord = word.slice(0, i) + String.fromCharCode(c) + word.slice(i + 1);
-                console.log('newWord=>', newWord, String.fromCharCode(c));
+                // console.log('newWord=>', newWord, String.fromCharCode(c));
                 if (newWord ===endWord) return step + 1;
 
                 if (wordSet.has(newWord)) {
