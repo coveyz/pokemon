@@ -67,3 +67,42 @@ var distinctAverages = function(nums) {
     return acc.size;
 };
 ```
+--- 
+
+## 3. 题目链接
+- [35. 搜索插入位置](https://leetcode.cn/problems/search-insert-position/description/?envType=problem-list-v2&envId=array)
+
+## 3.1 正确解法
+- **思路**：
+  1. 初始化两个指针 left 和 right，分别指向数组的开始和结束。
+  2. 计算中间位置 mid。
+  3. 如果 nums[mid] === target，返回 mid。
+  4. 如果 nums[mid] < target，说明目标值在右侧，更新 left 为 mid + 1。
+  5. 如果 nums[mid] > target，说明目标值在左侧，更新 right 为 mid - 1。
+  6. 如果遍历完数组，说明目标值不存在，可以返回目标值应该插入的位置。
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    let left = 0, right = nums.length - 1;
+
+    while(left <= right) {
+        const middle = Math.floor((left + right) / 2), middleItem = nums[middle];
+        if (middleItem === target) {
+            return middle;
+        }
+        else if (middleItem < target) {
+            left = middle + 1;
+        } else {
+            right = middle - 1;
+        }
+    };
+
+    return left;
+};
+```
+

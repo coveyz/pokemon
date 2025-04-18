@@ -20,7 +20,7 @@ var strStr = function (haystack, needle) {
  * @param {string} needle
  * @return {number}
  */
-var strStr = function (haystack, needle) {
+var strStr1 = function (haystack, needle) {
 	if (haystack === needle) return 0;
 
 	let left = 0,
@@ -28,6 +28,7 @@ var strStr = function (haystack, needle) {
 
 	while (right <= haystack.length) {
 		const tmp = haystack.slice(left, right);
+		console.log({tmp, left, right})
 
 		if (tmp === needle) return left;
 
@@ -38,7 +39,39 @@ var strStr = function (haystack, needle) {
 	return -1;
 };
 
+/**
+ * 双指针
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    if (haystack === needle || !needle.length) return 0;
+    
+    let i = 0, j = 0;
+
+    while (i < haystack.length) {
+        if (haystack[i] === needle[j]) {
+            j++; // 移动 needle 的指针
+            if (j === needle.length) {
+                return i - j + 1;
+            }
+        } else {
+            // 不匹配 退回 needle 指针
+            if (j > 0) {
+                i--;
+                j--;
+            };
+        }
+        i++;
+    }
+
+    return -1;
+};
+
+
 // const haystack = 'sadbutsad',needle = 'sad';
 const haystack = 'abc', needle = 'c';
 
-console.log(strStr(haystack, needle));
+console.log(strStr1(haystack, needle));
+console.log(strStr1( 'mississippi' , 'issip'));
