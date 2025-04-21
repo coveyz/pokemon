@@ -106,3 +106,49 @@ var searchInsert = function(nums, target) {
 };
 ```
 
+---
+
+
+## 4. 题目链接
+- [28. 找出字符串中第一个匹配项的下标](https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/description/?envType=problem-list-v2&envId=two-pointers)
+
+## 4.1 正确解法
+- **思路**：
+  1. 初始化两个指针 i 遍历haystack, j 遍历needle
+  2. 遍历haystack
+  3. 不匹配， 回退i， 并且 needle重新找 j = 0
+  4. 没找到直接 返回 -1
+
+```js
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    if (haystack === needle || !needle.length) return 0;
+
+    let i = 0, j = 0;
+
+    while(i < haystack.length) {
+        if (haystack[i] === needle[j]) {
+            j++;
+            if (j === needle.length) {
+                return i - j + 1;
+            }
+        } else {
+            // while (j > 0) {
+            //     i--;
+            //     j--;
+            // }
+             i = i - j; // 回退i到失配字符的下一个位置
+            j = 0; // 重置j，重新从头开始匹配
+        }
+        i++;
+    }
+
+    return -1;
+};
+```
+
+
