@@ -151,4 +151,40 @@ var strStr = function(haystack, needle) {
 };
 ```
 
+---
 
+## 5. 题目链接
+- [541. 反转字符串 II](https://leetcode.cn/problems/reverse-string-ii/description/?envType=problem-list-v2&envId=two-pointers)
+
+## 4.1 正确解法
+- **思路**：
+  1. 给定字符串 s 和整数 k，每次从前往后每 2k 个字符为一组：
+     1. 如果剩下的字符少于 k 个，反转所有剩下的字符。  
+     2. 如果剩下的字符不少于 k 但小于 2k，反转前 k 个，剩下的保持不变。
+     3. 如果剩下的字符大于等于 2k，只反转前 k 个，后 k 个保持不变。
+
+```js
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var reverseStr = function(s, k) {
+    const arr = s.split('');
+
+    for (let i = 0; i < arr.length; i+= 2*k) {
+        let left = i, 
+            right = Math.min(i + k - 1, arr.length - 1);
+
+        while(left < right) {
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        };
+    }
+    
+    return arr.join('');
+};
+```
+
+----
