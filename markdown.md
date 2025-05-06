@@ -156,7 +156,7 @@ var strStr = function(haystack, needle) {
 ## 5. 题目链接
 - [541. 反转字符串 II](https://leetcode.cn/problems/reverse-string-ii/description/?envType=problem-list-v2&envId=two-pointers)
 
-## 4.1 正确解法
+## 5.1 正确解法
 - **思路**：
   1. 给定字符串 s 和整数 k，每次从前往后每 2k 个字符为一组：
      1. 如果剩下的字符少于 k 个，反转所有剩下的字符。  
@@ -188,3 +188,51 @@ var reverseStr = function(s, k) {
 ```
 
 ----
+
+
+## 6. 题目链接
+- [2511. 最多可以摧毁的敌人城堡数目](https://leetcode.cn/problems/maximum-enemy-forts-that-can-be-captured/description/?envType=problem-list-v2&envId=two-pointers)
+
+## 6.1 正确解法
+- **思路**：
+  1. 初始化： 遍历找到所有城堡的位置 （值=1）
+  2. 扫描一对城堡： 对每一对控制的城堡， 判断这俩城堡之间所有位置，如果是空地的话记录
+  3. 滑动窗口： 通过滑动窗口维护，遇到敌人城堡（值=1）+1， 如果遇到空地结束更新最大值，遇到自己城堡停止计算
+  4. 返回结果
+
+```js
+/**
+ * @param {number[]} forts
+ * @return {number}
+ */
+var captureForts = function(forts) {
+    const n = forts.length;
+    let maxDestroyed = 0;
+        
+    const scan = (start, step) => {
+        let count = 0
+        for (let i = start; i >= 0 && i < n; i += step) {
+            if (forts[i] === 0) {
+                count++;
+            } else if (forts[i] === -1) {
+                maxDestroyed = Math.max(maxDestroyed, count);
+                break;
+            } else {
+                break;
+            }
+        };
+    };
+
+    for(let i = 0; i < n; i++ ) {
+        if (forts[i] === 1) {
+            let count = 0
+            //left -> right;
+            scan(i + 1, 1)
+            // right <-left;
+            scan(i - 1, -1)
+        };
+    }
+
+    return maxDestroyed;
+};
+```
