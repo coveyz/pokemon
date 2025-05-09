@@ -236,3 +236,50 @@ var captureForts = function(forts) {
     return maxDestroyed;
 };
 ```
+
+---
+
+
+## 7. 题目链接
+- [557. 反转字符串中的单词 III](https://leetcode.cn/problems/reverse-words-in-a-string-iii/description/?envType=problem-list-v2&envId=two-pointers)
+
+## 7.1 正确解法
+- **思路**：
+  1. 初始化： 字符串 -> 数组 （方便原地转换
+  2. 定义指针
+     1. start 开始
+     2. end 便利整个字符串，查找空格和结尾
+  3. end 到空格结尾就结束了
+  4. 用两个新的left，right 原地反转
+  5. 更新 start 为下一个单词的起始点
+  6. 遍历结束，返回修改后的字符串
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    let arr = s.split('');
+
+    let start = 0;
+
+    for(let end = 0; end <= s.length; end++) {
+        if (arr[end] === ' ' || end === s.length) {
+            let left = start, right = end - 1;
+
+            while(left < right) {
+                [arr[left], arr[right]] = [arr[right], arr[left]];
+
+                left++;
+                right--;
+            };
+
+            start = end + 1;
+        };
+    }
+
+    return arr.join('');
+};
+
+```

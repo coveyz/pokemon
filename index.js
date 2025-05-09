@@ -1,18 +1,31 @@
 /**
- * @param {number} rowIndex
- * @return {number[]}
+ * @param {string} s
+ * @return {string}
  */
-var getRow = function(rowIndex) {
-    let row = [1];
+var reverseWords = function(s) {
+    const result = s.split(' ');
 
-    for (let i = 1; i <= rowIndex; i++) {
-        for (let j = i - 1; j >= 1; j--) {
-            row[j] = row[j - 1] + row[j];
-        }
-        row.push(1);
+    const reverseMagic = (str) => {
+        let arr = str.split('')
+
+        let left = 0, right =arr.length - 1;
+
+        while (left < right) {
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        };
+
+        return arr.join('')
+    };
+
+    for (let i = 0; i < result.length; i++) {
+        result[i] = reverseMagic(result[i])
     }
 
-    return row;
+    return result.join(' ')
 };
 
-console.log(getRow(3)); // [1,3,3,1]
+console.log(reverseWords(
+    "Let's take LeetCode contest"
+))

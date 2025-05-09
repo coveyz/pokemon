@@ -93,4 +93,33 @@ var reverseWords2 = function (s) {
 	return str.join(' ');
 };
 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords4 = function(s) {
+    const arr = s.split('');
+
+    let start = 0;
+    for (let end = 0; end <= arr.length; end++) {
+        // 遇到空格或到末尾，说明一个单词结束
+        if (arr[end] === ' ' || end === arr.length) {
+            let left = start, right = end - 1;
+
+            // 双指针原地反转单词
+            while (left < right) {
+                [arr[left], arr[right]] = [arr[right], arr[left]];
+                left++;
+                right--;
+            }
+
+            start = end + 1; // 跳到下一个单词起始
+        }
+    }
+
+    return arr.join('');
+};
+
+
+
 console.log(reverseWords("Let's take LeetCode contest"));
