@@ -44,6 +44,7 @@ var getIntersectionNode = function (headA, headB) {
  */
 
 /**
+ * 双指针
  * @param {ListNode} headA
  * @param {ListNode} headB
  * @return {ListNode}

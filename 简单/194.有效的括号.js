@@ -4,7 +4,7 @@ const question = `
 左括号必须用相同类型的右括号闭合。
 左括号必须以正确的顺序闭合。
 `;
-var isValid = function (s) {
+var isValid0 = function (s) {
 	let map = {
 		'(': -1,
 		')': 1,
@@ -30,7 +30,7 @@ var isValid = function (s) {
  * @param {string} s
  * @return {boolean}
  */
-var isValid1 = function (s) {
+var isValid = function (s) {
 	const limitMap = { '(': 1, '{': 2, '[': 3, ')': -1, '}': -2, ']': -3 },
 		stack = [];
 

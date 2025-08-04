@@ -51,5 +51,24 @@ var plusOne2 = function (digits) {
 	return digits;
 };
 
+/**
+ * 简化版本
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne3 = function(digits) {
 
-console.log(plusOne2([9,9,9]));
+    for (let i = digits.length - 1; i >= 0; i--) {
+        if (digits[i] < 9) {
+            digits[i]++;
+            return digits;
+        }
+        
+        digits[i] = 0;
+    };
+    
+    return [1, ...digits];
+};
+
+
+console.log(plusOne3([9,9,9]));
