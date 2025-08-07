@@ -320,3 +320,97 @@ var containsNearbyDuplicate = function(nums, k) {
 };
 
 ```
+
+## 9. 题目链接
+- [88. 合并两个有序数组](https://leetcode.cn/problems/merge-sorted-array/description/?envType=problem-list-v2&envId=array)
+
+## 9.1 正确解法
+- **思路**：
+  * 从后往前的双指针法
+  1. 比较末尾元素：比较 nums1[i] 和 nums2[j]
+  2. 选择较大者：将较大的元素放到 nums1[k] 位置
+  3. 移动指针：被选中的数组指针前移，k 指针也前移
+  4. 处理剩余：如果 nums2 还有剩余，继续复制到 nums1
+   
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    let i = m - 1;    // nums1 最后一个有效元素
+    let j = n - 1;    // nums2 最后一个元素
+    let k = m + n - 1; // 合并后数组的最后位置
+
+    // 从后往前比较和填充
+    while (i >= 0 && j >= 0) {
+        if (nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i];
+            i--;
+        } else {
+            nums1[k] = nums2[j];
+            j--;
+        }
+        k--;
+    }
+
+    // 如果 nums2 还有剩余，复制到 nums1
+    while (j >= 0) {
+        nums1[k] = nums2[j];
+        j--;
+        k--;
+    }
+    // nums1 的剩余元素已经在正确位置，无需处理
+};
+```
+
+## 10. 题目链接
+- [110. 平衡二叉树](https://leetcode.com/problems/balanced-binary-tree/description/)
+## 10.1 正确解法
+- **思路**：
+  * 自底向上的优化解法
+  1. 一次遍历同时计算高度和判断平衡性
+  2. 用 -1 作为标记：表示子树不平衡
+  3. 提前剪枝：一旦发现不平衡，立即返回 -1
+
+
+   
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+    const checkHeight = (node) => {
+        // 1. 递归终止条件：空节点高度为0
+        if (!node) return 0;
+
+        // 2. 递归计算左右子树高度
+        const leftHeight = checkHeight(node.left);
+        const rightHeight = checkHeight(node.right);
+
+        // 3. 关键判断：任一子树不平衡 或 当前节点不平衡
+        if (leftHeight === -1 || rightHeight === -1 || 
+            Math.abs(leftHeight - rightHeight) > 1) {
+            return -1; // 返回-1表示不平衡
+        }
+
+        // 4. 返回当前节点的高度
+        return Math.max(leftHeight, rightHeight) + 1;
+    };
+
+    // 5. 最终判断：-1表示不平衡，其他值表示平衡
+    return checkHeight(root) !== -1;
+};
+```
