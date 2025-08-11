@@ -56,3 +56,58 @@ MyStack.prototype.empty = function() {
  * var param_3 = obj.top()
  * var param_4 = obj.empty()
  */
+
+
+
+
+
+
+
+var MyStack = function() {
+    this.queue = [];
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MyStack.prototype.push = function(x) {
+    this.queue.push(x);
+    let size = this.queue.length;
+    // 将队列中的元素循环移动到队尾，保持栈的后入先出特性
+    // 每次将队首元素移动到队尾，直到队列中只剩一个元素
+    while (size > 1) {
+        this.queue.push(this.queue.shift());
+        size--;
+    }
+};
+
+/**
+ * @return {number}
+ */
+MyStack.prototype.pop = function() {
+    return this.queue.shift();
+};
+
+/**
+ * @return {number}
+ */
+MyStack.prototype.top = function() {
+    return this.queue[0];
+};
+
+/**
+ * @return {boolean}
+ */
+MyStack.prototype.empty = function() {
+    return this.queue.length === 0;
+};
+
+/** 
+ * Your MyStack object will be instantiated and called as such:
+ * var obj = new MyStack()
+ * obj.push(x)
+ * var param_2 = obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.empty()
+ */
