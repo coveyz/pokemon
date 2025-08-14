@@ -8,5 +8,35 @@ const isPalindrome = (str) => {
 	return newStr === reverseOfNewStr;
 };
 
+/**
+ * 双指针
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome2 = function(s) {
+  const isAlphaNum = (ch) => {
+    //   return /[0-9a-zA-Z]/.test(ch);
+	const c = ch.charCodeAt(0);
+	return (c >= 48 && c <= 57)      // 0-9
+		|| (c >= 65 && c <= 90)      // A-Z
+		|| (c >= 97 && c <= 122);    // a-z
+  };
+
+  let left = 0, 
+    right = s.length - 1;
+
+  while (left < right) {
+    while(left < right && !isAlphaNum(s[left])) left++;
+    while(left < right && !isAlphaNum(s[right])) right--;
+
+    if (s[left].toLowerCase() !== s[right].toLowerCase()) return false;
+    
+    left++;
+    right--;
+  }
+
+  return true;
+}; 
+
 console.log(isPalindrome('A man, a plan, a canal: Panama'));
 console.log(isPalindrome('race a car'));

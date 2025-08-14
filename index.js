@@ -1,27 +1,12 @@
 /**
  * @param {string} s
- * @return {number}
+ * @return {boolean}
  */
-var firstUniqChar = function(s) {
-    const cnt = new Map(), 
-        queue = [];
-    let head = 0;
-
-    for (let i = 0; i < s.length; i++) {
-        const ch = s[i];
-        cnt.set(ch, (cnt.get(ch) || 0)+ 1);
-        queue.push([ch, i]);
-
-        while(head < queue.length && cnt.get(queue[head][0]) > 1) head++;
-    };
-
-    return head < queue.length ? queue[head][1] : -1;
+var isPalindrome = function(s) {
+    const old =  s.replace(/\W|_/g, '').toLocaleLowerCase();
+    const reversed = old.split('').reverse().join('');
+    return old === reversed;
 };
 
-
-console.log(firstUniqChar("leetcode")); // 0
-// console.log(firstUniqChar("loveleetcode")); // 2
-// console.log(firstUniqChar("aabb")); // -1
-// console.log(firstUniqChar("")); // -1
-// console.log(firstUniqChar("a")); // 0
-// console.log(firstUniqChar("ab")); // 0
+console.log(isPalindrome("A man, a plan, a canal: Panama"));  // true
+console.log(isPalindrome("race a car"));    // false
