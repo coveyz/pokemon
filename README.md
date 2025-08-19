@@ -1,416 +1,354 @@
-# pokemon
+# LeetCode 学习笔记 (pokemon)
 
+> 目标：系统化刷题 + 记录易错点 + 沉淀标准解法与模板。
 
+## 学习规划
+| 周次  | 主题               | 子模块                          | 日题量 |
+| ----- | ------------------ | ------------------------------- | ------ |
+| 1-2   | 数组 & 双指针      | 滑动窗口 / 快慢指针 / 二分      | 2-3    |
+| 3-4   | 栈 & 队列 & 哈希   | 单调栈 / 栈模拟 / LRU / 哈希表  | 2-3    |
+| 5-6   | 链表 & 字符串      | 反转 / 模拟 / 子串匹配          | 2-3    |
+| 7-8   | 树 & DFS/BFS       | 二叉树遍历 / 递归 / 回溯 / 层序 | 2-3    |
+| 9-10  | 贪心 & DP          | 硬币 / 股票 / 背包 / 子序列     | 2-3    |
+| 11-12 | 图 & 并查集 & 进阶 | 拓扑 / 最短路 / 并查集          | 1-2    |
 
-| 周次      | 主题                     | 子模块                            | 题量（每日） |
-| --------- | ------------------------ | --------------------------------- | ------------ |
-| 第1-2周   | 数组 & 双指针            | 滑动窗口、快慢指针、二分查找      | 2-3          |
-| 第3-4周   | 栈 & 队列 & 哈希         | 单调栈、LRU、栈模拟、哈希表       | 2-3          |
-| 第5-6周   | 链表 & 字符串            | K个一组反转链表、模拟、字符串匹配 | 2-3          |
-| 第7-8周   | 树 & DFS/BFS             | 二叉树、递归、回溯、层序遍历      | 2-3          |
-| 第9-10周  | 贪心 & 动态规划          | 零钱兑换、股票、背包、子序列      | 2-3          |
-| 第11-12周 | 图论 & 并查集 & 高级算法 | 拓扑排序、最短路径、并查集        | 1-2          |
+## 目录
+1. 删除有序数组中的重复项 (#26)
+2. 不同的平均值数目 (#2465)
+3. 搜索插入位置 (#35)
+4. 找出字符串中第一个匹配项的下标 (#28)
+5. 反转字符串 II (#541)
+6. 最多可以摧毁的敌人城堡数目 (#2511)
+7. 反转字符串中的单词 III (#557)
+8. 存在重复元素 II (#219)
+9. 合并两个有序数组 (#88)
+10. 平衡二叉树 (#110)
+11. 验证回文串 (#125)
+12. 回文链表 (#234)
+13. 无法吃午餐的学生数量(#1700)
 
+---
 
-## 1. 题目链接
-- [删除有序数组中的重复项](https://leetcode.com/**problems**/remove-duplicates-from-sorted-array/)
-
-## 1.1 错误思路/**原因**
-- **错误描述**：第一次做这道题时，我误以为要删除重复元素，但实际上是要将重复的元素移到数组后面，并保持前面的元素顺序不变。在实现时，我没有注意到正确地更新数组中的索引，导致重复元素没有被正确处理。
-- **常见误区**：没有注意如何有效地更新指针，尤其是当元素不等时，应该更新主指针并将新元素放入正确位置。
-
-## 1.2 正确解法
-### 解法 1：
-- **思路**：使用双指针技术，遍历数组。一个指针 `i` 用来记录新数组的最后一个不重复元素的位置，另一个指针 `j` 用来遍历整个数组。遇到不相同的元素时，将其放置在 `i` 后面。
-- **时间复杂度**：O(n)，其中 n 是数组的长度。
-- **空间复杂度**：O(1)，只用常数空间。
-
+### 1. 删除有序数组中的重复项 (#26)
+[链接](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+- **标签**：数组，双指针
+- **错误反思**：最初误解为“删除”，忽略原地覆盖 + 返回长度。
+- **思路**：`i` 指向当前去重后最后位置，`j` 扫描；遇新值放到 `++i`。
+- **复杂度**：O(n) / O(1)****
 ```js
 var removeDuplicates = function(nums) {
-    let i = 0;
-    for (let j = 1; j < nums.length; j++) {
-        if (nums[i] !== nums[j]) {
-            i++;
-            nums[i] = nums[j];
-        }
+  let i = 0;
+  for (let j = 1; j < nums.length; j++) {
+    if (nums[i] !== nums[j]) {
+      nums[++i] = nums[j];
     }
-    return i + 1;
+  }
+  return i + 1;
 };
 ```
 
 ---
-
-## 2. 题目链接
-- [不同的平均值数目](https://leetcode.com/problems/number-of-distinct-averages/description/?envType=problem-list-v2&envId=two-pointers)
-
-## 2.1 正确解法
-- **思路**：
-  1. 排序：首先可以对数组进行排序，这样可以快速找到最小值和最大值。
-  2. 找到最小值和最大值：从排序后的数组两端找到最小值和最大值。
-  3. 计算平均值：每次删除最小值和最大值后，计算它们的平均值，并将其加入一个集合中。集合自动去重，因此最终集合的大小即为不同平均值的数量。
-  4. 重复此过程：直到数组为空。
-
+### 2. 不同的平均值数目 (#2465)
+[链接](https://leetcode.com/problems/number-of-distinct-averages/)
+- **标签**：排序，双指针，集合
+- **思路**：排序后两端向内，每次 (min+max)/2 放入 Set。
+- **复杂度**：O(n log n) / O(1~n)
 ```js
-/**
- * @param {number[]} nums
- * @return {number}
- */
 var distinctAverages = function(nums) {
-    nums.sort((a,b) => a - b);
-
-    const acc = new Set();
-    let left = 0, right = nums.length - 1;
-
-    while (left < right) {
-        const average = (nums[left] + nums[right]) / 2;
-        acc.add(average);
-        left++;
-        right--;
-    };
-
-    return acc.size;
+  nums.sort((a,b)=>a-b);
+  const set = new Set();
+  let l = 0, r = nums.length - 1;
+  while (l < r) set.add((nums[l++] + nums[r--]) / 2);
+  return set.size;
 };
 ```
---- 
 
-## 3. 题目链接
-- [35. 搜索插入位置](https://leetcode.cn/problems/search-insert-position/description/?envType=problem-list-v2&envId=array)
-
-## 3.1 正确解法
-- **思路**：
-  1. 初始化两个指针 left 和 right，分别指向数组的开始和结束。
-  2. 计算中间位置 mid。
-  3. 如果 nums[mid] === target，返回 mid。
-  4. 如果 nums[mid] < target，说明目标值在右侧，更新 left 为 mid + 1。
-  5. 如果 nums[mid] > target，说明目标值在左侧，更新 right 为 mid - 1。
-  6. 如果遍历完数组，说明目标值不存在，可以返回目标值应该插入的位置。
-
+---
+### 3. 搜索插入位置 (#35)
+[链接](https://leetcode.cn/problems/search-insert-position/)
+- **标签**：二分
+- **思路**：标准二分，未命中返回 left。
+- **复杂度**：O(log n) / O(1)
 ```js
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number}
- */
 var searchInsert = function(nums, target) {
-    let left = 0, right = nums.length - 1;
-
-    while(left <= right) {
-        const middle = Math.floor((left + right) / 2), middleItem = nums[middle];
-        if (middleItem === target) {
-            return middle;
-        }
-        else if (middleItem < target) {
-            left = middle + 1;
-        } else {
-            right = middle - 1;
-        }
-    };
-
-    return left;
+  let l = 0, r = nums.length - 1;
+  while (l <= r) {
+    const m = (l + r) >> 1;
+    if (nums[m] === target) return m;
+    nums[m] < target ? l = m + 1 : r = m - 1;
+  }
+  return l;
 };
 ```
 
 ---
-
-
-## 4. 题目链接
-- [28. 找出字符串中第一个匹配项的下标](https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/description/?envType=problem-list-v2&envId=two-pointers)
-
-## 4.1 正确解法
-- **思路**：
-  1. 初始化两个指针 i 遍历haystack, j 遍历needle
-  2. 遍历haystack
-  3. 不匹配， 回退i， 并且 needle重新找 j = 0
-  4. 没找到直接 返回 -1
-
+### 4. 找出字符串中第一个匹配项的下标 (#28)
+[链接](https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+- **标签**：字符串，双指针（朴素匹配）
+- **思路**：双指针；失配时主串回退 `i - j + 1`，模式串清零。可升级 KMP。
+- **复杂度**：最坏 O(nm)
 ```js
-/**
- * @param {string} haystack
- * @param {string} needle
- * @return {number}
- */
 var strStr = function(haystack, needle) {
-    if (haystack === needle || !needle.length) return 0;
-
-    let i = 0, j = 0;
-
-    while(i < haystack.length) {
-        if (haystack[i] === needle[j]) {
-            j++;
-            if (j === needle.length) {
-                return i - j + 1;
-            }
-        } else {
-            // while (j > 0) {
-            //     i--;
-            //     j--;
-            // }
-             i = i - j; // 回退i到失配字符的下一个位置
-            j = 0; // 重置j，重新从头开始匹配
-        }
-        i++;
+  if (!needle) return 0;
+  let i = 0, j = 0;
+  while (i < haystack.length) {
+    if (haystack[i] === needle[j]) {
+      if (++j === needle.length) return i - j + 1;
+    } else {
+      i -= j; j = 0;
     }
-
-    return -1;
+    i++;
+  }
+  return -1;
 };
 ```
 
 ---
-
-## 5. 题目链接
-- [541. 反转字符串 II](https://leetcode.cn/problems/reverse-string-ii/description/?envType=problem-list-v2&envId=two-pointers)
-
-## 5.1 正确解法
-- **思路**：
-  1. 给定字符串 s 和整数 k，每次从前往后每 2k 个字符为一组：
-     1. 如果剩下的字符少于 k 个，反转所有剩下的字符。  
-     2. 如果剩下的字符不少于 k 但小于 2k，反转前 k 个，剩下的保持不变。
-     3. 如果剩下的字符大于等于 2k，只反转前 k 个，后 k 个保持不变。
-
+### 5. 反转字符串 II (#541)
+[链接](https://leetcode.cn/problems/reverse-string-ii/)
+- **标签**：字符串，模拟
+- **思路**：每 2k 段反转前 k。末尾用 Math.min 控制右界。
+- **复杂度**：O(n) / O(1)
 ```js
-/**
- * @param {string} s
- * @param {number} k
- * @return {string}
- */
 var reverseStr = function(s, k) {
-    const arr = s.split('');
-
-    for (let i = 0; i < arr.length; i+= 2*k) {
-        let left = i, 
-            right = Math.min(i + k - 1, arr.length - 1);
-
-        while(left < right) {
-            [arr[left], arr[right]] = [arr[right], arr[left]];
-            left++;
-            right--;
-        };
-    }
-    
-    return arr.join('');
-};
-```
-
-----
-
-
-## 6. 题目链接
-- [2511. 最多可以摧毁的敌人城堡数目](https://leetcode.cn/problems/maximum-enemy-forts-that-can-be-captured/description/?envType=problem-list-v2&envId=two-pointers)
-
-## 6.1 正确解法
-- **思路**：
-  1. 初始化： 遍历找到所有城堡的位置 （值=1）
-  2. 扫描一对城堡： 对每一对控制的城堡， 判断这俩城堡之间所有位置，如果是空地的话记录
-  3. 滑动窗口： 通过滑动窗口维护，遇到敌人城堡（值=1）+1， 如果遇到空地结束更新最大值，遇到自己城堡停止计算
-  4. 返回结果
-
-```js
-/**
- * @param {number[]} forts
- * @return {number}
- */
-var captureForts = function(forts) {
-    const n = forts.length;
-    let maxDestroyed = 0;
-        
-    const scan = (start, step) => {
-        let count = 0
-        for (let i = start; i >= 0 && i < n; i += step) {
-            if (forts[i] === 0) {
-                count++;
-            } else if (forts[i] === -1) {
-                maxDestroyed = Math.max(maxDestroyed, count);
-                break;
-            } else {
-                break;
-            }
-        };
-    };
-
-    for(let i = 0; i < n; i++ ) {
-        if (forts[i] === 1) {
-            let count = 0
-            //left -> right;
-            scan(i + 1, 1)
-            // right <-left;
-            scan(i - 1, -1)
-        };
-    }
-
-    return maxDestroyed;
+  const arr = s.split('');
+  for (let i = 0; i < arr.length; i += 2*k) {
+    let l = i, r = Math.min(i + k - 1, arr.length - 1);
+    while (l < r) [arr[l], arr[r]] = [arr[r], arr[l]], l++, r--;
+  }
+  return arr.join('');
 };
 ```
 
 ---
-
-
-## 7. 题目链接
-- [557. 反转字符串中的单词 III](https://leetcode.cn/problems/reverse-words-in-a-string-iii/description/?envType=problem-list-v2&envId=two-pointers)
-
-## 7.1 正确解法
-- **思路**：
-  1. 初始化： 字符串 -> 数组 （方便原地转换
-  2. 定义指针
-     1. start 开始
-     2. end 便利整个字符串，查找空格和结尾
-  3. end 到空格结尾就结束了
-  4. 用两个新的left，right 原地反转
-  5. 更新 start 为下一个单词的起始点
-  6. 遍历结束，返回修改后的字符串
-
+### 6. 最多可以摧毁的敌人城堡数目 (#2511)
+[链接](https://leetcode.cn/problems/maximum-enemy-forts-that-can-be-captured/)
+- **标签**：数组，扫描
+- **思路**：遇到 1 向两边扫描：连续 0 后若遇 -1 统计。
+- **复杂度**：O(n * k) 最坏（k 为局部跨度）。可进一步一次线性扫描优化。
 ```js
-/**
- * @param {string} s
- * @return {string}
- */
+var captureForts = function(forts) {
+  const n = forts.length; let ans = 0;
+  const scan = (i, step) => { let cnt = 0; for (let p = i; p>=0 && p<n; p+=step){
+    if (forts[p] === 0) cnt++; else if (forts[p] === -1){ ans = Math.max(ans,cnt); break;} else break; }
+  };
+  for (let i = 0; i < n; i++) if (forts[i] === 1) { scan(i+1,1); scan(i-1,-1);} 
+  return ans;
+};
+```
+
+---
+### 7. 反转字符串中的单词 III (#557)
+[链接](https://leetcode.cn/problems/reverse-words-in-a-string-iii/)
+- **标签**：字符串，原地反转
+- **思路**：双指针定位单词区间反转。
+- **复杂度**：O(n) / O(1)
+```js
 var reverseWords = function(s) {
-    let arr = s.split('');
-
-    let start = 0;
-
-    for(let end = 0; end <= s.length; end++) {
-        if (arr[end] === ' ' || end === s.length) {
-            let left = start, right = end - 1;
-
-            while(left < right) {
-                [arr[left], arr[right]] = [arr[right], arr[left]];
-
-                left++;
-                right--;
-            };
-
-            start = end + 1;
-        };
+  const arr = s.split('');
+  let start = 0;
+  for (let end = 0; end <= arr.length; end++) {
+    if (end === arr.length || arr[end] === ' ') {
+      let l = start, r = end - 1;
+      while (l < r) [arr[l], arr[r]] = [arr[r], arr[l]], l++, r--;
+      start = end + 1;
     }
-
-    return arr.join('');
+  }
+  return arr.join('');
 };
-
 ```
 
-
-## 8. 题目链接
-- [219. 存在重复元素 II](https://leetcode.cn/problems/contains-duplicate-ii/description/?envType=problem-list-v2&envId=array)
-
-## 8.1 正确解法
-- **思路**：
-  1. 维护一个大小为 K 的窗口
-  2. 每次检查当前元素是否出现在窗口内
-  3. 超出窗口大小 删除 窗口中最左元素 i - k
-
+---
+### 8. 存在重复元素 II (#219)
+[链接](https://leetcode.cn/problems/contains-duplicate-ii/)
+- **标签**：哈希，滑动窗口
+- **思路**：Set 维护最近 k 个元素；超出窗口删除最左。
+- **复杂度**：O(n) / O(k)
 ```js
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {boolean}
- */
 var containsNearbyDuplicate = function(nums, k) {
-    const acc = new Set();
-
-    for (let i = 0; i < nums.length; i++) {
-        const element = nums[i];
-        if (acc.has(element)) return true;
-        acc.add(element);
-        if (acc.size > k) {
-            acc.delete(nums[i - k]);
-        }
-    };
-
-    return false;
+  const set = new Set();
+  for (let i = 0; i < nums.length; i++) {
+    if (set.has(nums[i])) return true;
+    set.add(nums[i]);
+    if (set.size > k) set.delete(nums[i - k]);
+  }
+  return false;
 };
-
 ```
 
-## 9. 题目链接
-- [88. 合并两个有序数组](https://leetcode.cn/problems/merge-sorted-array/description/?envType=problem-list-v2&envId=array)
-
-## 9.1 正确解法
-- **思路**：
-  * 从后往前的双指针法
-  1. 比较末尾元素：比较 nums1[i] 和 nums2[j]
-  2. 选择较大者：将较大的元素放到 nums1[k] 位置
-  3. 移动指针：被选中的数组指针前移，k 指针也前移
-  4. 处理剩余：如果 nums2 还有剩余，继续复制到 nums1
-   
+---
+### 9. 合并两个有序数组 (#88)
+[链接](https://leetcode.cn/problems/merge-sorted-array/)
+- **标签**：数组，双指针
+- **思路**：从后往前放最大；若 nums2 剩余继续拷贝。
+- **复杂度**：O(m+n) / O(1)
 ```js
-/**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
- */
 var merge = function(nums1, m, nums2, n) {
-    let i = m - 1;    // nums1 最后一个有效元素
-    let j = n - 1;    // nums2 最后一个元素
-    let k = m + n - 1; // 合并后数组的最后位置
-
-    // 从后往前比较和填充
-    while (i >= 0 && j >= 0) {
-        if (nums1[i] > nums2[j]) {
-            nums1[k] = nums1[i];
-            i--;
-        } else {
-            nums1[k] = nums2[j];
-            j--;
-        }
-        k--;
-    }
-
-    // 如果 nums2 还有剩余，复制到 nums1
-    while (j >= 0) {
-        nums1[k] = nums2[j];
-        j--;
-        k--;
-    }
-    // nums1 的剩余元素已经在正确位置，无需处理
+  let i = m - 1, j = n - 1, k = m + n - 1;
+  while (i >= 0 && j >= 0) nums1[k--] = nums1[i] > nums2[j] ? nums1[i--] : nums2[j--];
+  while (j >= 0) nums1[k--] = nums2[j--];
 };
 ```
 
-## 10. 题目链接
-- [110. 平衡二叉树](https://leetcode.com/problems/balanced-binary-tree/description/)
-## 10.1 正确解法
+---
+### 10. 平衡二叉树 (#110)
+[链接](https://leetcode.com/problems/balanced-binary-tree/)
+- **标签**：树，DFS，剪枝
+- **思路**：自底向上；高度/平衡一次返回；-1 作为不平衡哨兵。
+- **复杂度**：O(n) / O(h)
+```js
+var isBalanced = function(root) {
+  const dfs = (node) => {
+    if (!node) return 0;
+    const l = dfs(node.left); if (l === -1) return -1;
+    const r = dfs(node.right); if (r === -1) return -1;
+    if (Math.abs(l - r) > 1) return -1;
+    return Math.max(l, r) + 1;
+  };
+  return dfs(root) !== -1;
+};
+```
+
+---
+### 11. 验证回文串 (#125)
+[链接](https://leetcode.com/problems/valid-palindrome/)
+- **标签**：字符串，双指针，过滤
+- **思路**：左右指针从两端向中间；跳过非字母数字字符；对比小写后的字符；任一不等返回 false，全程通过返回 true。无需构造新字符串，原地判定。
+- **复杂度**：O(n) / O(1)
+```js
+var isPalindrome = function(s) {
+  const isAlphaNum = (ch) => /[0-9a-zA-Z]/.test(ch);
+  let l = 0, r = s.length - 1;
+  while (l < r) {
+    while (l < r && !isAlphaNum(s[l])) l++;
+    while (l < r && !isAlphaNum(s[r])) r--;
+    if (s[l].toLowerCase() !== s[r].toLowerCase()) return false;
+    l++; r--;
+  }
+  return true;
+};
+```
+---
+### 12. 回文链表 (#234)
+[链接](https://leetcode.com/problems/palindrome-linked-list/description/?envType=problem-list-v2&envId=stack)
+- **标签**：链表，栈，快慢指针
 - **思路**：
-  * 自底向上的优化解法
-  1. 一次遍历同时计算高度和判断平衡性
-  2. 用 -1 作为标记：表示子树不平衡
-  3. 提前剪枝：一旦发现不平衡，立即返回 -1
-
-
-   
+   1. 快慢指针定位中点
+      -  slow 1步， fast 2步
+      -  slow 走到末尾，slow正好中间
+   2. 前半部分入栈
+      - 慢指针 压入栈
+   3. 处理奇偶长度
+      - 偶数: fast指向最后一个节点 -> fast.next = null 
+      - 奇数 fast指向中间节点 ->  fast = null
+   4. 比较阶段
+- **复杂度**：O(n) / O(n)
 ```js
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
  *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
+ *     this.next = (next===undefined ? null : next)
  * }
  */
+
 /**
- * @param {TreeNode} root
+ * 栈解法：回文链表
+ * 思路：
+ * 1. 快慢指针找到链表中点
+ * 2. 将前半部分入栈
+ * 3. 后半部分与栈中元素逐一比较
+ * @param {ListNode} head
  * @return {boolean}
  */
-var isBalanced = function(root) {
-    const checkHeight = (node) => {
-        // 1. 递归终止条件：空节点高度为0
-        if (!node) return 0;
-
-        // 2. 递归计算左右子树高度
-        const leftHeight = checkHeight(node.left);
-        const rightHeight = checkHeight(node.right);
-
-        // 3. 关键判断：任一子树不平衡 或 当前节点不平衡
-        if (leftHeight === -1 || rightHeight === -1 || 
-            Math.abs(leftHeight - rightHeight) > 1) {
-            return -1; // 返回-1表示不平衡
+var isPalindrome = function(head) {
+    if (!head || !head.next) return true;
+    
+    const stack = [];
+    let slow = head, fast = head;
+    
+    // 快慢指针找中点，同时将前半部分入栈
+    while (fast && fast.next) {
+        stack.push(slow.val);
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    // 如果链表长度为奇数，跳过中间节点
+    if (fast) {
+        slow = slow.next;
+    }
+    
+    // 后半部分与栈中元素比较
+    while (slow) {
+        if (slow.val !== stack.pop()) {
+            return false;
         }
+        slow = slow.next;
+    }
+    
+    return true;
+};
 
-        // 4. 返回当前节点的高度
-        return Math.max(leftHeight, rightHeight) + 1;
-    };
+```
+---
+### 13. 无法吃午餐的学生数量 (#1700)
+[链接](https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/description/?envType=problem-list-v2&envId=queue)
+- **标签**：队列，栈，模拟，循环检测
+- **思路**：
+   1. 模拟队列和栈操作
+      - 学生队列：shift() 出队，push() 入队
+      - 三明治栈：按 position 索引访问栈顶
+   2. 匹配策略
+      - 喜欢：学生离开，position++ 指向下一个三明治
+      - 不喜欢：学生回到队尾，rotations++ 计数
+   3. 循环检测避免超时
+      - 当 rotations === students.length 时，所有学生都试过一轮
+      - 说明没人要当前三明治，跳出循环
+   4. 返回剩余学生数量
+- **复杂度**：O(n²) / O(1) - 最坏情况每个学生绕队列一圈
+```js
+/**
+ * @param {number[]} students
+ * @param {number[]} sandwiches
+ * @return {number}
+ */
+var countStudents = function(students, sandwiches) {
+    let position = 0;
+    let rotations = 0;
 
-    // 5. 最终判断：-1表示不平衡，其他值表示平衡
-    return checkHeight(root) !== -1;
+    while(students.length) {
+        if (position >= sandwiches.length) break;
+
+        const student = students.shift(),
+            sandwich = sandwiches[position];
+        
+        if (sandwich === student) {
+            position++;
+            rotations = 0;
+        } else {
+            students.push(student);
+            rotations++;
+        };
+
+        if (rotations === students.length) break;
+    }
+
+    return students.length;
 };
 ```
+
+---
+## 后续计划占位
+- 添加：哈希 / 栈专题错题总结
+- 添加：常用模板（快慢指针 / 二分判定 / 递归遍历 / 反转链表）
+- 添加：性能对比 & 题型归纳表
+
+## 复盘 Checklist
+- 是否写出多种解法？
+- 是否标记复杂度？
+- 是否记录第一反应错误点？
+- 是否可提炼模板？
+
+> 持续迭代：每次提交新增题目请按统一结构补充，确保可检索与复习效率。
+
