@@ -26,6 +26,7 @@
 11. 验证回文串 (#125)
 12. 回文链表 (#234)
 13. 无法吃午餐的学生数量(#1700)
+14. 下一个更大元素 I(#496)
 
 ---
 
@@ -308,7 +309,7 @@ var isPalindrome = function(head) {
    4. 返回剩余学生数量
 - **复杂度**：O(n²) / O(1) - 最坏情况每个学生绕队列一圈
 ```js
-/**
+/******
  * @param {number[]} students
  * @param {number[]} sandwiches
  * @return {number}
@@ -335,6 +336,35 @@ var countStudents = function(students, sandwiches) {
     }
 
     return students.length;
+};
+```
+---
+### 14. 496. 下一个更大元素 I (#496)
+[链接](https://leetcode.com/problems/next-greater-element-i/description/?envType=problem-list-v2&envId=stack)
+- **标签**：数组，栈，单调栈，哈希
+- **思路**：
+  1. nums2 元素互不相同，用值本身做 key。
+  2. 维护单调递减栈：遍历 nums2，对当前元素 x，弹出所有小于 x 的栈顶元素；它们的下一个更大值即 x，记录 Map。
+  3. 扫描结束后栈里剩下的元素右侧无更大值，统一标记 -1。
+  4. 遍历 nums1，按 Map 映射输出答案。
+  - 单调栈作用：把“对每个元素向右找第一个更大”从 O(n^2) 降为一次线性扫描。
+- **复杂度**：时间 O(n + m)（n = nums2.length, m = nums1.length）；空间 O(n)（映射 + 栈最坏装全部未匹配元素）
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var nextGreaterElement = function(nums1, nums2) {
+    const next = new Map(), stack = [];
+    for (let x of nums2) {
+        while (stack.length && stack[stack.length - 1] < x) {
+            next.set(stack.pop(), x);
+        }
+        stack.push(x);
+    }
+    while (stack.length) next.set(stack.pop(), -1);
+    return nums1.map(v => next.get(v));
 };
 ```
 
