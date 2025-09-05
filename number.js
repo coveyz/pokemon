@@ -11,7 +11,8 @@ const exercise_Number = async () => {
 
 	const promises = exercise_dir.map(async dir => {
 		const item = await dirOp(dir);
-		return item.length;
+		const jsFiles = item.filter(name => name.endsWith('.js'));
+    	return jsFiles.length;
 	})
 	const counts = await Promise.all(promises);
 
