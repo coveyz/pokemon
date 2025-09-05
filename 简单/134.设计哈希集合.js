@@ -43,3 +43,75 @@ MyHashSet.prototype.contains = function(key) {
  * obj.remove(key)
  * var param_3 = obj.contains(key)
  */
+
+
+
+
+/** 拉链法 */
+var MyHashSet = function() {
+    this.size = 769;
+    this.buckets = Array.from({length: this.size}, () => null);
+};
+
+MyHashSet.prototype._hash = function(key) {
+    return key % this.size;
+};
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.add = function(key) {
+    const idx = this._hash(key);
+    let node = this.buckets[idx];
+    while(node) {
+        if (node.val === key) return;
+        node = node.next;
+    };
+
+    this.buckets[idx] = {val: key, next: this.buckets[idx]};
+};
+
+/** 
+ * @param {number} key
+ * @return {void}
+ */
+MyHashSet.prototype.remove = function(key) {
+    const idx = this._hash(key);
+    let node = this.buckets[idx], 
+        prev = null;
+
+    while(node) {
+        if (node.val === key) {
+            if (prev) prev.next = node.next;
+            else this.buckets[idx] = node.next;
+            return;
+        };
+        prev = node;
+        node = node.next;
+    };
+};
+
+/** 
+ * @param {number} key
+ * @return {boolean}
+ */
+MyHashSet.prototype.contains = function(key) {
+    const idx = this._hash(key);
+    let node = this.buckets[idx];
+
+    while(node) {
+        if (node.val === key) return true;
+        node = node.next;
+    };
+
+    return false;
+};
+
+/** 
+ * Your MyHashSet object will be instantiated and called as such:
+ * var obj = new MyHashSet()
+ * obj.add(key)
+ * obj.remove(key)
+ * var param_3 = obj.contains(key)
+ */
