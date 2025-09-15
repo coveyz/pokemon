@@ -22,6 +22,7 @@ const question = `
  * }
  */
 /**
+ ** DFS 深度优先
  * @param {TreeNode} root
  * @return {number}
  */
@@ -35,3 +36,49 @@ var minDepth = function(root) {
     return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
 };
 
+
+//? BFS 广度优先思路
+//? 1. 如果节点为空，返回0
+//? 2. 初始化队列，加入根节点，深度为1
+//? 3. 当队列不为空时，循环以下操作
+//?    1. 获取当前队列长度
+//?    2. 遍历当前层的所有节点
+//?       1. 如果节点没有左右子树，返回当前深度
+//?       2. 如果节点有左子树，加入队列
+//?       3. 如果节点有右子树，加入队列
+//?    3. 深度加1   
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ ** BFS 广度优先
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function(root) {
+    if (!root) return 0;
+
+    const queue = [root];
+    let depth = 1;
+
+    while(queue.length) {
+        const size = queue.length;
+
+        for (let i = 0; i < size; i++) {
+            const node = queue.shift();
+            if (!node.left && !node.right) return depth;
+            if (node.left) queue.push(node.left)
+            if (node.right) queue.push(node.right)
+        };
+
+        depth++;
+    }
+
+    return depth;
+};
