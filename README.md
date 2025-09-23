@@ -9,7 +9,7 @@
 | 3-4   | 栈 & 队列 & 哈希   | 单调栈 / 栈模拟 / LRU / 哈希表  | 2-3    |
 | 5-6   | 链表 & 字符串      | 反转 / 模拟 / 子串匹配          | 2-3    |
 | 7-8   | 树 & DFS/BFS       | 二叉树遍历 / 递归 / 回溯 / 层序 | 2-3    |
-| 9-10  | 贪心 & DP          | 硬币 / 股票 / 背包 / 子序列     | 2-3    |
+| 9-10  | 贪心 & 动态规划          | 硬币 / 股票 / 背包 / 子序列     | 2-3    |
 | 11-12 | 图 & 并查集 & 进阶 | 拓扑 / 最短路 / 并查集          | 1-2    |
 
 ## 目录
@@ -27,6 +27,7 @@
 12. 回文链表 (#234)
 13. 无法吃午餐的学生数量(#1700)
 14. 下一个更大元素 I(#496)
+15. 平衡二叉树(#110)
 
 ---
 
@@ -239,7 +240,7 @@ var isPalindrome = function(s) {
       -  slow 走到末尾，slow正好中间
    2. 前半部分入栈
       - 慢指针 压入栈
-   3. 处理奇偶长度
+   3. **处理奇偶长度**
       - 偶数: fast指向最后一个节点 -> fast.next = null 
       - 奇数 fast指向中间节点 ->  fast = null
    4. 比较阶段
@@ -366,7 +367,41 @@ var nextGreaterElement = function(nums1, nums2) {
     while (stack.length) next.set(stack.pop(), -1);
     return nums1.map(v => next.get(v));
 };
+
 ```
+
+---
+### 15.平衡二叉树  (#110)
+[链接](https://leetcode.com/problems/balanced-binary-tree/description/?envType=problem-list-v2&envId=tree)
+- **标签**：树，深度优先遍历
+- **思路**：
+  1. 递归自底向上 计算每个节点左右子树高度
+     1. 若某个节点左右高度超过1， 整棵不平衡
+  2. 用 -1 作为哨兵， 发现不平衡直接返回-1， 剪枝优化
+- **复杂度**：
+  - 时间 O(n)（每个节点访问一次）
+  - 空间 O(h)（递归栈，h 为树高）
+- **口诀**：
+   - 自底向上， 递归返回高度
+   - 发现不平衡 返回 -1
+   - 最终只要一个 -1， 整棵树就不平衡
+```js
+var isBalanced = function(root) {
+  function getHeight(node) {
+    if (!node) return 0; // 空节点，高度0
+    let left = getHeight(node.left);
+    if (left === -1) return -1; // 左不平衡
+    let right = getHeight(node.right);
+    if (right === -1) return -1; // 右不平衡
+    if (Math.abs(left - right) > 1) return -1; // 当前不平衡
+    return Math.max(left, right) + 1; // 返回高度
+  }
+  return getHeight(root) !== -1;
+};
+```
+
+
+
 
 ---
 ## 后续计划占位
