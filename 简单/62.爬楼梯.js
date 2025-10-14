@@ -16,4 +16,15 @@ const climbStairs = n => {
 	return dp[n];
 };
 
+/** O(1) 空间滚动变量 */
+var climbStairs2 = function(n) {
+  if (n <= 1) return 1;
+  let a = 1, b = 1;          // a=dp[i-2], b=dp[i-1]
+  for (let i = 2; i <= n; i++) {
+    const c = a + b;         // c=dp[i]
+    a = b; b = c;            // 前移一格
+  }
+  return b;
+};
+
 console.log(climbStairs(5));
