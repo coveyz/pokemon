@@ -66,15 +66,18 @@ var hasCycle = function (head) {
  * @return {boolean}
  */
 var hasCycle = function(head) {
-  if (!head || !head.next) return false;
-
-  let slow = head, fast = head.next;
-
-  while (fast && fast.next) {
-      if (fast === slow) return true;
-      slow = slow.next;
-      fast = fast.next.next
-  }
-
-  return false
+    if (!head || !head.next) return false;
+    
+    let slow = head;      // 🐢 慢指针：每次走1步
+    let fast = head.next; // 🐰 快指针：每次走2步
+    
+    while (fast && fast.next) {
+        if (slow === fast) {
+            return true; // 🎯 快指针追上慢指针，有环！
+        }
+        slow = slow.next;        // 🐢 慢指针走1步
+        fast = fast.next.next;   // 🐰 快指针走2步
+    }
+    
+    return false; // 🏁 快指针到达末尾，无环
 };
