@@ -26,5 +26,26 @@ const removeDuplicates = (nums) => {
 	return slow;
 };
 
+/**
+ * 快慢指针
+ * @param {*} nums 
+ * @returns 
+ */
+var removeDuplicates2 = function(nums) {
+    if (nums.length === 0) return 0;
+    
+    let i = 0; // 慢指针：指向下一个不重复元素的位置
+    
+    for (let j = 1; j < nums.length; j++) { // 快指针：遍历数组
+        if (nums[j] !== nums[i]) { // 发现不重复元素
+            i++;                   // 慢指针前移
+            nums[i] = nums[j];     // 将不重复元素放到正确位置
+        }
+        // 如果 nums[j] === nums[i]，什么都不做，继续遍历
+    }
+    
+    return i + 1; // 返回不重复元素的个数
+};
+
 console.log(removeDuplicates([1, 1, 2]));
 console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
