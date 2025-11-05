@@ -45,17 +45,18 @@ var majorityElementMap = function (nums) {
  * @return {number}
  */
 var majorityElement = function(nums) {
-    let count = 0, candidate = null;
-
-    for(const num of nums) {
+    let candidate = null;
+    let count = 0;
+    
+    // 第一阶段：找候选人
+    for (let num of nums) {
         if (count === 0) {
-            candidate = num;
-        };
-
-        count += (num === candidate) ? 1 : -1;
+            candidate = num; // 🚩 选举新候选人
+        }
+        count += (num === candidate) ? 1 : -1; // 📊 投票
     }
-
-    return candidate;
+    
+    return candidate; // 🏆 多数元素
 };
 
 
