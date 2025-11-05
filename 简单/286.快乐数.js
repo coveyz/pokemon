@@ -50,6 +50,7 @@ var isHappy = function (n) {
 };
 
 /**
+ * hash
  * @param {number} n
  * @return {boolean}
  */
@@ -77,6 +78,38 @@ var isHappy = function(n) {
 
     return n === 1;
 };
+
+/**
+ ** 双指针
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function(n) {
+    let getNext = (n) => {
+        let totalSum = 0;
+
+        while(n > 0) {
+            const digit = n % 10;
+            totalSum += digit * digit;
+            n = Math.floor(n / 10);
+        }
+
+        return totalSum;
+    };
+
+    let fast = n;
+    let slow = n;
+
+    while(true) {
+        slow = getNext(slow);
+        fast = getNext(getNext(fast));
+
+        if (slow === fast) break;
+    };
+
+    return slow === 1;
+};
+
 
 const n = 7;
 
