@@ -49,23 +49,24 @@ var summaryRanges = function (nums) {
  * @return {string[]}
  */
 var summaryRanges = function(nums) {
-    if (!nums.length) return [];
-
+    if (nums.length === 0) return [];
+    
     const result = [];
-    let start = 0;
-
+    let start = 0;  // 记录区间起始索引
+    
     for (let i = 0; i < nums.length; i++) {
+        // 检查是否到达区间末尾
         if (i === nums.length - 1 || nums[i + 1] !== nums[i] + 1) {
+            // 构造区间字符串
             if (start === i) {
-                result.push(nums[start] + '');
+                result.push(nums[start].toString());  // 单个数字
             } else {
-                result.push(`${nums[start]}->${nums[i]}`);
-            };
-            start = i + 1;
+                result.push(`${nums[start]}->${nums[i]}`);  // 区间
+            }
+            start = i + 1;  // 更新下一个区间的起始位置
         }
     }
-
-
+    
     return result;
 };
 

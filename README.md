@@ -241,8 +241,10 @@ var isPalindrome = function(s) {
    2. 前半部分入栈
       - 慢指针 压入栈
    3. **处理奇偶长度**
-      - 偶数: fast指向最后一个节点 -> fast.next = null 
-      - 奇数 fast指向中间节点 ->  fast = null
+      <!-- - 偶数: fast指向最后一个节点 -> fast.next = null 
+      - 奇数 fast指向中间节点 ->  fast = null -->
+      - 偶数: fast指向最后一个节点 -> fast = null 
+      - 奇数 fast指向中间节点 ->  fast.next = null
    4. 比较阶段
 - **复杂度**：O(n) / O(n)
 ```js
