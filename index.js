@@ -1,25 +1,31 @@
 /**
- * @param {number[]} nums
- * @return {number[]}
+ * @param {number[]} students
+ * @param {number[]} sandwiches
+ * @return {number}
  */
-var findDisappearedNumbers = function(nums) {
-    const len = nums.length;
+var countStudents = function(students, sandwiches) {
+    let count0 = 0, 
+        count1 = 0;
 
-    for (let i = 0; i < len; i++) {
-        const index = Math.abs(nums[i]) - 1;
-        if (nums[index] > 0 ) {
-            nums[index] = -nums[index];
+    for(let sandwich of sandwiches) {
+        if (sandwich === 0) count0++;
+        else count1++;
+    };
+
+    console.log({count0, count1});
+
+    for(let student of students) {
+        if (student === 0) {
+            count0--;
+            if (count0 <= 0) break;
+        } else {
+            count1--;
+            if (count1 <= 0) break;
         }
     };
 
-    const result = [];
-     for (let i = 0; i < len; i++) {
-        if (nums[i] > 0)  {
-            result.push(i + 1);
-        }
-     };
-
-     return result;
+    return count0 + count1;
 };
 
-console.log(findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1]));
+console.log(countStudents([1,1,0,0], [0,1,0,1])) // 0
+// console.log(countStudents([1,1,1,0,0,1], [1,0,0,0,1,1])) // 3
