@@ -7,6 +7,7 @@ int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为�
 `;
 
 var RecentCounter = function () {
+	// 📝 用来记录每次访问的时间
 	this.arr = [];
 };
 
@@ -15,12 +16,14 @@ var RecentCounter = function () {
  * @return {number}
  */
 RecentCounter.prototype.ping = function (t) {
+	// 📝 记录当前访问的时间
 	this.arr.push(t);
 
+	// 📝 移除不在时间范围内的访问记录
 	while (this.arr[0] < t - 3000) {
 		this.arr.shift();
 	}
-
+	// 📝 返回在时间范围内的访问次数
 	return this.arr.length;
 };
 

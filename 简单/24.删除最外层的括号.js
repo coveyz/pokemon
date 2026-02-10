@@ -21,4 +21,31 @@ const removeOuterParentheses = (S) => {
 	return res;
 };
 
+
+/**
+ * @description 计数法
+ * @param {string} s
+ * @return {string}
+ */
+var removeOuterParentheses1 = function(s) {
+    let result = '', 
+        level = 0;
+
+    for (let char of s) {
+        if (char === '(') {
+            if (level > 0) {
+                result+= char;
+            }
+            level++;
+        } else {
+            level--;
+            if (level > 0) {
+                result+= char
+            }
+        }
+    };
+
+    return result;
+};
+
 console.log(removeOuterParentheses('(()())(())'));
