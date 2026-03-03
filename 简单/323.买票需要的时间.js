@@ -48,5 +48,28 @@ var timeRequiredToBuy = function(tickets, k) {
             }
         }
     }
+};
 
+/**
+ ** 数学优化
+ * @param {number[]} tickets
+ * @param {number} k
+ * @return {number}
+ */
+var timeRequiredToBuy = function(tickets, k) {
+    let time = 0;
+    const target = tickets[k];  // 第k个人要买的票数
+    
+    for (let i = 0; i < tickets.length; i++) {
+        if (i <= k) {
+            // k前面的人（包括k）：最多买target张
+            time += Math.min(tickets[i], target);
+        } else {
+            // k后面的人：最多买target-1张
+            // （因为k买完最后一张后就结束了）
+            time += Math.min(tickets[i], target - 1);
+        }
+    }
+    
+    return time;
 };
