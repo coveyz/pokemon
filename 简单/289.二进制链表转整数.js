@@ -24,3 +24,20 @@ var getDecimalValue = function (head) {
 
 	return parseInt(str, 2);
 };
+
+/**
+ ** 数学
+ * @param {ListNode} head
+ * @return {number}
+ */
+var getDecimalValue = function(head) {
+    let result = 0;
+	
+    while (head) {
+		//* 二进制 101 = 1×2² + 0×2¹ + 1×2⁰
+        result = result * 2 + head.val;  // 核心公式
+        head = head.next;
+    }
+    
+    return result;
+};
