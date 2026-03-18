@@ -55,7 +55,8 @@ MyHashMap.prototype.remove = function (key) {
 /** 链地址法 */
 var MyHashMap = function () {
     this.size = 1000;
-    this.buckets = new Array(this.size).fill([]);
+    // this.buckets = new Array(this.size).fill([]);  // fill([]) 会让每个位置都引用“同一个数组对象”。结果就是：
+    this.buckets = Array.from({ length: this.size }, () => []);
 };
 
 MyHashMap.prototype.hash = function (key) {
